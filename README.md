@@ -2,12 +2,12 @@
 
 # Practices to follow:
 
-- **NEVER** format code, this can cause unneeded conflicts in commits
+- **NEVER** format code, this can cause unnecessary conflicts in commits
 
-- **ALWAYS** use the `--save` or `--save-dev` respectively when added new *node_modules*
+- **ALWAYS** use the `--save` or `--save-dev` when adding new *node_modules*
 
-- **NEVER** commit directly to master, make a branch and pull request for your commits
+- **NEVER** commit directly to master, make a branch and a pull request for your commits
 
-- **ALWAYS** have another person code review your *file changes*, **NEVER** use your adminstrive privilages to *approve* pull requests
+- **ALWAYS** have another developer code review your *file changes*, **NEVER** use your administrative privileges to *approve* pull requests
 
 - Branches should be *feature* based
