@@ -1,6 +1,6 @@
 # BudgetTracker
 
-# Practices to follow:
+## Practices to follow:
 
 - **NEVER** format code, this can cause unnecessary conflicts in commits
 
