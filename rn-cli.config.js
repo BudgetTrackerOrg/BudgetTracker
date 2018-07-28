@@ -1,8 +1,8 @@
 module.exports = {
     getTransformModulePath() {
-        return require.resolve("react-native-sass-transformer");
+        return require.resolve('react-native-sass-transformer')
     },
     getSourceExts() {
-        return ["js", "jsx", "scss", "sass"];
+        return ['js', 'jsx', 'scss', 'sass']
     }
-};
+}
