@@ -12,9 +12,13 @@
 
 -   Branches should be _feature_ based
 
-## May need todo the following (Most likely not, try running app with only npm install, if it doesn't work run the following)
+## May need todo the following
 
+(Most likely not, try running app with only npm install, if it doesn't work run the following)
 `react-native install react-native-vector-icons`
+
 `react-native link react-native-vector-icons`
+
 `react-native install react-native-linear-gradient`
+
 `react-native link react-native-linear-gradient`
