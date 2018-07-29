@@ -1,25 +1,27 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import Styles from './scss/Styles.scss'
+import styles from './styles/App.scss'
+import { Footer, ContentViewer, FooterButton } from './components'
+import LinearGradient from 'react-native-linear-gradient'
 
 export default class App extends React.Component {
+    clicked() {
+        alert('AHAHAHA')
+    }
     render() {
         return (
-            <View style={styles.container}>
-                <View style={Styles.test} test={'ya'}>
-                    <Text>Hello World</Text>
-                </View>
-                <TextInput style={{ width: 200 }} />
-            </View>
+            <LinearGradient
+                colors={['#4F4366', '#676785']}
+                style={styles.container}
+            >
+                <ContentViewer />
+                <Footer>
+                    <FooterButton
+                        onPress={this.clicked}
+                        title="Add"
+                        icon="md-add"
+                    />
+                </Footer>
+            </LinearGradient>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
