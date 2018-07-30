@@ -3,12 +3,15 @@ import styles from './styles/App.scss'
 import { Footer, ContentViewer, FooterButton } from './components'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+
+import { addTransaction } from './store/actions/index';
 
 class App extends React.Component {
-    clicked() {
-        console.log(this)
-        alert(this.props.userID)
-    }
+    // clicked = () => {
+    //     console.log(this)
+    //     alert(this.props.userID)
+    // }
     render() {
         return (
             <LinearGradient
@@ -18,7 +21,8 @@ class App extends React.Component {
                 <ContentViewer />
                 <Footer>
                     <FooterButton
-                        onPress={this.clicked}
+                        // onPress={this.clicked}
+                        onPress={() => this.props.addTransaction(this.props.userID)}
                         title="Add"
                         icon="md-add"
                     />
@@ -30,14 +34,17 @@ class App extends React.Component {
 
 // TODO: maping doesn't seem to work
 const mapStateToProps = state => {
-    console.log(state.main.id)
     return {
         // keys to be accessed as props
         userID: state.main.id
     }
-}
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ addTransaction }, dispatch);
+};
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(App)
