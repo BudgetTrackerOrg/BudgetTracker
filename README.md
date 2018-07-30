@@ -11,14 +11,3 @@
 -   **ALWAYS** have another developer code review your _file changes_, **NEVER** use your administrative privileges to _approve_ pull requests
 
 -   Branches should be _feature_ based
-
-## May need todo the following
-
-(Most likely not, try running app with only npm install, if it doesn't work run the following)
-`react-native install react-native-vector-icons`
-
-`react-native link react-native-vector-icons`
-
-`react-native install react-native-linear-gradient`
-
-`react-native link react-native-linear-gradient`
