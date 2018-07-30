@@ -1,6 +1,10 @@
+// All action "types" can be imported from the root of the "actions" directory
+// Future action types can also be imported from here
+import { ADD_TRANSACTION } from '../actions'
+
 export default (state = initialState(), action) => {
     switch (action.actionType) {
-        case 'ADD_TRANSACTION':
+        case ADD_TRANSACTION:
             return addTransaction()
             break
         default:
