@@ -1,6 +1,11 @@
-export default transaction => {
+const ADD_TRANSACTION = "ADD_TRANSACTION";
+
+export default addTransaction = transaction => {
+    alert(transaction);
     return {
-        ...transaction,
-        actionType: 'ADD_TRANSACTION'
+        type: ADD_TRANSACTION,
+        payload: transaction
     }
 }
+
+export { ADD_TRANSACTION };

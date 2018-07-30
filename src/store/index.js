@@ -4,7 +4,7 @@ import { transactionReducer } from './reducers'
 
 const rootReducer = combineReducers({
     main: mainReducer,
-    transaction: transactionReducer
+    addTransaction: transactionReducer
 })
 
 const configureStore = () => {
