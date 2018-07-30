@@ -1,4 +1,8 @@
-export default function() {
+export default (state = initialState(), action) => {
+    return state
+}
+
+const initialState = () => {
     return {
         id:
             '_' +
