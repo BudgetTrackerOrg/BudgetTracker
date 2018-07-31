@@ -14,12 +14,6 @@ export class CategoryBox extends Component {
                 <Icon
                     name={this.props.categoryIcon}
                     size={60}
-                    // This sets the default colour to white if no value is specified. I will try to shorten this later somehow
-                    color={
-                        this.props.categoryIconColor
-                            ? this.props.categoryIconColor
-                            : '#eee'
-                    }
                 />
                 <Text style={styles.categories__text}>
                     {this.props.categoryName}
@@ -27,6 +21,10 @@ export class CategoryBox extends Component {
             </LinearGradient>
         )
     }
+}
+
+Icon.defaultProps = {
+    color: '#eee'
 }
 
 export default CategoryBox
