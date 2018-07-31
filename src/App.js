@@ -7,6 +7,9 @@ import { bindActionCreators } from 'redux'
 
 import { addTransaction } from './store/actions'
 
+// TransactionForm will only be here temporarily during testing
+import TransactionForm from './containers/TransactionForm'
+
 class App extends React.Component {
     render() {
         return (
@@ -14,6 +17,10 @@ class App extends React.Component {
                 colors={['#4F4366', '#676785']}
                 style={styles.container}
             >
+
+            {/* TESTING PURPOSES ONLY */}
+            <TransactionForm heading="Record Spending" />
+
                 <ContentViewer />
                 <Footer>
                     <FooterButton
