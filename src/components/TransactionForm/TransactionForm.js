@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import styles from '../../styles/App.scss'
+import styles from './TransactionForm.scss'
 
 import CategoryBox from '../Categories/CategoryBox'
 

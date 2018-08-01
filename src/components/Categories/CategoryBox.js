@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import LinearGradient from 'react-native-linear-gradient'
-import styles from '../../styles/App.scss'
+import styles from './CategoryBox.scss'
 
 export class CategoryBox extends Component {
     render() {
