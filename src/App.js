@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import { addTransaction } from './store/actions'
 
 // TransactionForm will only be here temporarily during testing
-import TransactionForm from './containers/TransactionForm'
+import TransactionForm from './components/TransactionForm/TransactionForm'
 
 class App extends React.Component {
     render() {

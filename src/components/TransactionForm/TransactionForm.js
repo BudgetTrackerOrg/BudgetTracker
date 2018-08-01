@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import styles from '../styles/App.scss'
+import styles from '../../styles/App.scss'
 
-import CategoryBox from '../components/Categories/CategoryBox'
+import CategoryBox from '../Categories/CategoryBox'
 
 export class TransactionForm extends Component {
     render() {

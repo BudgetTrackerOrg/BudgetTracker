@@ -13,7 +13,8 @@ export class CategoryBox extends Component {
             >
                 <Icon
                     name={this.props.categoryIcon}
-                    size={60}
+                    size={this.props.categoryIconSize}
+                    color={this.props.categoryIconColor}
                 />
                 <Text style={styles.categories__text}>
                     {this.props.categoryName}
@@ -24,6 +25,8 @@ export class CategoryBox extends Component {
 }
 
 Icon.defaultProps = {
+    name: 'question-circle',
+    size: 60,
     color: '#eee'
 }
 
