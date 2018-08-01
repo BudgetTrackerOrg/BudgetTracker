@@ -3,3 +3,35 @@
     justify-content: space-between;
     margin: 0;
 }
+
+// ADD TRANSACTION FORM
+
+.form {
+    &__heading {
+        font-size: 2rem;
+        text-align: center;
+        margin: 2rem auto;
+    }
+}
+
+.categories {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    &__icon {
+        width: 7rem;
+        padding: .4rem;
+        margin: .6rem auto;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__text {
+        margin: .4rem auto;
+        color: #fff;
+    }
+}
