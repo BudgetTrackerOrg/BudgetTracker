@@ -14,19 +14,19 @@ class App extends React.Component {
     render() {
         return (
             <LinearGradient
-                colors={['#4F4366', '#676785']}
+                colors={['#6533A7', '#67E0C2']}
                 style={styles.container}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
             >
-
-            {/* TESTING PURPOSES ONLY */}
-            <TransactionForm heading="Record Spending" />
+                {/* TESTING PURPOSES ONLY */}
+                <TransactionForm heading="Record Spending" />
 
                 <ContentViewer />
                 <Footer>
                     <FooterButton
-                        // Actions are referenced with -> this.props.actionName
-                        onPress={() =>
-                            this.props.addTransaction(this.props.userID)
+                        onPress={
+                            () => this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         }
                         title="Add"
                         icon="md-add"

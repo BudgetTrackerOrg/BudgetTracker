@@ -1,16 +1,25 @@
 .categories {
     &__icon {
+        background-color: rgba(255, 255, 255, 0.2);
         width: 7rem;
+        height: 7rem;
         padding: 0.4rem;
         margin: 0.6rem auto;
-        border-radius: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        border-radius: 0.5rem;
     }
 
     &__text {
         margin: 0.4rem auto;
         color: #fff;
+        font-size: 12;
+    }
+}
+
+.view {
+    flex: 3;
+    &__icon {
+        flex-direction: row;
+        justify-content: flex-end;
+        padding: 0;
     }
 }
