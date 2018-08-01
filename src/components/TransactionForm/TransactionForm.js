@@ -14,6 +14,7 @@ export class TransactionForm extends Component {
                     <CategoryBox
                         categoryIcon="home"
                         categoryName="House/Rent"
+                        percentage={50}
                     />
                     <CategoryBox
                         categoryIcon="car"
@@ -42,10 +43,6 @@ export class TransactionForm extends Component {
                     <CategoryBox
                         categoryIcon="question-circle"
                         categoryName="Other"
-                    />
-                    <CategoryBox
-                        categoryIcon="plus-circle"
-                        categoryName="Add Category"
                     />
                 </View>
             </View>
