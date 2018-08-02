@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     color: {
-        color: '#e8e8e8'
+        color: '#EEE'
     }
 })
