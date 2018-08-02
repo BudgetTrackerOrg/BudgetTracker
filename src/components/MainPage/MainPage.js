@@ -1,47 +1,37 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import styles from './TransactionForm.scss'
+import styles from './MainPage.scss'
 
 import CategoryBox from '../Categories/CategoryBox'
 
-export class TransactionForm extends Component {
+export class MainPage extends Component {
     render() {
         return (
             <View>
-                <Text style={styles.form__heading}>{this.props.heading}</Text>
+                <Text style={styles.main__heading}>{this.props.heading}</Text>
 
                 <View style={styles.categories}>
                     <CategoryBox
                         categoryIcon="home"
-                        categoryName="House/Rent"
+                        categoryName="Housing"
                         percentage={50}
                     />
                     <CategoryBox
                         categoryIcon="car"
-                        categoryName="Car/Transit"
+                        categoryName="Transportation"
                     />
-                    <CategoryBox
-                        categoryIcon="cutlery"
-                        categoryName="Food/Drink"
-                    />
+                    <CategoryBox categoryIcon="cookie" categoryName="Food" />
                     <CategoryBox
                         categoryIcon="credit-card"
-                        categoryName="Payments/Bills"
+                        categoryName="Bills"
                     />
                     <CategoryBox
                         categoryIcon="film"
                         categoryName="Entertainment"
                     />
+
                     <CategoryBox
-                        categoryIcon="shopping-cart"
-                        categoryName="Shopping"
-                    />
-                    <CategoryBox
-                        categoryIcon="graduation-cap"
-                        categoryName="Education"
-                    />
-                    <CategoryBox
-                        categoryIcon="question-circle"
+                        categoryIcon="ellipsis-h"
                         categoryName="Other"
                     />
                 </View>
@@ -50,4 +40,4 @@ export class TransactionForm extends Component {
     }
 }
 
-export default TransactionForm
+export default MainPage
