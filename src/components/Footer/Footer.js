@@ -8,7 +8,7 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         borderTopWidth: 1,
-        borderTopColor: '#e8e8e8',
+        borderTopColor: '#76768E',
         alignItems: 'center',
         justifyContent: 'space-around',
         flexDirection: 'row',

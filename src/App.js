@@ -1,32 +1,28 @@
 import React from 'react'
 import styles from './styles/App.scss'
-import { Footer, ContentViewer, FooterButton } from './components'
+import { Footer, ContentViewer, FooterButton, MainPage } from './components'
 import LinearGradient from 'react-native-linear-gradient'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
+import { View } from 'react-native'
 import { addTransaction } from './store/actions'
-
-// TransactionForm will only be here temporarily during testing
-import TransactionForm from './components/TransactionForm/TransactionForm'
 
 class App extends React.Component {
     render() {
         return (
             <LinearGradient
-                colors={['#4F4366', '#676785']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1.0 }}
+                colors={['#5A33C9', '#923AD1']}
                 style={styles.container}
             >
-
-            {/* TESTING PURPOSES ONLY */}
-            <TransactionForm heading="Record Spending" />
-
-                <ContentViewer />
+                <ContentViewer>
+                    <MainPage />
+                </ContentViewer>
                 <Footer>
                     <FooterButton
-                        // Actions are referenced with -> this.props.actionName
-                        onPress={() =>
-                            this.props.addTransaction(this.props.userID)
+                        onPress={
+                            () => this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         }
                         title="Add"
                         icon="md-add"
