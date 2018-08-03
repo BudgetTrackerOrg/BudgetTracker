@@ -13,26 +13,25 @@ import TransactionForm from './components/TransactionForm/TransactionForm'
 class App extends React.Component {
     render() {
         return (
-            <LinearGradient
-                colors={['#4F4366', '#676785']}
-                style={styles.container}
-            >
+        <TransactionForm heading="Transaction Form" />
+            // <LinearGradient
+            //     colors={['#4F4366', '#676785']}
+            //     style={styles.container}
+            // >
 
-            {/* TESTING PURPOSES ONLY */}
-            <TransactionForm heading="Record Spending" />
 
-                <ContentViewer />
-                <Footer>
-                    <FooterButton
-                        // Actions are referenced with -> this.props.actionName
-                        onPress={() =>
-                            this.props.addTransaction(this.props.userID)
-                        }
-                        title="Add"
-                        icon="md-add"
-                    />
-                </Footer>
-            </LinearGradient>
+            //     <ContentViewer />
+            //     <Footer>
+            //         <FooterButton
+            //             // Actions are referenced with -> this.props.actionName
+            //             onPress={() =>
+            //                 this.props.addTransaction(this.props.userID)
+            //             }
+            //             title="Add"
+            //             icon="md-add"
+            //         />
+            //     </Footer>
+            // </LinearGradient>
         )
     }
 }

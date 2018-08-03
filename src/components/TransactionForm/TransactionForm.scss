@@ -1,14 +1,10 @@
 .form {
+    &__cancel {
+        margin: 1.6rem auto 0 0.6rem;
+    }
     &__heading {
         font-size: 2rem;
         text-align: center;
-        margin: 2rem auto;
+        margin: 1.6rem auto;
     }
-}
-
-.categories {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
 }
