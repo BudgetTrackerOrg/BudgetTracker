@@ -4,13 +4,19 @@ import styles from './MainPage.scss'
 import { withNavigation } from 'react-navigation'
 import CategoryBox from '../Categories/CategoryBox'
 
+
+
+import TransactionForm from '../TransactionForm/TransactionForm'
+
+
+
 export class MainPage extends Component {
     render() {
         return (
             <View>
                 <Text style={styles.main__heading}>{this.props.heading}</Text>
-
-                <View style={styles.categories}>
+                <TransactionForm/>
+                {/* <View style={styles.categories}>
                     <CategoryBox categoryIcon="home" categoryName="Housing" />
                     <CategoryBox
                         categoryIcon="car"
@@ -33,7 +39,7 @@ export class MainPage extends Component {
                         categoryIcon="ellipsis-h"
                         categoryName="Other"
                     />
-                </View>
+                </View> */}
             </View>
         )
     }
