@@ -3,19 +3,14 @@ import styles from './Field.scss'
 import DatePicker from 'react-native-datepicker'
 
 const DateField = props => {
-    let year = new Date().getFullYear().toString()
-    let month = new Date().getMonth().toString()
-    let day = new Date().getDay().toString()
-
     return (
         <DatePicker
-            style={{ width: 200 }}
-            date={month + '-' + day + '-' + year}
+            style={styles.input}
+            date={new Date()}
             mode="date"
             placeholder="Select Date"
             format="MM-DD-YYYY"
-            minDate="01-01-1970"
-            maxDate="01-01-1970"
+            minDate={new Date()}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -28,11 +23,8 @@ const DateField = props => {
                 dateInput: {
                     marginLeft: 36
                 }
-                // ... You can check the source to find the other keys.
             }}
-            onDateChange={date => {
-                this.setState({ date: date })
-            }}
+            onDateChange={date => this.setState({ date })}
         />
     )
 }
