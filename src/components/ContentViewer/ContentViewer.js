@@ -1,8 +1,16 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Button, Text } from 'react-native'
 
 export default props => {
-    return <View style={styles.container}>{props.children}</View>
+    // if (!props.backButton) {
+    //     backButton = <Text />
+    // }
+
+    return (
+        <View style={styles.container}>
+            <View>{props.children}</View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
