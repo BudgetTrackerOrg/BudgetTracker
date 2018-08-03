@@ -1,55 +1,24 @@
 import React from 'react'
-import styles from './styles/App.scss'
-import { Footer, ContentViewer, FooterButton } from './components'
-import LinearGradient from 'react-native-linear-gradient'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { HomeScreen } from './screens'
+import { CategoryScreen } from './screens'
 
-import { addTransaction } from './store/actions'
+import { createStackNavigator } from 'react-navigation'
 
-// TransactionForm will only be here temporarily during testing
-import TransactionForm from './components/TransactionForm/TransactionForm'
+const RootStack = createStackNavigator(
+    {
+        Home: HomeScreen,
+        Category: CategoryScreen
+    },
+    {
+        initialRouteName: 'Home',
+        headerMode: 'none'
+    }
+)
 
 class App extends React.Component {
     render() {
-        return (
-        <TransactionForm heading="Transaction Form" />
-            // <LinearGradient
-            //     colors={['#4F4366', '#676785']}
-            //     style={styles.container}
-            // >
-
-
-            //     <ContentViewer />
-            //     <Footer>
-            //         <FooterButton
-            //             // Actions are referenced with -> this.props.actionName
-            //             onPress={() =>
-            //                 this.props.addTransaction(this.props.userID)
-            //             }
-            //             title="Add"
-            //             icon="md-add"
-            //         />
-            //     </Footer>
-            // </LinearGradient>
-        )
+        return <RootStack />
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        // Keys referenced in this file as -> this.props.userID
-        userID: state.main.id
-    }
-}
-
-// mapDispatchToProps is what allows the component to fire off an action
-const mapDispatchToProps = dispatch => {
-    // Pass the name of the action inside object as first argument of bindActionCreators
-    return bindActionCreators({ addTransaction }, dispatch)
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App)
+export default App
