@@ -1,6 +1,6 @@
 import React from 'react'
-import { ContentViewer } from '../../components'
-import { Text, Button, View } from 'react-native'
+import { ContentViewer, CategoryViewer } from '../../components'
+
 import styles from './CategoryScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { addTransaction } from '../../store/actions'
@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 
 class CategoryScreen extends React.Component {
     render() {
+        const category = this.props.navigation.getParam('category', 'all')
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -17,13 +18,10 @@ class CategoryScreen extends React.Component {
                 style={styles.container}
             >
                 <ContentViewer backButton={true}>
-                    <Button
-                        title="back"
-                        onPress={() => this.props.navigation.goBack()}
+                    <CategoryViewer
+                        category={category}
+                        expenses={this.props.expenses}
                     />
-                    <Text>
-                        {this.props.navigation.getParam('category', '')}
-                    </Text>
                 </ContentViewer>
             </LinearGradient>
         )
@@ -31,16 +29,17 @@ class CategoryScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         // Keys referenced in this file as -> this.props.userID
-        userID: state.main.id
+        expenses: state.transaction.expenses
     }
 }
 
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
-    return bindActionCreators({ addTransaction }, dispatch)
+    return {}
 }
 
 export default connect(
