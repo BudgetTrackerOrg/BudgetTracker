@@ -25,19 +25,16 @@ class Popup extends Component {
 
         formHidden = !formHidden
     }
+
     render() {
-
-        let popupDisplay = this.props.popupDisplay
-
         return (
             <Animated.View
                 style={[
                     styles.subView,
                     { transform: [{ translateY: this.state.bounceValue }] }
                 ]}
-                openForm={this.openForm()}
             >
-                {popupDisplay}
+                {this.props.display}
             </Animated.View>
         )
     }
