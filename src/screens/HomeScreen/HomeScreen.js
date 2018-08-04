@@ -1,49 +1,22 @@
-import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
 import React from 'react'
-import { Animated, Text } from 'react-native'
+import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
+import Popup from '../../components/Popup/Popup'
+import TransactionForm from '../../components/TransactionForm/TransactionForm'
 import styles from './HomeScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { addTransaction } from '../../store/actions'
 
-import { connect } from 'react-redux'
-
-
-
-// TESTING ONLY
-import Popup from '../../components/Popup/Popup'
-import TransactionForm from '../../components/TransactionForm/TransactionForm'
-
-
-
-// let formHidden = true
-
 class HomeScreen extends React.Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         bounceValue: new Animated.Value(1000)
-    //     }
-    // }
     gotoCategoryScreen() {
         return () => {
             this.props.navigation.navigate('Category')
         }
     }
-    // openForm() {
-    //     let toValue = 100
 
-    //     if (formHidden) toValue = 0
-
-    //     Animated.spring(this.state.bounceValue, {
-    //         toValue: toValue,
-    //         velocity: 3,
-    //         tension: 2,
-    //         friction: 8
-    //     }).start()
-
-    //     formHidden = !formHidden
-    // }
+    // This allows the function openForm from <Popup /> to be called in this file
+    popup = React.createRef()
 
     render() {
         return (
@@ -56,18 +29,10 @@ class HomeScreen extends React.Component {
                 <ContentViewer>
                     <MainPage />
                 </ContentViewer>
-                {/* <Animated.View
-                    style={[
-                        styles.subView,
-                        { transform: [{ translateY: this.state.bounceValue }] }
-                    ]}
-                >
-                    <TransactionForm />
-                </Animated.View> */}
-                <Popup popupDisplay={<TransactionForm/>} openForm={this.props.openForm()} />
+                <Popup display={<TransactionForm />} ref={this.popup} />
                 <Footer>
                     <FooterButton
-                        onPress={this.openForm()}
+                        onPress={() => this.popup.current.openForm()}
                         //this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         title="Add"
                         icon="md-add"
