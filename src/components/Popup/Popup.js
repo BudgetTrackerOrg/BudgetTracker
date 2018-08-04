@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Animated } from 'react-native'
+import styles from './Popup.scss'
 
 let formHidden = true
 
@@ -34,6 +35,7 @@ class Popup extends Component {
                     styles.subView,
                     { transform: [{ translateY: this.state.bounceValue }] }
                 ]}
+                openForm={this.openForm()}
             >
                 {popupDisplay}
             </Animated.View>
