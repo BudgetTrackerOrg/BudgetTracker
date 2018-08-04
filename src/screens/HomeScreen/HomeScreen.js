@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 
 
 // TESTING ONLY
+import Popup from '../../components/Popup/Popup'
 import TransactionForm from '../../components/TransactionForm/TransactionForm'
 
 
@@ -63,10 +64,10 @@ class HomeScreen extends React.Component {
                 >
                     <TransactionForm />
                 </Animated.View> */}
-                <Popup popupDisplay={<TransactionForm/>} />
+                <Popup popupDisplay={<TransactionForm/>} openForm={this.props.openForm()} />
                 <Footer>
                     <FooterButton
-                        onPress={this.openForm.bind(this)}
+                        onPress={this.openForm()}
                         //this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         title="Add"
                         icon="md-add"
