@@ -2,10 +2,10 @@
 // Future action types can also be imported from here
 import { ADD_TRANSACTION } from '../actions'
 
-export default (state = initialState(), action) => {
+export default (state = demoState(), action) => {
     switch (action.actionType) {
         case ADD_TRANSACTION:
-            return addTransaction()
+            return addTransaction(state)
             break
         default:
             return state
@@ -22,6 +22,20 @@ const addTransaction = state => {
 const initialState = () => {
     return {
         expenses: [],
+        income: []
+    }
+}
+
+const demoState = () => {
+    return {
+        expenses: [
+            {
+                title: 'gas #1',
+                amount: 50,
+                dateAdded: new Date('2018-08-1T03:24:00'),
+                category: 'transportation'
+            }
+        ],
         income: []
     }
 }
