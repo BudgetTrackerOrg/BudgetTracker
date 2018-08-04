@@ -17,7 +17,13 @@ class CategoryScreen extends React.Component {
                 style={styles.container}
             >
                 <ContentViewer backButton={true}>
-                    <Text>AY</Text>
+                    <Button
+                        title="back"
+                        onPress={() => this.props.navigation.goBack()}
+                    />
+                    <Text>
+                        {this.props.navigation.getParam('category', '')}
+                    </Text>
                 </ContentViewer>
             </LinearGradient>
         )
