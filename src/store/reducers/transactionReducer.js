@@ -30,10 +30,25 @@ const demoState = () => {
     return {
         expenses: [
             {
+                id: 0,
                 title: 'gas #1',
                 amount: 50,
-                dateAdded: new Date('2018-08-1T03:24:00'),
-                category: 'transportation'
+                dateAdded: new Date(2013, 2, 1, 0, 70),
+                category: 'TRANSPORTATION'
+            },
+            {
+                id: 1,
+                title: 'gas #2',
+                amount: 50,
+                dateAdded: new Date(2013, 2, 1, 0, 70),
+                category: 'TRANSPORTATION'
+            },
+            {
+                id: 2,
+                title: 'movie #1',
+                amount: 20,
+                dateAdded: new Date(2013, 2, 1, 0, 70),
+                category: 'ENTERTAINMENT'
             }
         ],
         income: []

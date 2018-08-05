@@ -1,24 +1,43 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Text } from 'react-native'
 import {
     CategorySummary,
     TransactionList,
-    TransactionItem
+    TransactionListItem
 } from './CategoryViewerComponents'
+import { categories } from '../../globals'
 
 export default props => {
     return (
-        <View style={styles.container}>
+        <View>
             <View style={{ flex: 1 }}>
-                <CategorySummary />
+                <CategorySummary
+                    totalAmount={getTotalAmount(props.expenses, props.category)}
+                    categoryTitle={categories[props.category].displayTitle}
+                />
             </View>
             <View style={{ flex: 3 }}>
                 <TransactionList>
-                    <TransactionItem />
+                    {props.expenses.map(expense => (
+                        <TransactionListItem
+                            key={expense.id}
+                            title={expense.title}
+                            amount={expense.amount}
+                            dateAdded={expense.dateAdded}
+                        />
+                    ))}
                 </TransactionList>
             </View>
         </View>
     )
 }
 
-const styles = StyleSheet.create({})
+const getTotalAmount = (expenses, category) => {
+    let total = 0
+
+    for (let i in expenses) {
+        total += expenses[i].amount
+    }
+
+    return total
+}
