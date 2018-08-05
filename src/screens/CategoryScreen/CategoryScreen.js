@@ -2,26 +2,24 @@ import React from 'react'
 import { ContentViewer, CategoryViewer } from '../../components'
 
 import styles from './CategoryScreen.scss'
-import LinearGradient from 'react-native-linear-gradient'
-import { addTransaction } from '../../store/actions'
-import { bindActionCreators } from 'redux'
+import { colors } from '../../globals'
 import { connect } from 'react-redux'
-
+import LinearGradient from 'react-native-linear-gradient'
 class CategoryScreen extends React.Component {
     render() {
         const category = this.props.navigation.getParam('category', 'all')
+        const expenses = this.props.expenses.filter(expense => {
+            return expense.category == category
+        })
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1.0 }}
-                colors={['#5A33C9', '#923AD1']}
+                colors={colors.backgroundGradient}
                 style={styles.container}
             >
                 <ContentViewer backButton={true}>
-                    <CategoryViewer
-                        category={category}
-                        expenses={this.props.expenses}
-                    />
+                    <CategoryViewer category={category} expenses={expenses} />
                 </ContentViewer>
             </LinearGradient>
         )
@@ -29,7 +27,6 @@ class CategoryScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         // Keys referenced in this file as -> this.props.userID
         expenses: state.transaction.expenses

@@ -1,8 +1,15 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, Dimensions } from 'react-native'
 
 export default props => {
-    return <View />
+    return <ScrollView style={styles.main}>{props.children}</ScrollView>
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    main: {
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20
+    }
+})

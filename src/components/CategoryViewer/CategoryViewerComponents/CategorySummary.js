@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, Dimensions, Text } from 'react-native'
 
+import LinearGradient from 'react-native-linear-gradient'
 export default props => {
     return (
         <View style={styles.main}>
-            <Text>$12</Text>
+            <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
+            <Text style={styles.totalAmount}>${props.totalAmount}</Text>
         </View>
     )
 }
@@ -16,8 +18,18 @@ const styles = StyleSheet.create({
         flex: 1,
         width,
         height,
+        flexDirection: 'column',
         alignContent: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white'
+        justifyContent: 'center'
+    },
+    totalAmount: {
+        fontSize: 35,
+        textAlign: 'center',
+        color: 'white'
+    },
+    categoryTitle: {
+        fontSize: 15,
+        textAlign: 'center',
+        color: 'white'
     }
 })
