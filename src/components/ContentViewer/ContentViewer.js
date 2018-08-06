@@ -16,7 +16,6 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
