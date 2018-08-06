@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Dimensions, Text, View } from 'react-native'
-var { heightt, width } = Dimensions.get('window')
+
 export default props => {
     return (
         <ScrollView style={styles.main} bounces={true}>
