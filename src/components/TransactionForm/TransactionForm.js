@@ -8,20 +8,28 @@ import DateField from '../Field/DateField'
 import CategoryField from '../Field/CategoryField'
 import FormButton from '../Field/FormButton'
 
-export class TransactionForm extends Component {
+export default class TransactionForm extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            date: new Date()
+        }
+    }
+
     handleSubmit() {
         alert('submit button pressed')
     }
-    cancelForm() {
-        alert('form cancelled')
-    }
+    // cancelForm() {
+    //     alert('form cancelled')
+    // }
 
     render() {
         return (
             <View>
                 <CancelButton
                     buttonText="Cancel"
-                    onPress={() => this.cancelForm()}
+                    // onPress={() => this.cancelForm()}
+                    onPress={this.props.cancelForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
 
@@ -46,5 +54,3 @@ export class TransactionForm extends Component {
         )
     }
 }
-
-export default TransactionForm

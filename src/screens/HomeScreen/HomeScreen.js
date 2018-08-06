@@ -30,7 +30,15 @@ class HomeScreen extends React.Component {
                 <ContentViewer>
                     <MainPage />
                 </ContentViewer>
-                <Popup display={<TransactionForm />} ref={this.popup} />
+                <Popup
+                    display={
+                        <TransactionForm
+                            heading="lmao"
+                            cancelForm={() => this.popup.current.openForm()}
+                        />
+                    }
+                    ref={this.popup}
+                />
                 <Footer>
                     <FooterButton
                         onPress={() => this.popup.current.openForm()}
