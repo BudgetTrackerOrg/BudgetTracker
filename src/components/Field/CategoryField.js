@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Picker } from 'react-native'
+import { Picker } from 'react-native-picker-dropdown'
 
-class CategoryField extends Component {
+export class CategoryField extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -13,6 +13,7 @@ class CategoryField extends Component {
             <Picker
                 selectedValue={this.state.selected}
                 onValueChange={selected => this.setState({ selected })}
+                mode="dropdown"
             >
                 <Picker.Item
                     label={this.props.firstCat}
