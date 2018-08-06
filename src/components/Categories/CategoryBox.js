@@ -1,28 +1,25 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform } from 'react-native'
+import { View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import LinearGradient from 'react-native-linear-gradient'
 import styles from './CategoryBox.scss'
+import { createStackNavigator } from 'react-navigation'
 export class CategoryBox extends Component {
     render() {
         return (
-            <View
-                style={{
-                    ...styles.categories //ios
-                    // borderColor: '#fff',
-                    // shadowOpacity: 0.3,
-                    // shadowRadius: 2,
-                    // shadowOffset: { height: 1, width: 0 }, //android
-                    // elevation: 5
-                }}
-            >
-                <View style={styles.categories__icon}>
+            <View style={styles.categories}>
+                <TouchableHighlight
+                    underlayColor="#d2d1e2"
+                    style={styles.categories__touchableArea}
+                    onPress={this.props.onPress}
+                >
                     <Icon
+                        style={styles.categories__icon}
                         name={this.props.categoryIcon}
                         size={this.props.categoryIconSize}
                         color={this.props.categoryIconColor}
                     />
-                </View>
+                </TouchableHighlight>
+
                 <View style={styles.categories__title}>
                     <Text style={styles.categories__text}>
                         {this.props.categoryName}
