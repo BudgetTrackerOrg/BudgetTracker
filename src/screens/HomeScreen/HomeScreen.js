@@ -1,11 +1,13 @@
-import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
 import React from 'react'
+import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
+import Popup from '../../components/Popup/Popup'
+import TransactionForm from '../../components/TransactionForm/TransactionForm'
 import styles from './HomeScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
-import { addTransaction } from '../../store/actions'
 import { colors } from '../../globals'
 import { connect } from 'react-redux'
+import { addTransaction } from '../../store/actions'
 
 class HomeScreen extends React.Component {
     gotoCategoryScreen() {
@@ -13,6 +15,9 @@ class HomeScreen extends React.Component {
             this.props.navigation.navigate('Category')
         }
     }
+
+    // This allows the function openForm from <Popup /> to be called in this file
+    popup = React.createRef()
 
     render() {
         return (
@@ -25,11 +30,11 @@ class HomeScreen extends React.Component {
                 <ContentViewer>
                     <MainPage />
                 </ContentViewer>
+                <Popup display={<TransactionForm />} ref={this.popup} />
                 <Footer>
                     <FooterButton
-                        onPress={
-                            () => this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
-                        }
+                        onPress={() => this.popup.current.openForm()}
+                        //this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         title="Add"
                         icon="md-add"
                     />
