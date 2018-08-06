@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text } from 'react-native'
 import styles from './TransactionForm.scss'
+import CancelButton from '../Field/CancelButton'
 import Field from '../Field/Field'
 import MoneyField from '../Field/MoneyField'
 import DateField from '../Field/DateField'
@@ -8,12 +9,20 @@ import CategoryField from '../Field/CategoryField'
 import FormButton from '../Field/FormButton'
 
 export class TransactionForm extends Component {
+    handleSubmit() {
+        alert('submit button pressed')
+    }
+    cancelForm() {
+        alert('form cancelled')
+    }
+
     render() {
         return (
             <View>
-                <TouchableHighlight>
-                    <Text style={styles.form__cancel}>Cancel</Text>
-                </TouchableHighlight>
+                <CancelButton
+                    buttonText="Cancel"
+                    onPress={() => this.cancelForm()}
+                />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
 
                 <View style={styles.form__fields}>
@@ -28,9 +37,10 @@ export class TransactionForm extends Component {
                         fifthCat="Entertainment"
                         sixthCat="Other"
                     />
-                    {/* <FormButton
+                    <FormButton
                         buttonText="Add"
-                    /> */}
+                        onPress={() => this.handleSubmit()}
+                    />
                 </View>
             </View>
         )

@@ -1,6 +1,4 @@
-
 .main {
-
     &__heading {
         font-size: 2rem;
         text-align: center;
@@ -8,11 +6,9 @@
     }
 }
 
-
 .categories {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-

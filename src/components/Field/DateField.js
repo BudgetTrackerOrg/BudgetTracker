@@ -16,15 +16,16 @@ const DateField = props => {
             customStyles={{
                 dateIcon: {
                     position: 'absolute',
-                    left: 0,
+                    right: 0,
                     top: 4,
-                    marginLeft: 0
+                    marginRight: 0
                 },
                 dateInput: {
-                    marginLeft: 36
+                    marginHorizontal: 'auto',
+                    borderColor: 'transparent'
                 }
             }}
-            onDateChange={date => this.setState({ date })}
+            // onDateChange={}
         />
     )
 }
