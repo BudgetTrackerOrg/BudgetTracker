@@ -1,0 +1,17 @@
+.input {
+    width: 80%;
+    margin: 1rem auto;
+    padding: 0.6rem;
+    border: 0.1rem solid black;
+    border-radius: 0.5rem;
+
+    &__button {
+        background-color: red;
+        width: 80%;
+        margin: 1rem auto;
+
+        &_text {
+            text-align: center;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import styles from './MainPage.scss'
-
+import { withNavigation } from 'react-navigation'
 import CategoryBox from '../Categories/CategoryBox'
 
 export class MainPage extends Component {
@@ -11,14 +11,13 @@ export class MainPage extends Component {
                 <Text style={styles.main__heading}>{this.props.heading}</Text>
 
                 <View style={styles.categories}>
-                    <CategoryBox
-                        categoryIcon="home"
-                        categoryName="Housing"
-                        percentage={50}
-                    />
+                    <CategoryBox categoryIcon="home" categoryName="Housing" />
                     <CategoryBox
                         categoryIcon="car"
                         categoryName="Transportation"
+                        onPress={() =>
+                            this.props.navigation.navigate('Category')
+                        }
                     />
                     <CategoryBox categoryIcon="cookie" categoryName="Food" />
                     <CategoryBox
@@ -40,4 +39,4 @@ export class MainPage extends Component {
     }
 }
 
-export default MainPage
+export default withNavigation(MainPage)
