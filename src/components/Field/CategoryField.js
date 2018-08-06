@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Picker } from 'react-native'
-import styles from './Field.scss'
 
 class CategoryField extends Component {
     constructor(props) {

@@ -1,17 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .input {
     width: 80%;
     margin: 1rem auto;
     padding: 0.6rem;
-    border: 0.1rem solid black;
+    border: 0.1rem solid;
     border-radius: 0.5rem;
 
     &__button {
-        background-color: red;
-        width: 80%;
-        margin: 1rem auto;
+        border-color: transparent;
 
         &_text {
             text-align: center;
+            color: white;
         }
+    }
+}
+
+.cancel {
+    &__button {
+        margin: 2rem auto auto 1rem;
+    }
+    &__text {
+        margin-left: 0.3rem;
     }
 }
