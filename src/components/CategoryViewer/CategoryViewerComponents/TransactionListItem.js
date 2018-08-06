@@ -1,15 +1,20 @@
 import React from 'react'
 import { View, StyleSheet, Text, Platform } from 'react-native'
+import { functions } from '../../../globals'
 
 export default props => {
     return (
         <View style={styles.main}>
             <View style={styles.left}>
-                <Text>{props.title}</Text>
-                <Text>{props.dateAdded.toDateString()}</Text>
+                <Text style={styles.title}>
+                    {functions.toTitleCase(props.title)}
+                </Text>
+                <Text style={styles.date}>
+                    {functions.toSimpleDateString(props.dateAdded)}
+                </Text>
             </View>
             <View style={styles.right}>
-                <Text>{props.amount}</Text>
+                <Text style={styles.amount}>${props.amount}</Text>
             </View>
         </View>
     )
@@ -41,6 +46,15 @@ const styles = StyleSheet.create({
         flex: 2
     },
     right: {
-        flex: 2
+        flex: 2,
+        alignItems: 'flex-end'
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold'
+    },
+    amount: {
+        fontSize: 26,
+        fontWeight: '200'
     }
 })

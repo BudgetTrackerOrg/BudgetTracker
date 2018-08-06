@@ -33,21 +33,21 @@ const demoState = () => {
                 id: 0,
                 title: 'gas #1',
                 amount: 50,
-                dateAdded: new Date(2013, 2, 1, 0, 70),
+                dateAdded: new Date(),
                 category: 'TRANSPORTATION'
             },
             {
                 id: 1,
                 title: 'gas #2',
                 amount: 50,
-                dateAdded: new Date(2013, 2, 1, 0, 70),
+                dateAdded: new Date('July 20, 69 00:20:18'),
                 category: 'TRANSPORTATION'
             },
             {
                 id: 2,
                 title: 'movie #1',
                 amount: 20,
-                dateAdded: new Date(2013, 2, 1, 0, 70),
+                dateAdded: new Date('July 20, 69 00:20:18'),
                 category: 'ENTERTAINMENT'
             }
         ],
