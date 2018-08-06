@@ -1,23 +1,25 @@
 import React from 'react'
-import { ContentViewer } from '../../components'
-import { Text, Button, View } from 'react-native'
-import styles from './CategoryScreen.scss'
-import LinearGradient from 'react-native-linear-gradient'
-import { addTransaction } from '../../store/actions'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { ContentViewer, CategoryViewer } from '../../components'
 
+import styles from './CategoryScreen.scss'
+import { colors } from '../../globals'
+import { connect } from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
 class CategoryScreen extends React.Component {
     render() {
+        const category = this.props.navigation.getParam('category', 'all')
+        const expenses = this.props.expenses.filter(expense => {
+            return expense.category == category
+        })
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1.0 }}
-                colors={['#5A33C9', '#923AD1']}
+                colors={colors.backgroundGradient}
                 style={styles.container}
             >
                 <ContentViewer backButton={true}>
-                    <Text>AY</Text>
+                    <CategoryViewer category={category} expenses={expenses} />
                 </ContentViewer>
             </LinearGradient>
         )
@@ -27,14 +29,14 @@ class CategoryScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         // Keys referenced in this file as -> this.props.userID
-        userID: state.main.id
+        expenses: state.transaction.expenses
     }
 }
 
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
-    return bindActionCreators({ addTransaction }, dispatch)
+    return {}
 }
 
 export default connect(

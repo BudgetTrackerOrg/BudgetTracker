@@ -5,6 +5,7 @@ import TransactionForm from '../../components/TransactionForm/TransactionForm'
 import styles from './HomeScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
+import { colors } from '../../globals'
 import { connect } from 'react-redux'
 import { addTransaction } from '../../store/actions'
 
@@ -23,7 +24,7 @@ class HomeScreen extends React.Component {
             <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1.0 }}
-                colors={['#5A33C9', '#923AD1']}
+                colors={colors.backgroundGradient}
                 style={styles.container}
             >
                 <ContentViewer>
