@@ -5,8 +5,9 @@ import styles from './Field.scss'
 const MoneyField = () => {
     return (
         <TextInputMask
-            style={styles.input}
+            style={[styles.input, styles.input__field]}
             placeholder="$0.00"
+            placeholderTextColor="#000"
             type={'money'}
             options={{
                 precision: 2,

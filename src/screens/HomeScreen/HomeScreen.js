@@ -33,7 +33,7 @@ class HomeScreen extends React.Component {
                 <Popup
                     display={
                         <TransactionForm
-                            heading="lmao"
+                            heading="Add Purchase"
                             cancelForm={() => this.popup.current.openForm()}
                         />
                     }
