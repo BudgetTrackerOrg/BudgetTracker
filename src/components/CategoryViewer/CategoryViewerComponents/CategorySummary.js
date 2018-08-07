@@ -1,11 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Dimensions, Text } from 'react-native'
+import { functions } from '../../../globals'
 
 export default props => {
     return (
         <View style={styles.main}>
             <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
-            <Text style={styles.totalAmount}>${props.totalAmount}</Text>
+            <Text style={styles.totalAmount}>
+                {functions.formatCurreny(props.totalAmount)}
+            </Text>
         </View>
     )
 }
