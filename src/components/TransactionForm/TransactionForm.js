@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import { colors } from '../../globals'
 import styles from './TransactionForm.scss'
 import CancelButton from '../Field/CancelButton'
 import Field from '../Field/Field'
@@ -19,16 +21,12 @@ export default class TransactionForm extends Component {
     handleSubmit() {
         alert('submit button pressed')
     }
-    // cancelForm() {
-    //     alert('form cancelled')
-    // }
 
     render() {
         return (
-            <View>
+            <LinearGradient style={styles.form} colors={['#ff9c56', '#923ad1']}>
                 <CancelButton
                     buttonText="Cancel"
-                    // onPress={() => this.cancelForm()}
                     onPress={this.props.cancelForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
@@ -50,7 +48,7 @@ export default class TransactionForm extends Component {
                         onPress={() => this.handleSubmit()}
                     />
                 </View>
-            </View>
+            </LinearGradient>
         )
     }
 }

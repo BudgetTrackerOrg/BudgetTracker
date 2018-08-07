@@ -12,7 +12,7 @@ export default class DateField extends Component {
     render() {
         return (
             <DatePicker
-                style={styles.input}
+                style={[styles.input, styles.input__field]}
                 date={this.state.date}
                 mode="date"
                 placeholder="Select Date"
@@ -28,6 +28,7 @@ export default class DateField extends Component {
                         marginRight: 0
                     },
                     dateInput: {
+                        alignItems: 'flex-start',
                         marginHorizontal: 'auto',
                         borderColor: 'transparent'
                     }

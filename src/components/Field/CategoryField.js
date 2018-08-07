@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Picker } from 'react-native-picker-dropdown'
+import styles from './Field.scss'
 
-export class CategoryField extends Component {
+export default class CategoryField extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selected: null
+            selected: this.props.firstCat
         }
     }
     render() {
         return (
             <Picker
+                style={[styles.input, styles.input__field]}
                 selectedValue={this.state.selected}
                 onValueChange={selected => this.setState({ selected })}
                 mode="dropdown"
@@ -43,5 +45,3 @@ export class CategoryField extends Component {
         )
     }
 }
-
-export default CategoryField
