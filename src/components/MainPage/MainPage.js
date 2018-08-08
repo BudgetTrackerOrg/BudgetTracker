@@ -13,7 +13,7 @@ export class MainPage extends Component {
             <View>
                 <Text style={styles.main__subheading}>Total Spending</Text>
                 <Text style={styles.main__heading}>
-                    {functions.formatCurreny(expensesResult.total)}
+                    {functions.formatCurrency(expensesResult.total)}
                 </Text>
                 <View style={styles.categories}>
                     {Object.keys(categories).map(category => (

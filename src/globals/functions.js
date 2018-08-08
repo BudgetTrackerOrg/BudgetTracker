@@ -63,7 +63,7 @@ export default {
         return total
     },
 
-    formatCurreny(amount) {
+    formatCurrency(amount) {
         return '$' + amount
     }
 }

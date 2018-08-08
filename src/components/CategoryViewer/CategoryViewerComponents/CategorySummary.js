@@ -7,7 +7,7 @@ export default props => {
         <View style={styles.main}>
             <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
             <Text style={styles.totalAmount}>
-                {functions.formatCurreny(props.totalAmount)}
+                {functions.formatCurrency(props.totalAmount)}
             </Text>
         </View>
     )
