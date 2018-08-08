@@ -14,17 +14,23 @@ export default class TransactionForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            date: new Date()
+            expenses: [
+                {
+                    title: '',
+                    amount: 0,
+                    date: null,
+                    category: ''
+                }
+            ]
         }
     }
-
     handleSubmit() {
-        alert('submit button pressed')
+        alert(this.state)
     }
 
     render() {
         return (
-            <LinearGradient style={styles.form} colors={['#ff9c56', '#923ad1']}>
+            <LinearGradient style={styles.form} colors={colors.formGradient}>
                 <CancelButton
                     buttonText="Cancel"
                     onPress={this.props.cancelForm}
@@ -32,9 +38,17 @@ export default class TransactionForm extends Component {
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
 
                 <View style={styles.form__fields}>
-                    <Field placeholder="What did you buy?" />
-                    <MoneyField />
-                    <DateField />
+                    <Field
+                        placeholder="What did you buy?"
+                        onChangeText={title => this.setState({ title })}
+                    />
+                    <MoneyField
+                        onChangeText={amount => this.setState({ amount })}
+                    />
+                    <DateField
+                        date={this.state.date || new Date()}
+                        onDateChange={date => this.setState({ date })}
+                    />
                     <CategoryField
                         firstCat="Housing"
                         secondCat="Transportation"
@@ -42,6 +56,7 @@ export default class TransactionForm extends Component {
                         fourthCat="Bills"
                         fifthCat="Entertainment"
                         sixthCat="Other"
+                        onValueChange={category => this.setState({ category })}
                     />
                     <FormButton
                         buttonText="Add"
