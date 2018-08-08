@@ -1,47 +1,23 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Picker } from 'react-native-picker-dropdown'
 import styles from './Field.scss'
 
-export default class CategoryField extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selected: this.props.firstCat
-        }
-    }
-    render() {
-        return (
-            <Picker
-                style={[styles.input, styles.input__field]}
-                selectedValue={this.state.selected}
-                onValueChange={selected => this.setState({ selected })}
-                mode="dropdown"
-            >
-                <Picker.Item
-                    label={this.props.firstCat}
-                    value={this.props.firstCat}
-                />
-                <Picker.Item
-                    label={this.props.secondCat}
-                    value={this.props.secondCat}
-                />
-                <Picker.Item
-                    label={this.props.thirdCat}
-                    value={this.props.thirdCat}
-                />
-                <Picker.Item
-                    label={this.props.fourthCat}
-                    value={this.props.fourthCat}
-                />
-                <Picker.Item
-                    label={this.props.fifthCat}
-                    value={this.props.fifthCat}
-                />
-                <Picker.Item
-                    label={this.props.sixthCat}
-                    value={this.props.sixthCat}
-                />
-            </Picker>
-        )
-    }
+const CategoryField = props => {
+    return (
+        <Picker
+            style={[styles.input, styles.input__field]}
+            selectedValue={props.firstCat}
+            onValueChange={category => props.onValueChange}
+            mode="dropdown"
+        >
+            <Picker.Item label={props.firstCat} value={props.firstCat} />
+            <Picker.Item label={props.secondCat} value={props.secondCat} />
+            <Picker.Item label={props.thirdCat} value={props.thirdCat} />
+            <Picker.Item label={props.fourthCat} value={props.fourthCat} />
+            <Picker.Item label={props.fifthCat} value={props.fifthCat} />
+            <Picker.Item label={props.sixthCat} value={props.sixthCat} />
+        </Picker>
+    )
 }
+
+export default CategoryField

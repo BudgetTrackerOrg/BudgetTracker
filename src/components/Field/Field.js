@@ -9,8 +9,8 @@ const Field = props => {
             placeholder={props.placeholder}
             placeholderTextColor="#000"
             underlineColorAndroid="transparent"
+            onChangeText={title => props.onChangeText}
         />
     )
 }
-
 export default Field
