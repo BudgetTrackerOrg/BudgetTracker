@@ -28,7 +28,7 @@ class HomeScreen extends React.Component {
                 style={styles.container}
             >
                 <ContentViewer>
-                    <MainPage />
+                    <MainPage expenses={this.props.expenses} />
                 </ContentViewer>
                 <Popup display={<TransactionForm />} ref={this.popup} />
                 <Footer>
@@ -47,7 +47,8 @@ class HomeScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         // Keys referenced in this file as -> this.props.userID
-        userID: state.main.id
+        userID: state.main.id,
+        expenses: state.transaction.expenses
     }
 }
 
