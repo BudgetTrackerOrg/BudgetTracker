@@ -1,13 +1,20 @@
-
 .main {
-
     &__heading {
-        font-size: 2rem;
+        font-size: 3.5rem;
         text-align: center;
-        margin: 1.6rem auto;
+        margin: 0rem auto;
+        margin-bottom: 1.6rem;
+        color: white;
+    }
+
+    &__subheading {
+        font-size: 1rem;
+        text-align: center;
+        margin: 0rem auto;
+
+        color: white;
     }
 }
-
 
 .categories {
     display: flex;
@@ -15,4 +22,3 @@
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-

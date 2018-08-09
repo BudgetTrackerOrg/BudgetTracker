@@ -14,7 +14,9 @@ export default props => {
                 </Text>
             </View>
             <View style={styles.right}>
-                <Text style={styles.amount}>${props.amount}</Text>
+                <Text style={styles.amount}>
+                    {functions.formatCurrency(props.amount)}
+                </Text>
             </View>
         </View>
     )
