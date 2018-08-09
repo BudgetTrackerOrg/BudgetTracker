@@ -3,10 +3,10 @@ import { View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import styles from './CategoryBox.scss'
 import ProgressCircle from 'react-native-progress-circle'
-
+import { colors } from '../../globals'
 export class CategoryBox extends Component {
     render() {
-        let bgColor = this.props.disabled ? '#b4b3bd' : '#efeefe'
+        let bgColor = this.props.disabled ? '#bbb' : '#fff'
         return (
             <View style={styles.categories}>
                 <ProgressCircle
@@ -48,7 +48,7 @@ export class CategoryBox extends Component {
 Icon.defaultProps = {
     name: 'question-circle',
     size: 35,
-    color: '#5A33C9'
+    color: colors.iconColor
 }
 
 CategoryBox.defaultProps = {
