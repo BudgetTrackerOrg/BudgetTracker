@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { colors } from '../../globals'
+import { colors, categories } from '../../globals'
 import styles from './TransactionForm.scss'
 import CancelButton from '../Field/CancelButton'
 import Field from '../Field/Field'
@@ -14,25 +14,30 @@ export default class TransactionForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            expenses: [
-                {
-                    title: '',
-                    amount: 0,
-                    date: null,
-                    category: ''
-                }
-            ]
+            title: '',
+            amount: '',
+            date: new Date(),
+            category: categories[Object.keys(categories)[0]].displayTitle
         }
     }
     handleSubmit() {
-        alert(this.state)
+        alert(
+            'title: ' +
+                this.state.title +
+                '\namount: ' +
+                this.state.amount +
+                '\ndate: ' +
+                this.state.date +
+                '\ncategory: ' +
+                this.state.category
+        )
     }
 
     render() {
         return (
             <LinearGradient style={styles.form} colors={colors.formGradient}>
                 <CancelButton
-                    buttonText="Cancel"
+                    buttonText="Back"
                     onPress={this.props.cancelForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
@@ -43,19 +48,27 @@ export default class TransactionForm extends Component {
                         onChangeText={title => this.setState({ title })}
                     />
                     <MoneyField
-                        onChangeText={amount => this.setState({ amount })}
+                        value={'$' + this.state.amount}
+                        onChangeText={val => {
+                            const regex = /[+-]?\d+(\.\d+)?/g
+                            this.setState({
+                                ...this.state,
+                                // This ternary expression returns a float
+                                amount: !val.match(regex)
+                                    ? 0
+                                    : val.match(regex)[0]
+                            })
+                        }}
                     />
                     <DateField
-                        date={this.state.date || new Date()}
+                        date={this.state.date}
                         onDateChange={date => this.setState({ date })}
                     />
                     <CategoryField
-                        firstCat="Housing"
-                        secondCat="Transportation"
-                        thirdCat="Food"
-                        fourthCat="Bills"
-                        fifthCat="Entertainment"
-                        sixthCat="Other"
+                        categories={Object.keys(categories).map(
+                            category => categories[category].displayTitle
+                        )}
+                        selectedValue={this.state.category}
                         onValueChange={category => this.setState({ category })}
                     />
                     <FormButton

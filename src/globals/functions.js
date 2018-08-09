@@ -1,6 +1,6 @@
 const MONTHS = [
     'January',
-    'Febuary',
+    'February',
     'March',
     'April',
     'May',
@@ -9,8 +9,8 @@ const MONTHS = [
     'August',
     'September',
     'October',
-    'Novemeber',
-    'Decemeber'
+    'November',
+    'December'
 ]
 
 export default {
