@@ -70,6 +70,209 @@ const demoState = () => {
                 amount: 140,
                 dateAdded: new Date('July 20, 69 00:20:18'),
                 category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
+            },
+            {
+                id: 5,
+                title: 'water #1',
+                amount: 140,
+                dateAdded: new Date('July 20, 69 00:20:18'),
+                category: 'BILLS'
             }
         ],
         income: []
