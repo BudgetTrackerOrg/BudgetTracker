@@ -1,1 +1,4 @@
-export default { backgroundGradient: ['#5A33C9', '#923AD1'] }
+export default {
+    backgroundGradient: ['#9E5A90', '#221A65'],
+    iconColor: '#07090C'
+}
