@@ -9,12 +9,33 @@ import { categories, functions } from '../../globals'
 
 import { withNavigation } from 'react-navigation'
 
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
+
 class CategoryViewer extends React.Component {
     timeFrame = 'month'
+    popupDialog = null
+
+    showPopUp() {
+        this.popupDialog.show()
+    }
 
     render() {
         return (
             <View>
+                <PopupDialog
+                    style={{ zIndex: 3 }}
+                    ref={popupDialog => {
+                        this.popupDialog = popupDialog
+                    }}
+                    dialogAnimation={
+                        new SlideAnimation({
+                            slideFrom: 'bottom'
+                        })
+                    }
+                >
+                    <Text>HA</Text>
+                </PopupDialog>
+
                 <View style={{ flex: 1 }}>
                     {/* {timeFrame} */}
                     <CategorySummary
@@ -28,7 +49,7 @@ class CategoryViewer extends React.Component {
                         }
                     />
                 </View>
-                <View style={{ flex: 3 }}>
+                <View style={{ flex: 3, zIndex: 1 }}>
                     <TransactionList>
                         {this.props.expenses.map(expense => (
                             <TransactionListItem
@@ -36,6 +57,7 @@ class CategoryViewer extends React.Component {
                                 title={expense.title}
                                 amount={expense.amount}
                                 dateAdded={expense.dateAdded}
+                                onLongPress={() => this.showPopUp()}
                             />
                         ))}
                     </TransactionList>
