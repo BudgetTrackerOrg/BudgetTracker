@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Dimensions, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Platform, Text, View } from 'react-native'
 
 export default props => {
     return (
@@ -21,6 +21,17 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
-        height: 0.5
+        height: 0.5,
+        ...Platform.select({
+            ios: {
+                shadowColor: 'rgba(0,0,0, .2)',
+                shadowOffset: { height: 0, width: 0 },
+                shadowOpacity: 1,
+                shadowRadius: 1
+            },
+            android: {
+                elevation: 2
+            }
+        })
     }
 })
