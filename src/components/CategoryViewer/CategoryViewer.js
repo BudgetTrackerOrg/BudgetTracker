@@ -7,7 +7,9 @@ import {
 } from './CategoryViewerComponents'
 import { categories, functions } from '../../globals'
 
-export default class App extends React.Component {
+import { withNavigation } from 'react-navigation'
+
+class CategoryViewer extends React.Component {
     timeFrame = 'month'
 
     render() {
@@ -16,6 +18,7 @@ export default class App extends React.Component {
                 <View style={{ flex: 1 }}>
                     {/* {timeFrame} */}
                     <CategorySummary
+                        backButtonOnPress={() => this.props.navigation.goBack()}
                         totalAmount={functions.getTotalAmount(
                             this.props.expenses,
                             this.props.category
@@ -41,3 +44,5 @@ export default class App extends React.Component {
         )
     }
 }
+
+export default withNavigation(CategoryViewer)
