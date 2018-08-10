@@ -3,19 +3,24 @@ import { View, Text } from 'react-native'
 import {
     CategorySummary,
     TransactionList,
-    TransactionListItem
+    TransactionListItem,
+    TransactionOptions
 } from './CategoryViewerComponents'
 import { categories, functions } from '../../globals'
 
 import { withNavigation } from 'react-navigation'
-
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 
 class CategoryViewer extends React.Component {
     timeFrame = 'month'
     popupDialog = null
+    state = { lastOptionsOpenedInfo: null }
 
-    showPopUp() {
+    showPopUp(lastOptionsOpenedInfo) {
+        this.setState({
+            ...this.state,
+            lastOptionsOpenedInfo
+        })
         this.popupDialog.show()
     }
 
@@ -23,7 +28,9 @@ class CategoryViewer extends React.Component {
         return (
             <View>
                 <PopupDialog
-                    style={{ zIndex: 3 }}
+                    containerStyle={{ zIndex: 3 }}
+                    width={0.8}
+                    height={230}
                     ref={popupDialog => {
                         this.popupDialog = popupDialog
                     }}
@@ -33,7 +40,13 @@ class CategoryViewer extends React.Component {
                         })
                     }
                 >
-                    <Text>HA</Text>
+                    <TransactionOptions
+                        transactionInfo={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? {}
+                                : this.state.lastOptionsOpenedInfo
+                        }
+                    />
                 </PopupDialog>
 
                 <View style={{ flex: 1 }}>
@@ -57,7 +70,9 @@ class CategoryViewer extends React.Component {
                                 title={expense.title}
                                 amount={expense.amount}
                                 dateAdded={expense.dateAdded}
-                                onLongPress={() => this.showPopUp()}
+                                onLongPress={transactionInfo =>
+                                    this.showPopUp(transactionInfo)
+                                }
                             />
                         ))}
                     </TransactionList>
