@@ -3,10 +3,9 @@ const ADD_TRANSACTION = 'ADD_TRANSACTION'
 
 export { ADD_TRANSACTION }
 
-export default (addTransaction = transaction => {
-    alert(transaction)
+export default transaction => {
     return {
         type: ADD_TRANSACTION,
         payload: transaction
     }
-})
+}
