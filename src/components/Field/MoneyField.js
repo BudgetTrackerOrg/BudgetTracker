@@ -1,21 +1,16 @@
 import React from 'react'
-import { TextInputMask } from 'react-native-masked-text'
+import { TextInput } from 'react-native'
 import styles from './Field.scss'
 
-const MoneyField = () => {
+const MoneyField = props => {
     return (
-        <TextInputMask
-            style={styles.input}
-            placeholder="$0.00"
-            type={'money'}
-            options={{
-                precision: 2,
-                separator: '.',
-                unit: '$',
-                delimiter: ','
-            }}
+        <TextInput
+            keyboardType="numeric"
+            style={[styles.input, styles.input__field]}
+            value={props.value}
+            placeholderTextColor="#000"
+            onChangeText={props.onChangeText}
         />
     )
 }
-
 export default MoneyField

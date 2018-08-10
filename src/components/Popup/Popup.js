@@ -12,7 +12,7 @@ class Popup extends Component {
         }
     }
     openForm() {
-        let toValue = 100
+        let toValue = 1000
 
         if (formHidden) toValue = 0
 

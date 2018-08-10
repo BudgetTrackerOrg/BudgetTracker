@@ -5,26 +5,28 @@ import DatePicker from 'react-native-datepicker'
 const DateField = props => {
     return (
         <DatePicker
-            style={styles.input}
-            date={new Date()}
+            style={[styles.input, styles.input__field]}
+            date={props.date}
             mode="date"
             placeholder="Select Date"
             format="MM-DD-YYYY"
-            minDate={new Date()}
+            minDate="01-01-2000"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
                 dateIcon: {
                     position: 'absolute',
-                    left: 0,
+                    right: 0,
                     top: 4,
-                    marginLeft: 0
+                    marginRight: 0
                 },
                 dateInput: {
-                    marginLeft: 36
+                    alignItems: 'flex-start',
+                    marginHorizontal: 'auto',
+                    borderColor: 'transparent'
                 }
             }}
-            onDateChange={date => this.setState({ date })}
+            onDateChange={props.onDateChange}
         />
     )
 }
