@@ -11,7 +11,7 @@ import MoneyField from '../Field/MoneyField'
 import DateField from '../Field/DateField'
 import CategoryField from '../Field/CategoryField'
 import FormButton from '../Field/FormButton'
-
+import Card from '../Card/Card'
 import { addTransaction } from '../../store/actions'
 
 class TransactionForm extends Component {
@@ -41,14 +41,16 @@ class TransactionForm extends Component {
 
     render() {
         return (
-            <LinearGradient style={styles.form} colors={colors.formGradient}>
+            <LinearGradient
+                style={styles.form}
+                colors={colors.backgroundGradient}
+            >
                 <CancelButton
                     buttonText="Back"
                     onPress={this.props.cancelForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
-
-                <View style={styles.form__fields}>
+                <Card style={styles.form__fields}>
                     <Field
                         placeholder="What did you buy?"
                         onChangeText={title => this.setState({ title })}
@@ -56,14 +58,16 @@ class TransactionForm extends Component {
                     <MoneyField
                         value={'$' + this.state.amount}
                         onChangeText={val => {
-                            const regex = /[+-]?\d+(\.\d+)?/g
+                            const regex = /([0-9.]+)/g
+                            console.log(val.match(regex))
                             this.setState({
                                 ...this.state,
                                 // This ternary expression returns a float
                                 amount: val.match(regex)
                                     ? val.match(regex)[0]
-                                    : 0
+                                    : ''
                             })
+                            console.log(this.state.amount)
                         }}
                     />
                     <DateField
@@ -73,10 +77,11 @@ class TransactionForm extends Component {
                         }
                     />
                     <CategoryField
-                        // Fetches the list of categories from the global file
-                        categories={Object.keys(categories).map(
-                            category => categories[category].displayTitle
-                        )}
+                        categories={
+                            Object.keys(categories).map(
+                                category => categories[category].displayTitle
+                            ) // Fetches the list of categories from the global file
+                        }
                         selectedValue={this.state.category}
                         onValueChange={category =>
                             this.setState({
@@ -87,9 +92,19 @@ class TransactionForm extends Component {
                     />
                     <FormButton
                         buttonText="Add"
-                        onPress={() => this.props.addTransaction(this.state)}
+                        onPress={() => {
+                            this.setState(
+                                {
+                                    ...this.state,
+                                    amount: parseFloat(this.state.amount)
+                                },
+                                () => {
+                                    this.props.addTransaction(this.state)
+                                }
+                            )
+                        }}
                     />
-                </View>
+                </Card>
             </LinearGradient>
         )
     }

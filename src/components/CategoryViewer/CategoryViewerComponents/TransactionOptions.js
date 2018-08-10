@@ -1,10 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-vector-icons/FontAwesome5'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { functions } from '../../../globals'
-export default props => {
-    console.log(props)
 
+export default props => {
     return (
         <View style={{ height: 50 }}>
             <Text style={{ ...styles.text, fontSize: 32, fontWeight: 'bold' }}>
