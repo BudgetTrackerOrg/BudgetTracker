@@ -1,22 +1,32 @@
 import React from 'react'
-import { View, StyleSheet, Text, Platform } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    Text,
+    Platform,
+    TouchableWithoutFeedback
+} from 'react-native'
 import { functions } from '../../../globals'
 
 export default props => {
     return (
-        <View style={styles.main}>
-            <View style={styles.left}>
-                <Text style={styles.title}>
-                    {functions.toTitleCase(props.title)}
-                </Text>
-                <Text style={styles.date}>
-                    {functions.toSimpleDateString(props.dateAdded)}
-                </Text>
+        <TouchableWithoutFeedback onLongPress={() => props.onLongPress(props)}>
+            <View style={styles.main}>
+                <View style={styles.left}>
+                    <Text style={styles.title}>
+                        {functions.toTitleCase(props.title)}
+                    </Text>
+                    <Text style={styles.date}>
+                        {functions.toSimpleDateString(props.dateAdded)}
+                    </Text>
+                </View>
+                <View style={styles.right}>
+                    <Text style={styles.amount}>
+                        {functions.formatCurrency(props.amount)}
+                    </Text>
+                </View>
             </View>
-            <View style={styles.right}>
-                <Text style={styles.amount}>${props.amount}</Text>
-            </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 

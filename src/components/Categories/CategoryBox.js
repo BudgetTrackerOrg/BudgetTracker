@@ -2,24 +2,39 @@ import React, { Component } from 'react'
 import { View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import styles from './CategoryBox.scss'
-import { createStackNavigator } from 'react-navigation'
+import ProgressCircle from 'react-native-progress-circle'
+import { colors } from '../../globals'
 export class CategoryBox extends Component {
     render() {
+        let bgColor = this.props.disabled ? '#bbb' : '#fff'
         return (
             <View style={styles.categories}>
-                <TouchableHighlight
-                    underlayColor="#d2d1e2"
-                    style={styles.categories__touchableArea}
-                    onPress={this.props.onPress}
+                <ProgressCircle
+                    percent={this.props.percentage}
+                    radius={50}
+                    borderWidth={8}
+                    color={this.props.percentageColor}
+                    shadowColor={bgColor}
+                    bgColor={bgColor}
                 >
-                    <Icon
-                        style={styles.categories__icon}
-                        name={this.props.categoryIcon}
-                        size={this.props.categoryIconSize}
-                        color={this.props.categoryIconColor}
-                    />
-                </TouchableHighlight>
-
+                    <TouchableHighlight
+                        underlayColor="#d2d1e2"
+                        style={{
+                            ...styles.categories__touchableArea,
+                            backgroundColor: bgColor
+                        }}
+                        onPress={
+                            this.props.disabled ? () => {} : this.props.onPress
+                        }
+                    >
+                        <Icon
+                            style={styles.categories__icon}
+                            name={this.props.categoryIcon}
+                            size={this.props.categoryIconSize}
+                            color={this.props.categoryIconColor}
+                        />
+                    </TouchableHighlight>
+                </ProgressCircle>
                 <View style={styles.categories__title}>
                     <Text style={styles.categories__text}>
                         {this.props.categoryName}
@@ -33,11 +48,11 @@ export class CategoryBox extends Component {
 Icon.defaultProps = {
     name: 'question-circle',
     size: 35,
-    color: '#5A33C9'
+    color: colors.iconColor
 }
 
 CategoryBox.defaultProps = {
-    percentage: 50,
+    percentage: 0,
     percentageColor: 'blue'
 }
 

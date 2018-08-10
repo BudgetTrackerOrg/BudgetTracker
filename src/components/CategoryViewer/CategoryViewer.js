@@ -3,41 +3,83 @@ import { View, Text } from 'react-native'
 import {
     CategorySummary,
     TransactionList,
-    TransactionListItem
+    TransactionListItem,
+    TransactionOptions
 } from './CategoryViewerComponents'
-import { categories } from '../../globals'
+import { categories, functions } from '../../globals'
 
-export default props => {
-    return (
-        <View>
-            <View style={{ flex: 1 }}>
-                <CategorySummary
-                    totalAmount={getTotalAmount(props.expenses, props.category)}
-                    categoryTitle={categories[props.category].displayTitle}
-                />
-            </View>
-            <View style={{ flex: 3 }}>
-                <TransactionList>
-                    {props.expenses.map(expense => (
-                        <TransactionListItem
-                            key={expense.id}
-                            title={expense.title}
-                            amount={expense.amount}
-                            dateAdded={expense.dateAdded}
-                        />
-                    ))}
-                </TransactionList>
-            </View>
-        </View>
-    )
-}
+import { withNavigation } from 'react-navigation'
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 
-const getTotalAmount = (expenses, category) => {
-    let total = 0
+class CategoryViewer extends React.Component {
+    timeFrame = 'month'
+    popupDialog = null
+    state = { lastOptionsOpenedInfo: null }
 
-    for (let i in expenses) {
-        total += expenses[i].amount
+    showPopUp(lastOptionsOpenedInfo) {
+        this.setState({
+            ...this.state,
+            lastOptionsOpenedInfo
+        })
+        this.popupDialog.show()
     }
 
-    return total
+    render() {
+        return (
+            <View>
+                <PopupDialog
+                    containerStyle={{ zIndex: 3 }}
+                    width={0.8}
+                    height={230}
+                    ref={popupDialog => {
+                        this.popupDialog = popupDialog
+                    }}
+                    dialogAnimation={
+                        new SlideAnimation({
+                            slideFrom: 'bottom'
+                        })
+                    }
+                >
+                    <TransactionOptions
+                        transactionInfo={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? {}
+                                : this.state.lastOptionsOpenedInfo
+                        }
+                    />
+                </PopupDialog>
+
+                <View style={{ flex: 1 }}>
+                    {/* {timeFrame} */}
+                    <CategorySummary
+                        backButtonOnPress={() => this.props.navigation.goBack()}
+                        totalAmount={functions.getTotalAmount(
+                            this.props.expenses,
+                            this.props.category
+                        )}
+                        categoryTitle={
+                            categories[this.props.category].displayTitle
+                        }
+                    />
+                </View>
+                <View style={{ flex: 3, zIndex: 1 }}>
+                    <TransactionList>
+                        {this.props.expenses.map(expense => (
+                            <TransactionListItem
+                                key={expense.id}
+                                title={expense.title}
+                                amount={expense.amount}
+                                dateAdded={expense.dateAdded}
+                                onLongPress={transactionInfo =>
+                                    this.showPopUp(transactionInfo)
+                                }
+                            />
+                        ))}
+                    </TransactionList>
+                </View>
+            </View>
+        )
+    }
 }
+
+export default withNavigation(CategoryViewer)
