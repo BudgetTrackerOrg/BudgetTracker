@@ -10,7 +10,7 @@ import { functions } from '../../../globals'
 
 export default props => {
     return (
-        <TouchableWithoutFeedback onLongPress={props.onLongPress}>
+        <TouchableWithoutFeedback onLongPress={() => props.onLongPress(props)}>
             <View style={styles.main}>
                 <View style={styles.left}>
                     <Text style={styles.title}>
