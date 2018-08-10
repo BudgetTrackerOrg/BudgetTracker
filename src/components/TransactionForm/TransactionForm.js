@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { colors, categories } from '../../globals'
 import styles from './TransactionForm.scss'
@@ -10,7 +12,9 @@ import DateField from '../Field/DateField'
 import CategoryField from '../Field/CategoryField'
 import FormButton from '../Field/FormButton'
 
-export default class TransactionForm extends Component {
+import { addTransaction } from '../../store/actions'
+
+class TransactionForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -65,6 +69,7 @@ export default class TransactionForm extends Component {
                         onDateChange={date => this.setState({ date })}
                     />
                     <CategoryField
+                        // Fetches the list of categories from the global file
                         categories={Object.keys(categories).map(
                             category => categories[category].displayTitle
                         )}
@@ -73,10 +78,29 @@ export default class TransactionForm extends Component {
                     />
                     <FormButton
                         buttonText="Add"
-                        onPress={() => this.handleSubmit()}
+                        onPress={() =>
+                            this.props.addTransaction(
+                                this.props.transactionData
+                            )
+                        }
                     />
                 </View>
             </LinearGradient>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        transactionData: this.state
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ addTransaction }, dispatch)
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TransactionForm)

@@ -4,7 +4,7 @@ const ADD_TRANSACTION = 'ADD_TRANSACTION'
 export { ADD_TRANSACTION }
 
 export default (addTransaction = transaction => {
-    alert(transaction)
+    alert('addTransaction in /store/actions/', transaction)
     return {
         type: ADD_TRANSACTION,
         payload: transaction
