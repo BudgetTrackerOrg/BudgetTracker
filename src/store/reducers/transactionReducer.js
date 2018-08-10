@@ -3,20 +3,22 @@
 import { ADD_TRANSACTION } from '../actions'
 
 export default (state = demoState(), action) => {
-    switch (action.actionType) {
+    switch (action.type) {
         case ADD_TRANSACTION:
-            return addTransaction(state)
+            return addTransaction(state, action.payload)
             break
         default:
             return state
     }
 }
 
-const addTransaction = state => {
+const addTransaction = (state, transaction) => {
     // update state following returned object accordingly
-    return {
-        ...state
+    if (transaction != undefined) {
+        transaction['id'] = state.expenses.length
     }
+
+    return { ...state, expenses: [...state.expenses, transaction] }
 }
 
 const initialState = () => {

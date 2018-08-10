@@ -20,8 +20,10 @@ class TransactionForm extends Component {
         this.state = {
             title: '',
             amount: '',
-            date: new Date(),
-            category: categories[Object.keys(categories)[0]].displayTitle
+            dateAdded: new Date(),
+            category: this.getKeyFromDisplayText(
+                categories[Object.keys(categories)[0]].displayTitle
+            )
         }
     }
     handleSubmit() {
@@ -31,10 +33,22 @@ class TransactionForm extends Component {
                 '\namount: ' +
                 this.state.amount +
                 '\ndate: ' +
-                this.state.date +
+                this.state.dateAdded +
                 '\ncategory: ' +
                 this.state.category
         )
+    }
+
+    getKeyFromDisplayText(text) {
+        let returnValue = text
+
+        Object.keys(categories).forEach(key => {
+            if (categories[key].displayTitle == text) {
+                returnValue = key
+            }
+        })
+
+        return returnValue
     }
 
     render() {
@@ -65,24 +79,26 @@ class TransactionForm extends Component {
                         }}
                     />
                     <DateField
-                        date={this.state.date}
-                        onDateChange={date => this.setState({ date })}
+                        date={this.state.dateAdded}
+                        onDateChange={date =>
+                            this.setState({ ...this.state, dateAdded: date })
+                        }
                     />
-                    <CategoryField
-                        // Fetches the list of categories from the global file
+                    <CategoryField // Fetches the list of categories from the global file
                         categories={Object.keys(categories).map(
                             category => categories[category].displayTitle
                         )}
                         selectedValue={this.state.category}
-                        onValueChange={category => this.setState({ category })}
+                        onValueChange={category =>
+                            this.setState({
+                                ...this.state,
+                                category: this.getKeyFromDisplayText(category)
+                            })
+                        }
                     />
                     <FormButton
                         buttonText="Add"
-                        onPress={() =>
-                            this.props.addTransaction(
-                                this.props.transactionData
-                            )
-                        }
+                        onPress={() => this.props.addTransaction(this.state)}
                     />
                 </View>
             </LinearGradient>
@@ -91,9 +107,7 @@ class TransactionForm extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        transactionData: this.state
-    }
+    return {} // this is to read, not write! GREG, please remove this comment after :P
 }
 
 const mapDispatchToProps = dispatch => {
