@@ -8,20 +8,12 @@ import {
 } from 'react-native'
 import { functions } from '../../../globals'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import CancelButton from '../../Field/CancelButton'
 
 export default props => {
     return (
         <View style={styles.main}>
-            <TouchableOpacity onPress={props.backButtonOnPress}>
-                <Text
-                    style={{
-                        color: 'white',
-                        padding: 20
-                    }}
-                >
-                    <Icon name={'arrow-left'} size={20} color={'white'} />
-                </Text>
-            </TouchableOpacity>
+            <CancelButton onPress={props.backButtonOnPress} />
             <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
             <Text style={styles.totalAmount}>
                 {functions.formatCurrency(props.totalAmount)}

@@ -8,7 +8,7 @@ const MoneyField = props => {
             keyboardType="numeric"
             style={[styles.input, styles.input__field]}
             value={props.value}
-            placeholderTextColor="#000"
+            placeholderTextColor="#848484"
             onChangeText={props.onChangeText}
         />
     )

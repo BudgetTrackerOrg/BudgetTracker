@@ -10,6 +10,7 @@ const Field = props => {
             placeholderTextColor="#000"
             underlineColorAndroid="transparent"
             onChangeText={props.onChangeText}
+            placeholderTextColor="#848484"
         />
     )
 }
