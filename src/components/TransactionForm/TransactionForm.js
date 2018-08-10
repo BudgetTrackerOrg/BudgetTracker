@@ -26,18 +26,6 @@ class TransactionForm extends Component {
             )
         }
     }
-    handleSubmit() {
-        alert(
-            'title: ' +
-                this.state.title +
-                '\namount: ' +
-                this.state.amount +
-                '\ndate: ' +
-                this.state.dateAdded +
-                '\ncategory: ' +
-                this.state.category
-        )
-    }
 
     getKeyFromDisplayText(text) {
         let returnValue = text
@@ -72,9 +60,9 @@ class TransactionForm extends Component {
                             this.setState({
                                 ...this.state,
                                 // This ternary expression returns a float
-                                amount: !val.match(regex)
-                                    ? 0
-                                    : val.match(regex)[0]
+                                amount: val.match(regex)
+                                    ? val.match(regex)[0]
+                                    : 0
                             })
                         }}
                     />
@@ -84,7 +72,8 @@ class TransactionForm extends Component {
                             this.setState({ ...this.state, dateAdded: date })
                         }
                     />
-                    <CategoryField // Fetches the list of categories from the global file
+                    <CategoryField
+                        // Fetches the list of categories from the global file
                         categories={Object.keys(categories).map(
                             category => categories[category].displayTitle
                         )}
@@ -107,7 +96,7 @@ class TransactionForm extends Component {
 }
 
 const mapStateToProps = state => {
-    return {} // this is to read, not write! GREG, please remove this comment after :P
+    return {}
 }
 
 const mapDispatchToProps = dispatch => {
