@@ -28,7 +28,6 @@ class CategoryScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        // Keys referenced in this file as -> this.props.userID
         expenses: state.transaction.expenses
     }
 }

@@ -1,4 +1,5 @@
 export default {
-    backgroundGradient: ['#5A33C9', '#923AD1'],
-    formGradient: ['#ff9c56', '#923ad1']
+    backgroundGradient: ['#9E5A90', '#221A65'],
+    formGradient: ['#9E5A90', '#221A65'],
+    iconColor: '#07090C'
 }

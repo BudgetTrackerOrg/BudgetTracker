@@ -1,11 +1,31 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, Text } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    Dimensions,
+    Text,
+    TouchableOpacity
+} from 'react-native'
+import { functions } from '../../../globals'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export default props => {
     return (
         <View style={styles.main}>
+            <TouchableOpacity onPress={props.backButtonOnPress}>
+                <Text
+                    style={{
+                        color: 'white',
+                        padding: 20
+                    }}
+                >
+                    <Icon name={'arrow-left'} size={20} color={'white'} />
+                </Text>
+            </TouchableOpacity>
             <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
-            <Text style={styles.totalAmount}>${props.totalAmount}</Text>
+            <Text style={styles.totalAmount}>
+                {functions.formatCurrency(props.totalAmount)}
+            </Text>
         </View>
     )
 }
