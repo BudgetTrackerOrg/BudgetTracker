@@ -19,7 +19,11 @@ class CategoryScreen extends React.Component {
                 style={styles.container}
             >
                 <ContentViewer backButton={true}>
-                    <CategoryViewer category={category} expenses={expenses} />
+                    <CategoryViewer
+                        category={category}
+                        expenses={expenses}
+                        showBackButton={true}
+                    />
                 </ContentViewer>
             </LinearGradient>
         )

@@ -53,6 +53,7 @@ class CategoryViewer extends React.Component {
                     {/* {timeFrame} */}
                     <CategorySummary
                         backButtonOnPress={() => this.props.navigation.goBack()}
+                        showBackButton={this.props.showBackButton}
                         totalAmount={functions.getTotalAmount(
                             this.props.expenses,
                             this.props.category

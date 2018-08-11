@@ -8,7 +8,7 @@ const FooterButton = props => {
             <View style={styles.button}>
                 <View style={styles.innerView}>
                     <Icon name={props.icon} size={30} style={styles.color} />
-                    <Text style={styles.color}>{props.title}</Text>
+                    {/* <Text style={styles.color}>{props.title}</Text> */}
                 </View>
             </View>
         </TouchableHighlight>

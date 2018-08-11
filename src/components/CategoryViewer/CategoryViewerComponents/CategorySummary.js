@@ -13,7 +13,9 @@ import CancelButton from '../../Field/CancelButton'
 export default props => {
     return (
         <View style={styles.main}>
-            <CancelButton onPress={props.backButtonOnPress} />
+            {props.showBackButton && (
+                <CancelButton onPress={props.backButtonOnPress} />
+            )}
             <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
             <Text style={styles.totalAmount}>
                 {functions.formatCurrency(props.totalAmount)}
