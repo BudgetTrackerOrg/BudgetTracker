@@ -15,10 +15,9 @@ class HomeScreen extends React.Component {
             this.props.navigation.navigate('Category')
         }
     }
-
     // This allows the function openForm from <Popup /> to be called in this file
     popup = React.createRef()
-
+    mainPage = React.createRef()
     render() {
         return (
             <LinearGradient
@@ -28,7 +27,10 @@ class HomeScreen extends React.Component {
                 style={styles.container}
             >
                 <ContentViewer>
-                    <MainPage expenses={this.props.expenses} />
+                    <MainPage
+                        onRef={ref => (this.mainPage = ref)}
+                        expenses={this.props.expenses}
+                    />
                 </ContentViewer>
                 <Popup
                     display={
@@ -41,10 +43,21 @@ class HomeScreen extends React.Component {
                 />
                 <Footer>
                     <FooterButton
+                        onPress={() => this.mainPage.gotoPage(0)}
+                        title="Categories"
+                        icon="md-keypad"
+                    />
+                    <FooterButton
                         onPress={() => this.popup.current.openForm()}
-                        //this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         title="Add"
                         icon="md-add"
+                    />
+                    <FooterButton
+                        onPress={() => {
+                            this.mainPage.gotoPage(1)
+                        }}
+                        title="Transactions"
+                        icon="md-list"
                     />
                 </Footer>
             </LinearGradient>
