@@ -1,7 +1,7 @@
 import React from 'react'
 import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
 import Popup from '../../components/Popup/Popup'
-import TransactionForm from '../../components/TransactionForm/TransactionForm'
+import AddTransactionScreen from '../AddTransactionScreen/AddTransactionScreen'
 import styles from './HomeScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
@@ -32,7 +32,7 @@ class HomeScreen extends React.Component {
                 </ContentViewer>
                 <Popup
                     display={
-                        <TransactionForm
+                        <AddTransactionScreen
                             heading="Add Purchase"
                             cancelForm={() => this.popup.current.openForm()}
                         />
@@ -42,7 +42,6 @@ class HomeScreen extends React.Component {
                 <Footer>
                     <FooterButton
                         onPress={() => this.popup.current.openForm()}
-                        //this.props.addTransaction(this.props.userID) // Actions are referenced with -> this.props.actionName
                         title="Add"
                         icon="md-add"
                     />
