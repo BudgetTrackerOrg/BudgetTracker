@@ -41,6 +41,9 @@ class AddTransactionScreen extends Component {
         return returnValue
     }
 
+    // This allows the function openForm from <Popup /> to be called in this file
+    popup = React.createRef()
+
     render() {
         return (
             <LinearGradient
@@ -49,7 +52,7 @@ class AddTransactionScreen extends Component {
             >
                 <CancelButton
                     buttonText="Back"
-                    onPress={this.props.cancelForm}
+                    onPress={this.props.closeForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
                 <Card style={styles.form__fields}>
@@ -104,6 +107,7 @@ class AddTransactionScreen extends Component {
                                     this.props.addTransaction(this.state)
                                 }
                             )
+                            this.props.closeForm()
                         }}
                     />
                 </Card>

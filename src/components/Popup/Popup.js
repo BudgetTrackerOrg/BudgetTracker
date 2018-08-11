@@ -11,7 +11,7 @@ class Popup extends Component {
             bounceValue: new Animated.Value(1000)
         }
     }
-    openForm() {
+    toggleForm() {
         let toValue = 1000
 
         if (formHidden) toValue = 0
