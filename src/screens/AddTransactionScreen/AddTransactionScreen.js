@@ -41,9 +41,6 @@ class AddTransactionScreen extends Component {
         return returnValue
     }
 
-    // This allows the function openForm from <Popup /> to be called in this file
-    popup = React.createRef()
-
     render() {
         return (
             <LinearGradient
