@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { colors, categories } from '../../globals'
-import styles from './TransactionForm.scss'
-import CancelButton from '../Field/CancelButton'
-import Field from '../Field/Field'
-import MoneyField from '../Field/MoneyField'
-import DateField from '../Field/DateField'
-import CategoryField from '../Field/CategoryField'
-import FormButton from '../Field/FormButton'
-import Card from '../Card/Card'
+import styles from './AddTransactionScreen.scss'
+import {
+    CancelButton,
+    CategoryField,
+    DateField,
+    Field,
+    FormButton,
+    MoneyField
+} from '../../components/Field'
+import Card from '../../components/Card/Card'
 import { addTransaction } from '../../store/actions'
 
-class TransactionForm extends Component {
+class AddTransactionScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,7 +33,7 @@ class TransactionForm extends Component {
         let returnValue = text
 
         Object.keys(categories).forEach(key => {
-            if (categories[key].displayTitle == text) {
+            if (categories[key].displayTitle === text) {
                 returnValue = key
             }
         })
@@ -47,7 +49,7 @@ class TransactionForm extends Component {
             >
                 <CancelButton
                     buttonText="Back"
-                    onPress={this.props.cancelForm}
+                    onPress={this.props.closeForm}
                 />
                 <Text style={styles.form__heading}>{this.props.heading}</Text>
                 <Card style={styles.form__fields}>
@@ -101,6 +103,7 @@ class TransactionForm extends Component {
                                     this.props.addTransaction(this.state)
                                 }
                             )
+                            this.props.closeForm()
                         }}
                     />
                 </Card>
@@ -120,4 +123,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TransactionForm)
+)(AddTransactionScreen)

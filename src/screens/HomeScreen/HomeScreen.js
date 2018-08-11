@@ -1,7 +1,7 @@
 import React from 'react'
 import { Footer, ContentViewer, FooterButton, MainPage } from '../../components'
 import Popup from '../../components/Popup/Popup'
-import TransactionForm from '../../components/TransactionForm/TransactionForm'
+import AddTransactionScreen from '../AddTransactionScreen/AddTransactionScreen'
 import styles from './HomeScreen.scss'
 import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
@@ -15,7 +15,8 @@ class HomeScreen extends React.Component {
             this.props.navigation.navigate('Category')
         }
     }
-    // This allows the function openForm from <Popup /> to be called in this file
+
+    // This allows the function toggleForm from <Popup /> to be called in this file
     popup = React.createRef()
     mainPage = React.createRef()
     render() {
@@ -34,9 +35,9 @@ class HomeScreen extends React.Component {
                 </ContentViewer>
                 <Popup
                     display={
-                        <TransactionForm
+                        <AddTransactionScreen
                             heading="Add Purchase"
-                            cancelForm={() => this.popup.current.openForm()}
+                            closeForm={() => this.popup.current.toggleForm()}
                         />
                     }
                     ref={this.popup}
@@ -48,7 +49,7 @@ class HomeScreen extends React.Component {
                         icon="md-keypad"
                     />
                     <FooterButton
-                        onPress={() => this.popup.current.openForm()}
+                        onPress={() => this.popup.current.toggleForm()}
                         title="Add"
                         icon="md-add"
                     />
