@@ -1,45 +1,43 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import styles from './MainPage.scss'
+import { Text, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import CategoryBox from '../Categories/CategoryBox'
-import { categories, functions } from '../../globals'
+import CategoriesPage from '../CategoriesPage/CategoriesPage'
+import MultiViewSwitch from '../MultiViewSwitch/MultiViewSwitch'
+import CategoryViewer from '../CategoryViewer/CategoryViewer'
+import ContentViewer from '../ContentViewer/ContentViewer'
 
 export class MainPage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { pageDisplayed: 0 }
+    }
+
+    gotoPage(pageNum) {
+        this.setState({ pageDisplayed: pageNum })
+    }
+
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
     render() {
-        let expensesResult = functions.getExpenseResult(this.props.expenses)
-        console.log(expensesResult)
         return (
-            <View>
-                <Text style={styles.main__subheading}>Total Spending</Text>
-                <Text style={styles.main__heading}>
-                    {functions.formatCurrency(expensesResult.total)}
-                </Text>
-                <View style={styles.categories}>
-                    {Object.keys(categories).map(category => (
-                        <CategoryBox
-                            key={category}
-                            categoryIcon={categories[category].displayIcon}
-                            categoryName={categories[category].displayTitle}
-                            percentageColor={categories[category].color}
-                            disabled={
-                                expensesResult.categories[category] == undefined
-                            }
-                            percentage={
-                                expensesResult.categories[category] != undefined
-                                    ? expensesResult.categories[category]
-                                          .percentage
-                                    : 0
-                            }
-                            onPress={() => {
-                                this.props.navigation.navigate('Category', {
-                                    category
-                                })
-                            }}
+            <MultiViewSwitch
+                currentPage={this.state.pageDisplayed}
+                pages={[
+                    <CategoriesPage expenses={this.props.expenses} />,
+                    <ContentViewer backButton={false}>
+                        <CategoryViewer
+                            category={'FOOD'}
+                            expenses={this.props.expenses}
                         />
-                    ))}
-                </View>
-            </View>
+                    </ContentViewer>
+                ]}
+            />
         )
     }
 }

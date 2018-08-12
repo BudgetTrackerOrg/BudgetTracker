@@ -2,10 +2,14 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
 export default props => {
-    return <View style={styles.container}>{props.children}</View>
+    return (
+        <View style={{ ...styles.container, ...props.style }}>
+            {props.children}
+        </View>
+    )
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         borderTopWidth: 1,
         borderTopColor: '#76768E',
@@ -14,4 +18,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 75
     }
-})
+}
