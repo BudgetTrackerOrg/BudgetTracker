@@ -61,7 +61,7 @@ class AddTransactionScreen extends Component {
                         value={'$' + this.state.amount}
                         onChangeText={val => {
                             const regex = /([0-9.]+)/g
-                            console.log(val.match(regex))
+
                             this.setState({
                                 ...this.state,
                                 // This ternary expression returns a float
@@ -69,7 +69,6 @@ class AddTransactionScreen extends Component {
                                     ? val.match(regex)[0]
                                     : ''
                             })
-                            console.log(this.state.amount)
                         }}
                     />
                     <DateField
