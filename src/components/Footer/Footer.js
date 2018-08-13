@@ -11,8 +11,6 @@ export default props => {
 
 const styles = {
     container: {
-        borderTopWidth: 1,
-        borderTopColor: '#76768E',
         alignItems: 'center',
         justifyContent: 'space-around',
         flexDirection: 'row',

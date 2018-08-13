@@ -10,6 +10,11 @@ import { connect } from 'react-redux'
 import { addTransaction } from '../../store/actions'
 
 class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { currentPage: 0 }
+    }
+
     gotoCategoryScreen() {
         return () => {
             this.props.navigation.navigate('Category')
@@ -20,6 +25,11 @@ class HomeScreen extends React.Component {
     popup = React.createRef()
     mainPage = React.createRef()
     render() {
+        let style = {
+            footerButton: {
+                color: this.state.currentPage === 1 ? '#212121' : '#EEE'
+            }
+        }
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -42,9 +52,26 @@ class HomeScreen extends React.Component {
                     }
                     ref={this.popup}
                 />
-                <Footer>
+                <Footer
+                    style={{
+                        backgroundColor:
+                            this.state.currentPage === 1
+                                ? 'white'
+                                : 'rgba(0,0,0,0)'
+                    }}
+                >
                     <FooterButton
-                        onPress={() => this.mainPage.gotoPage(0)}
+                        onPress={() => {
+                            this.setState(
+                                { ...this.state, currentPage: 0 },
+                                () => {
+                                    this.mainPage.gotoPage(
+                                        this.state.currentPage
+                                    )
+                                }
+                            )
+                        }}
+                        iconStyle={style.footerButton}
                         title="Categories"
                         icon="md-keypad"
                     />
@@ -52,11 +79,20 @@ class HomeScreen extends React.Component {
                         onPress={() => this.popup.current.toggleForm()}
                         title="Add"
                         icon="md-add"
+                        iconStyle={style.footerButton}
                     />
                     <FooterButton
                         onPress={() => {
-                            this.mainPage.gotoPage(1)
+                            this.setState(
+                                { ...this.state, currentPage: 1 },
+                                () => {
+                                    this.mainPage.gotoPage(
+                                        this.state.currentPage
+                                    )
+                                }
+                            )
                         }}
+                        iconStyle={style.footerButton}
                         title="Transactions"
                         icon="md-list"
                     />
