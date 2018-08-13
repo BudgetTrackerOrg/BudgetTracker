@@ -7,7 +7,11 @@ const FooterButton = props => {
         <TouchableHighlight onPress={props.onPress} underlayColor="white">
             <View style={styles.button}>
                 <View style={styles.innerView}>
-                    <Icon name={props.icon} size={30} style={styles.color} />
+                    <Icon
+                        name={props.icon}
+                        size={30}
+                        style={{ ...styles.color, ...props.iconStyle }}
+                    />
                     {/* <Text style={styles.color}>{props.title}</Text> */}
                 </View>
             </View>
@@ -17,7 +21,7 @@ const FooterButton = props => {
 
 export default FooterButton
 
-const styles = StyleSheet.create({
+const styles = {
     button: {
         height: 80,
         width: 80,
@@ -32,4 +36,4 @@ const styles = StyleSheet.create({
     color: {
         color: '#EEE'
     }
-})
+}
