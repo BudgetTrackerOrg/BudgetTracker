@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
 import { colors } from '../../globals'
 import { connect } from 'react-redux'
-import { addTransaction } from '../../store/actions'
+import { addTransaction, deleteTransaction } from '../../store/actions'
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -41,6 +41,7 @@ class HomeScreen extends React.Component {
                     <MainPage
                         onRef={ref => (this.mainPage = ref)}
                         expenses={this.props.expenses}
+                        deleteTransactionCallback={this.props.deleteTransaction}
                     />
                 </ContentViewer>
                 <Popup
@@ -113,7 +114,7 @@ const mapStateToProps = state => {
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
-    return bindActionCreators({ addTransaction }, dispatch)
+    return bindActionCreators({ addTransaction, deleteTransaction }, dispatch)
 }
 
 export default connect(

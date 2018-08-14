@@ -5,6 +5,9 @@ import styles from './CategoryScreen.scss'
 import { colors } from '../../globals'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import { bindActionCreators } from 'redux'
+import { deleteTransaction } from '../../store/actions'
+
 class CategoryScreen extends React.Component {
     render() {
         const category = this.props.navigation.getParam('category', 'all')
@@ -23,6 +26,7 @@ class CategoryScreen extends React.Component {
                         category={category}
                         expenses={expenses}
                         showBackButton={true}
+                        deleteTransactionCallback={this.props.deleteTransaction}
                     />
                 </ContentViewer>
             </LinearGradient>
@@ -39,7 +43,7 @@ const mapStateToProps = state => {
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
-    return {}
+    return bindActionCreators({ deleteTransaction }, dispatch)
 }
 
 export default connect(
