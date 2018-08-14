@@ -3,47 +3,32 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
-import { colors, categories } from '../../globals'
+import { colors } from '../../globals'
 import styles from './AddTransactionScreen.scss'
-import {
-    CancelButton,
-    CategoryField,
-    DateField,
-    Field,
-    FormButton,
-    MoneyField
-} from '../../components/Field'
-import Card from '../../components/Card/Card'
+import { CancelButton } from '../../components/Field'
 import { addTransaction } from '../../store/actions'
+import TransactionCard from '../../components/TransactionCard/TransactionCard'
+
+// FIX - CATEGORY VALUE NOT DISPLAYING - FIX IN TRANSACTIONCARD.JS
 
 class AddTransactionScreen extends Component {
     constructor(props) {
         super(props)
+        // All state values will be updated immediately before form is submitted
+        // The state properties which are edited are in TransactionCard.js
         this.state = {
-            title: '',
-            amount: '',
-            dateAdded: new Date(),
-            category: this.getKeyFromDisplayText(
-                categories[Object.keys(categories)[0]].displayTitle
-            )
+            title: null,
+            amount: null,
+            dateAdded: null,
+            category: null
         }
-        this.baseState = this.state
     }
 
-    getKeyFromDisplayText(text) {
-        let returnValue = text
-
-        Object.keys(categories).forEach(key => {
-            if (categories[key].displayTitle === text) {
-                returnValue = key
-            }
+    updateState(data) {
+        this.setState(data, () => {
+            this.props.addTransaction(this.state)
+            this.props.closeForm()
         })
-
-        return returnValue
-    }
-
-    resetForm() {
-        this.setState(this.baseState)
     }
 
     render() {
@@ -61,69 +46,11 @@ class AddTransactionScreen extends Component {
                     <Text style={styles.form__heading}>
                         {this.props.heading}
                     </Text>
-                    <Card style={styles.form__fields}>
-                        <Field
-                            placeholder="What did you buy?"
-                            value={this.state.title}
-                            onChangeText={title => this.setState({ title })}
-                        />
-                        <MoneyField
-                            value={'$' + this.state.amount}
-                            onChangeText={val => {
-                                const regex = /([0-9.]+)/g
-
-                                this.setState({
-                                    ...this.state,
-                                    // This ternary expression returns a float
-                                    amount: val.match(regex)
-                                        ? val.match(regex)[0]
-                                        : ''
-                                })
-                            }}
-                        />
-                        <DateField
-                            date={this.state.dateAdded}
-                            onDateChange={date =>
-                                this.setState({
-                                    ...this.state,
-                                    dateAdded: date
-                                })
-                            }
-                        />
-                        <CategoryField
-                            categories={
-                                Object.keys(categories).map(
-                                    category =>
-                                        categories[category].displayTitle
-                                ) // Fetches the list of categories from the global file
-                            }
-                            selectedValue={this.state.category}
-                            onValueChange={category =>
-                                this.setState({
-                                    ...this.state,
-                                    category: this.getKeyFromDisplayText(
-                                        category
-                                    )
-                                })
-                            }
-                        />
-                        <FormButton
-                            buttonText="Add"
-                            onPress={() => {
-                                this.setState(
-                                    {
-                                        ...this.state,
-                                        amount: parseFloat(this.state.amount)
-                                    },
-                                    () => {
-                                        this.props.addTransaction(this.state)
-                                        this.resetForm()
-                                    }
-                                )
-                                this.props.closeForm()
-                            }}
-                        />
-                    </Card>
+                    <TransactionCard
+                        titlePlaceholder="What did you buy?"
+                        submitBtnText="Add"
+                        onSubmit={this.updateState.bind(this)}
+                    />
                 </View>
             </LinearGradient>
         )
