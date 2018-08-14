@@ -19,7 +19,11 @@ class TransactionCard extends Component {
             dateAdded: new Date(),
             category: this.getKeyFromDisplayText(
                 categories[Object.keys(categories)[0]].displayTitle
-            )
+            ),
+            // There are two state properties pertaining to CATEGORY
+            // "category" is for the KEY, which is used for the Redux State
+            // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker
+            displayCategory: categories[Object.keys(categories)[0]].displayTitle
         }
         this.baseState = this.state
     }
@@ -76,13 +80,16 @@ class TransactionCard extends Component {
                             category => categories[category].displayTitle
                         ) // Fetches the list of categories from the global file
                     }
-                    selectedValue={this.state.category}
                     onValueChange={category =>
                         this.setState({
                             ...this.state,
-                            category: this.getKeyFromDisplayText(category)
+                            category: this.getKeyFromDisplayText(category),
+                            // See comments in the constructor for explanation of
+                            // "category" and "displayCategory"
+                            displayCategory: category
                         })
                     }
+                    selectedValue={this.state.displayCategory}
                 />
                 <FormButton
                     buttonText={this.props.submitBtnText}
