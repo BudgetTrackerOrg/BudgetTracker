@@ -8,9 +8,7 @@ import {
 } from '../../components/Field'
 import Card from '../Card/Card'
 import { categories } from '../../globals'
-
-// FIX THIS LATER - TRANSACTIONCARD.SCSS
-import styles from '../../screens/AddTransactionScreen/AddTransactionScreen.scss'
+import styles from './TransactionCard.scss'
 
 class TransactionCard extends Component {
     constructor(props) {
