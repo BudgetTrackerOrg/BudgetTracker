@@ -15,14 +15,14 @@ const MONTHS = [
 
 export default {
     toTitleCase(str) {
-        if (str == undefined) return
+        if (str === undefined) return
         return str.replace(/\w\S*/g, function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
         })
     },
 
     toSimpleDateString(date) {
-        if (date == undefined) return
+        if (date === undefined) return
         let str = MONTHS[date.getMonth()]
         str += ' ' + date.getDate()
         str += ', ' + date.getFullYear()
@@ -66,7 +66,7 @@ export default {
     },
 
     formatCurrency(amount) {
-        if (amount == undefined) return
+        if (amount === undefined) return
         return '$' + amount
     }
 }

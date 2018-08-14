@@ -27,6 +27,7 @@ class AddTransactionScreen extends Component {
                 categories[Object.keys(categories)[0]].displayTitle
             )
         }
+        this.baseState = this.state
     }
 
     getKeyFromDisplayText(text) {
@@ -39,6 +40,10 @@ class AddTransactionScreen extends Component {
         })
 
         return returnValue
+    }
+
+    resetForm() {
+        this.setState(this.baseState)
     }
 
     render() {
@@ -59,6 +64,7 @@ class AddTransactionScreen extends Component {
                     <Card style={styles.form__fields}>
                         <Field
                             placeholder="What did you buy?"
+                            value={this.state.title}
                             onChangeText={title => this.setState({ title })}
                         />
                         <MoneyField
@@ -111,6 +117,7 @@ class AddTransactionScreen extends Component {
                                     },
                                     () => {
                                         this.props.addTransaction(this.state)
+                                        this.resetForm()
                                     }
                                 )
                                 this.props.closeForm()
