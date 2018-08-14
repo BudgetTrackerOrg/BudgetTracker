@@ -15,36 +15,54 @@ import {
 } from '../../components/Field'
 import Card from '../../components/Card/Card'
 import { addTransaction } from '../../store/actions'
+import TransactionCard from '../../components/TransactionCard/TransactionCard'
+
+// TODO - REMOVE UNUSED IMPORTS
+// FIX - CATEGORY VALUE NOT DISPLAYING - FIX IN TRANSACTIONCARD.JS
 
 class AddTransactionScreen extends Component {
     constructor(props) {
         super(props)
+        // this.state = {
+        //     title: '',
+        //     amount: '',
+        //     dateAdded: new Date(),
+        //     category: this.getKeyFromDisplayText(
+        //         categories[Object.keys(categories)[0]].displayTitle
+        //     )
+        // }
+        // this.baseState = this.state
+
         this.state = {
-            title: '',
-            amount: '',
-            dateAdded: new Date(),
-            category: this.getKeyFromDisplayText(
-                categories[Object.keys(categories)[0]].displayTitle
-            )
+            title: null,
+            amount: null,
+            dateAdded: null,
+            category: null
         }
-        this.baseState = this.state
     }
 
-    getKeyFromDisplayText(text) {
-        let returnValue = text
+    // getKeyFromDisplayText(text) {
+    //     let returnValue = text
 
-        Object.keys(categories).forEach(key => {
-            if (categories[key].displayTitle === text) {
-                returnValue = key
-            }
+    //     Object.keys(categories).forEach(key => {
+    //         if (categories[key].displayTitle === text) {
+    //             returnValue = key
+    //         }
+    //     })
+
+    //     return returnValue
+    // }
+
+    updateState(data) {
+        this.setState(data, () => {
+            this.props.addTransaction(this.state)
+            this.props.closeForm()
         })
-
-        return returnValue
     }
 
-    resetForm() {
-        this.setState(this.baseState)
-    }
+    // resetForm() {
+    //     this.setState(this.baseState)
+    // }
 
     render() {
         return (
@@ -61,9 +79,15 @@ class AddTransactionScreen extends Component {
                     <Text style={styles.form__heading}>
                         {this.props.heading}
                     </Text>
-                    <Card style={styles.form__fields}>
+
+                    <TransactionCard
+                        titlePlaceholder="What did you buy?"
+                        submitBtnText="Add"
+                        onSubmit={this.updateState.bind(this)}
+                    />
+                    {/* <Card style={styles.form__fields}>
                         <Field
-                            placeholder="What did you buy?"
+                            placeholder={this.props.titlePlaceholder}
                             value={this.state.title}
                             onChangeText={title => this.setState({ title })}
                         />
@@ -108,7 +132,7 @@ class AddTransactionScreen extends Component {
                             }
                         />
                         <FormButton
-                            buttonText="Add"
+                            buttonText={this.props.submitBtnText}
                             onPress={() => {
                                 this.setState(
                                     {
@@ -123,7 +147,7 @@ class AddTransactionScreen extends Component {
                                 this.props.closeForm()
                             }}
                         />
-                    </Card>
+                    </Card> */}
                 </View>
             </LinearGradient>
         )
