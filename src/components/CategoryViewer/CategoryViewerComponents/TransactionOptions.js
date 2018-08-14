@@ -20,6 +20,12 @@ export default props => {
                     <Text style={styles.buttonLabel}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    onPressOut={() => {
+                        props.deleteTransactionCallback(
+                            props.transactionInfo.id
+                        )
+                        props.hidePopUpCallBack()
+                    }}
                     style={{ ...styles.button, backgroundColor: '#FD6260' }}
                 >
                     <Text style={styles.buttonLabel}>Delete</Text>
