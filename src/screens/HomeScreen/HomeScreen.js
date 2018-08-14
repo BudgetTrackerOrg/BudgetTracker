@@ -49,6 +49,8 @@ class HomeScreen extends React.Component {
                     display={
                         <AddTransactionScreen
                             heading="Add Purchase"
+                            titlePlaceholder="What did you buy?"
+                            submitBtnText="Add"
                             closeForm={() => this.popup.current.toggleForm()}
                         />
                     }
