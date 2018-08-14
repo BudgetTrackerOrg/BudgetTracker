@@ -24,6 +24,7 @@ class HomeScreen extends React.Component {
     // This allows the function toggleForm from <Popup /> to be called in this file
     popup = React.createRef()
     mainPage = React.createRef()
+
     render() {
         let style = {
             footerButton: {

@@ -5,12 +5,12 @@ import styles from './Field.scss'
 const Field = props => {
     return (
         <TextInput
+            value={props.value}
             style={[styles.input, styles.input__field]}
-            placeholder={props.placeholder}
-            placeholderTextColor="#000"
-            underlineColorAndroid="transparent"
             onChangeText={props.onChangeText}
+            placeholder={props.placeholder}
             placeholderTextColor="#848484"
+            underlineColorAndroid="transparent"
         />
     )
 }
