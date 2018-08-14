@@ -12,9 +12,13 @@ import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 
 class CategoryViewer extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { lastOptionsOpenedInfo: null }
+    }
+
     timeFrame = 'month'
     popupDialog = null
-    state = { lastOptionsOpenedInfo: null }
 
     showPopUp(lastOptionsOpenedInfo) {
         this.setState({
@@ -24,6 +28,13 @@ class CategoryViewer extends React.Component {
         this.popupDialog.show()
     }
 
+    hidePopUp(lastOptionsOpenedInfo) {
+        this.setState({
+            ...this.state,
+            lastOptionsOpenedInfo
+        })
+        this.popupDialog.dismiss()
+    }
     render() {
         return (
             <View>
@@ -45,6 +56,10 @@ class CategoryViewer extends React.Component {
                             this.state.lastOptionsOpenedInfo == null
                                 ? {}
                                 : this.state.lastOptionsOpenedInfo
+                        }
+                        hidePopUpCallBack={() => this.hidePopUp()}
+                        deleteTransactionCallback={
+                            this.props.deleteTransactionCallback
                         }
                     />
                 </PopupDialog>
@@ -68,6 +83,7 @@ class CategoryViewer extends React.Component {
                         {this.props.expenses.map(expense => (
                             <TransactionListItem
                                 key={expense.id}
+                                id={expense.id}
                                 title={expense.title}
                                 amount={expense.amount}
                                 dateAdded={expense.dateAdded}
