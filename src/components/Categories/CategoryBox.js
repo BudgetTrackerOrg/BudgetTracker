@@ -6,7 +6,7 @@ import ProgressCircle from 'react-native-progress-circle'
 import { colors } from '../../globals'
 export class CategoryBox extends Component {
     render() {
-        let bgColor = this.props.disabled ? '#bbb' : '#fff'
+        let bgColor = '#fff'
         return (
             <View style={styles.categories}>
                 <ProgressCircle
