@@ -11,6 +11,7 @@ const DateField = props => {
             placeholder="Select Date"
             format="MM-DD-YYYY"
             minDate="01-01-2000"
+            maxDate={new Date()}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
