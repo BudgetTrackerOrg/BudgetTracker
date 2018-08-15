@@ -65,6 +65,7 @@ class HomeScreen extends React.Component {
                     }}
                 >
                     <FooterButton
+                        focused={this.state.currentPage === 0}
                         onPress={() => {
                             this.setState(
                                 { ...this.state, currentPage: 0 },
@@ -86,6 +87,7 @@ class HomeScreen extends React.Component {
                         iconStyle={style.footerButton}
                     />
                     <FooterButton
+                        focused={this.state.currentPage === 1}
                         onPress={() => {
                             this.setState(
                                 { ...this.state, currentPage: 1 },
