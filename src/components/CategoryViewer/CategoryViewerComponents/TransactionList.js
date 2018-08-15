@@ -17,7 +17,7 @@ export default props => {
 
 const styles = StyleSheet.create({
     main: {
-        backgroundColor: 'white',
+        backgroundColor: '#f4f4f4',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: 20,
