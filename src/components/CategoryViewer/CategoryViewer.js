@@ -7,7 +7,7 @@ import {
     TransactionOptions
 } from './CategoryViewerComponents'
 import { categories, functions } from '../../globals'
-
+import TransactionCard from '../TransactionCard/TransactionCard'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 
@@ -19,7 +19,7 @@ class CategoryViewer extends React.Component {
 
     timeFrame = 'month'
     popupDialog = null
-
+    editDialog = null
     showPopUp(lastOptionsOpenedInfo) {
         this.setState({
             ...this.state,
@@ -38,6 +38,52 @@ class CategoryViewer extends React.Component {
     render() {
         return (
             <View>
+                <PopupDialog
+                    containerStyle={{ zIndex: 3 }}
+                    width={0.9}
+                    height={430}
+                    ref={editDialog => {
+                        this.editDialog = editDialog
+                    }}
+                    dialogAnimation={
+                        new SlideAnimation({
+                            slideFrom: 'bottom'
+                        })
+                    }
+                >
+                    <Text style={{ textAlign: 'center', fontSize: 20 }}>
+                        Edit Details{' '}
+                        {this.state.lastOptionsOpenedInfo == null
+                            ? ''
+                            : this.state.lastOptionsOpenedInfo.title}
+                    </Text>
+                    <TransactionCard
+                        title={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? null
+                                : this.state.lastOptionsOpenedInfo.title
+                        }
+                        amount={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? null
+                                : this.state.lastOptionsOpenedInfo.amount
+                        }
+                        dateAdded={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? null
+                                : this.state.lastOptionsOpenedInfo.dateAdded
+                        }
+                        category={
+                            this.state.lastOptionsOpenedInfo == null
+                                ? null
+                                : this.state.lastOptionsOpenedInfo.category
+                        }
+                        titlePlaceholder="What did you buy?"
+                        submitBtnText="Update"
+                        onSubmit={() => {}}
+                    />
+                </PopupDialog>
+
                 <PopupDialog
                     containerStyle={{ zIndex: 3 }}
                     width={0.8}
@@ -61,6 +107,10 @@ class CategoryViewer extends React.Component {
                         deleteTransactionCallback={
                             this.props.deleteTransactionCallback
                         }
+                        editTransactionCallback={() => {
+                            this.popupDialog.dismiss()
+                            this.editDialog.show()
+                        }}
                     />
                 </PopupDialog>
 
