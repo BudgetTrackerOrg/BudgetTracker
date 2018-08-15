@@ -17,18 +17,12 @@ class TransactionCard extends Component {
             title: '',
             amount: '',
             dateAdded: new Date(),
-            category: this.getKeyFromDisplayText(
-                categories[Object.keys(categories)[0]].displayTitle
-            ),
-            // There are two state properties pertaining to CATEGORY
-            // "category" is for the KEY, which is used for the Redux State
-            // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker
             displayCategory:
                 categories[Object.keys(categories)[0]].displayTitle,
-            // Changes styling if fields are invalid
+            category: this.getKeyFromDisplayText(this.displayCategory),
             invalidTitle: null,
             invalidMoney: null
-        }
+        } // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker // "category" is for the KEY, which is used for the Redux State // There are two state properties pertaining to CATEGORY // Changes styling if fields are invalid
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
     }
@@ -51,22 +45,32 @@ class TransactionCard extends Component {
     }
 
     render() {
+        console.log(this.state.title)
         return (
             <Card style={styles.form__fields}>
                 <Field
                     placeholder={this.props.titlePlaceholder}
-                    value={this.state.title}
+                    value={
+                        this.props.title ? this.props.title : this.state.title
+                    }
                     onChangeText={title => {
                         this.setState({ ...this.state, title })
                         // If field was previously invalid, it validates as soon as
                         // something is entered into the field
                         if (this.state.invalidTitle)
-                            this.setState({ invalidTitle: null })
+                            this.setState({
+                                invalidTitle: null
+                            })
                     }}
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    value={'$' + this.state.amount}
+                    value={
+                        '$' +
+                        (this.props.amount
+                            ? this.props.amount
+                            : this.state.amount)
+                    }
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 
@@ -78,12 +82,18 @@ class TransactionCard extends Component {
                         // If field was previously invalid, it validates as soon as
                         // something is entered into the field
                         if (this.state.invalidMoney)
-                            this.setState({ invalidMoney: null })
+                            this.setState({
+                                invalidMoney: null
+                            })
                     }}
                     invalidStyles={this.state.invalidMoney}
                 />
                 <DateField
-                    date={this.state.dateAdded}
+                    date={
+                        this.props.dateAdded
+                            ? this.props.dateAdded
+                            : this.state.dateAdded
+                    }
                     onDateChange={date =>
                         this.setState({
                             ...this.state,
@@ -106,7 +116,11 @@ class TransactionCard extends Component {
                             displayCategory: category
                         })
                     }
-                    selectedValue={this.state.displayCategory}
+                    selectedValue={
+                        this.props.category
+                            ? this.props.category
+                            : this.state.displayCategory
+                    }
                 />
                 <FormButton
                     buttonText={this.props.submitBtnText}
@@ -144,7 +158,9 @@ class TransactionCard extends Component {
                                         // when applied to onChangeText
                                         // If a better alternative is found,
                                         // please go ahead
-                                        { title: this.state.title.trim() },
+                                        {
+                                            title: this.state.title.trim()
+                                        },
                                         () => this.onSubmit(this.state)
                                     )
                                 }

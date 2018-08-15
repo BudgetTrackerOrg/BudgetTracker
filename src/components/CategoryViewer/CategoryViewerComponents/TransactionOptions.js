@@ -16,7 +16,12 @@ export default props => {
                 {functions.toSimpleDateString(props.transactionInfo.dateAdded)}
             </Text>
             <View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPressOut={() => {
+                        props.editTransactionCallback()
+                    }}
+                >
                     <Text style={styles.buttonLabel}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
