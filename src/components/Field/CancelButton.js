@@ -11,7 +11,11 @@ const CancelButton = props => {
                     padding: 20
                 }}
             >
-                <Icon name={'arrow-left'} size={20} color={'white'} />
+                <Icon
+                    name={'arrow-left'}
+                    size={20}
+                    color={props.iconColor ? props.iconColor : 'white'}
+                />
             </Text>
         </TouchableOpacity>
     )

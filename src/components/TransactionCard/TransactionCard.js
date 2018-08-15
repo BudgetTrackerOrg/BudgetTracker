@@ -40,19 +40,40 @@ class TransactionCard extends Component {
     }
 
     onSubmit(data) {
-        this.props.onSubmit(data)
+        let finalValues = {
+            title: data.title,
+            amount: data.amount,
+            dateAdded: data.dateAdded,
+            category: this.getKeyFromDisplayText(data.displayCategory)
+        }
+        this.props.onSubmit(finalValues)
         this.setState(this.baseState)
     }
 
+    updateStateWithProps() {
+        this.setState({
+            title: this.props.title ? this.props.title : this.state.title,
+            amount: this.props.amount ? this.props.amount : this.state.amount,
+            dateAdded: this.props.dateAdded
+                ? this.props.dateAdded
+                : this.state.dateAdded,
+            displayCategory: this.props.displayCategory
+                ? this.props.displayCategory
+                : this.state.displayCategory,
+            category: this.getKeyFromDisplayText(
+                this.props.displayCategory
+                    ? this.props.displayCategory
+                    : this.state.displayCategory
+            )
+        })
+    }
+
     render() {
-        console.log(this.state.title)
         return (
             <Card style={styles.form__fields}>
                 <Field
                     placeholder={this.props.titlePlaceholder}
-                    value={
-                        this.props.title ? this.props.title : this.state.title
-                    }
+                    value={this.state.title}
                     onChangeText={title => {
                         this.setState({ ...this.state, title })
                         // If field was previously invalid, it validates as soon as
@@ -65,12 +86,7 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    value={
-                        '$' +
-                        (this.props.amount
-                            ? this.props.amount
-                            : this.state.amount)
-                    }
+                    value={'$' + this.state.amount}
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 
@@ -89,11 +105,7 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidMoney}
                 />
                 <DateField
-                    date={
-                        this.props.dateAdded
-                            ? this.props.dateAdded
-                            : this.state.dateAdded
-                    }
+                    date={this.state.dateAdded}
                     onDateChange={date =>
                         this.setState({
                             ...this.state,
@@ -116,11 +128,7 @@ class TransactionCard extends Component {
                             displayCategory: category
                         })
                     }
-                    selectedValue={
-                        this.props.category
-                            ? this.props.category
-                            : this.state.displayCategory
-                    }
+                    selectedValue={this.state.displayCategory}
                 />
                 <FormButton
                     buttonText={this.props.submitBtnText}
