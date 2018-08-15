@@ -6,7 +6,7 @@ const Field = props => {
     return (
         <TextInput
             value={props.value}
-            style={[styles.input, styles.input__field]}
+            style={[styles.input, styles.input__field, props.invalidStyles]}
             onChangeText={props.onChangeText}
             placeholder={props.placeholder}
             placeholderTextColor="#848484"
