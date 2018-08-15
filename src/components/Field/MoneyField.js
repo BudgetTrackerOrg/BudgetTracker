@@ -6,7 +6,7 @@ const MoneyField = props => {
     return (
         <TextInput
             keyboardType="numeric"
-            style={[styles.input, styles.input__field]}
+            style={[styles.input, styles.input__field, props.invalidStyles]}
             value={props.value}
             placeholderTextColor="#848484"
             onChangeText={props.onChangeText}

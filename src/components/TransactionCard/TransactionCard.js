@@ -23,9 +23,14 @@ class TransactionCard extends Component {
             // There are two state properties pertaining to CATEGORY
             // "category" is for the KEY, which is used for the Redux State
             // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker
-            displayCategory: categories[Object.keys(categories)[0]].displayTitle
+            displayCategory:
+                categories[Object.keys(categories)[0]].displayTitle,
+            // Changes styling if fields are invalid
+            invalidTitle: null,
+            invalidMoney: null
         }
         this.baseState = this.state
+        this.invalid = { borderColor: '#a31a11' }
     }
 
     getKeyFromDisplayText(text) {
@@ -51,7 +56,14 @@ class TransactionCard extends Component {
                 <Field
                     placeholder={this.props.titlePlaceholder}
                     value={this.state.title}
-                    onChangeText={title => this.setState({ title })}
+                    onChangeText={title => {
+                        this.setState({ ...this.state, title })
+                        // If field was previously invalid, it validates as soon as
+                        // something is entered into the field
+                        if (this.state.invalidTitle)
+                            this.setState({ invalidTitle: null })
+                    }}
+                    invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
                     value={'$' + this.state.amount}
@@ -63,7 +75,12 @@ class TransactionCard extends Component {
                             // This ternary expression returns a float
                             amount: val.match(regex) ? val.match(regex)[0] : ''
                         })
+                        // If field was previously invalid, it validates as soon as
+                        // something is entered into the field
+                        if (this.state.invalidMoney)
+                            this.setState({ invalidMoney: null })
                     }}
+                    invalidStyles={this.state.invalidMoney}
                 />
                 <DateField
                     date={this.state.dateAdded}
@@ -99,7 +116,31 @@ class TransactionCard extends Component {
                                 ...this.state,
                                 amount: parseFloat(this.state.amount)
                             },
-                            () => this.onSubmit(this.state)
+                            () => {
+                                if (!this.state.title && !this.state.amount) {
+                                    this.setState({
+                                        ...this.state,
+                                        amount: '',
+                                        invalidTitle: this.invalid,
+                                        invalidMoney: this.invalid
+                                    })
+                                } else if (!this.state.title) {
+                                    this.setState({
+                                        ...this.state,
+                                        invalidTitle: this.invalid,
+                                        invalidMoney: null
+                                    })
+                                } else if (!this.state.amount) {
+                                    this.setState({
+                                        ...this.state,
+                                        amount: '',
+                                        invalidTitle: null,
+                                        invalidMoney: this.invalid
+                                    })
+                                } else {
+                                    this.onSubmit(this.state)
+                                }
+                            }
                         )
                     }}
                 />
