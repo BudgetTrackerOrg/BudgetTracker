@@ -9,8 +9,13 @@ const FooterButton = props => {
                 <View style={styles.innerView}>
                     <Icon
                         name={props.icon}
-                        size={30}
-                        style={{ ...styles.color, ...props.iconStyle }}
+                        size={props.focused ? 35 : 30}
+                        style={{
+                            ...styles.color,
+                            ...(props.focused
+                                ? styles.focused
+                                : props.iconStyle)
+                        }}
                     />
                     {/* <Text style={styles.color}>{props.title}</Text> */}
                 </View>
@@ -35,5 +40,8 @@ const styles = {
     },
     color: {
         color: '#EEE'
+    },
+    focused: {
+        color: '#ff9700'
     }
 }
