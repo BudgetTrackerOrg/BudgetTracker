@@ -138,7 +138,15 @@ class TransactionCard extends Component {
                                         invalidMoney: this.invalid
                                     })
                                 } else {
-                                    this.onSubmit(this.state)
+                                    this.setState(
+                                        // This is placed onSubmit and not onChangeText
+                                        // because trim() has very strange behaviour
+                                        // when applied to onChangeText
+                                        // If a better alternative is found,
+                                        // please go ahead
+                                        { title: this.state.title.trim() },
+                                        () => this.onSubmit(this.state)
+                                    )
                                 }
                             }
                         )
