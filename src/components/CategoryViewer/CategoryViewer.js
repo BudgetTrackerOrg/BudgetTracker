@@ -10,16 +10,19 @@ import { categories, functions } from '../../globals'
 import TransactionCard from '../TransactionCard/TransactionCard'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
+import CancelButton from '../Field/CancelButton'
 
 class CategoryViewer extends React.Component {
     constructor(props) {
         super(props)
         this.state = { lastOptionsOpenedInfo: null }
+        this.transCard = React.createRef()
     }
 
     timeFrame = 'month'
     popupDialog = null
     editDialog = null
+
     showPopUp(lastOptionsOpenedInfo) {
         this.setState({
             ...this.state,
@@ -41,7 +44,7 @@ class CategoryViewer extends React.Component {
                 <PopupDialog
                     containerStyle={{ zIndex: 3 }}
                     width={0.9}
-                    height={430}
+                    height={530}
                     ref={editDialog => {
                         this.editDialog = editDialog
                     }}
@@ -51,6 +54,13 @@ class CategoryViewer extends React.Component {
                         })
                     }
                 >
+                    <CancelButton
+                        iconColor={'#212121'}
+                        onPress={() => {
+                            this.editDialog.dismiss()
+                            this.popupDialog.show()
+                        }}
+                    />
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>
                         Edit Details{' '}
                         {this.state.lastOptionsOpenedInfo == null
@@ -58,6 +68,9 @@ class CategoryViewer extends React.Component {
                             : this.state.lastOptionsOpenedInfo.title}
                     </Text>
                     <TransactionCard
+                        ref={transCard => {
+                            this.transCard = transCard
+                        }}
                         title={
                             this.state.lastOptionsOpenedInfo == null
                                 ? null
@@ -80,7 +93,15 @@ class CategoryViewer extends React.Component {
                         }
                         titlePlaceholder="What did you buy?"
                         submitBtnText="Update"
-                        onSubmit={() => {}}
+                        onSubmit={updatedTransaction => {
+                            this.editDialog.dismiss()
+                            this.props.editTransactionCallback(
+                                updatedTransaction,
+                                this.state.lastOptionsOpenedInfo == null
+                                    ? null
+                                    : this.state.lastOptionsOpenedInfo.id
+                            )
+                        }}
                     />
                 </PopupDialog>
 
@@ -110,12 +131,12 @@ class CategoryViewer extends React.Component {
                         editTransactionCallback={() => {
                             this.popupDialog.dismiss()
                             this.editDialog.show()
+                            this.transCard.updateStateWithProps() //needed to update the form with the props passed
                         }}
                     />
                 </PopupDialog>
 
                 <View style={{ flex: 1 }}>
-                    {/* {timeFrame} */}
                     <CategorySummary
                         backButtonOnPress={() => this.props.navigation.goBack()}
                         showBackButton={this.props.showBackButton}
@@ -137,6 +158,7 @@ class CategoryViewer extends React.Component {
                                 title={expense.title}
                                 amount={expense.amount}
                                 dateAdded={expense.dateAdded}
+                                category={expense.category}
                                 onLongPress={transactionInfo =>
                                     this.showPopUp(transactionInfo)
                                 }
