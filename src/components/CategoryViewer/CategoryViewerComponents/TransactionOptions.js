@@ -4,11 +4,18 @@ import { functions } from '../../../globals'
 
 export default props => {
     return (
-        <View style={{ height: 50 }}>
-            <Text style={{ ...styles.text, fontSize: 32, fontWeight: 'bold' }}>
+        <View style={{ height: 70, paddingTop: 10 }}>
+            <Text style={{ ...styles.text, marginBottom: 0, fontSize: 20 }}>
                 {functions.toTitleCase(props.transactionInfo.title)}
             </Text>
-            <Text style={styles.text}>
+            <Text
+                style={{
+                    ...styles.text,
+                    fontSize: 52,
+                    fontWeight: 'bold',
+                    marginTop: 0
+                }}
+            >
                 {functions.formatCurrency(props.transactionInfo.amount)}
             </Text>
             <Text style={{ ...styles.text, marginTop: 5, marginBottom: 15 }}>
@@ -53,8 +60,9 @@ const styles = {
         color: 'white'
     },
     text: {
-        textAlign: 'center',
+        textAlign: 'left',
         margin: 4,
+        marginLeft: 20,
         fontSize: 10
     }
 }
