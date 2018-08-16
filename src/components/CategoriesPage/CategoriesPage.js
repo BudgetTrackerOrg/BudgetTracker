@@ -22,11 +22,8 @@ export class CategoriesPage extends Component {
                             categoryIcon={categories[category].displayIcon}
                             categoryName={categories[category].displayTitle}
                             percentageColor={categories[category].color}
-                            disabled={
-                                expensesResult.categories[category] == undefined
-                            }
                             percentage={
-                                expensesResult.categories[category] != undefined
+                                expensesResult.categories[category]
                                     ? expensesResult.categories[category]
                                           .percentage
                                     : 0
