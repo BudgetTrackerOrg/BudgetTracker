@@ -2,6 +2,8 @@ import React from 'react'
 import { Picker } from 'react-native-picker-dropdown'
 import styles from './Field.scss'
 
+import { categories } from '../../globals'
+
 const CategoryField = props => {
     return (
         <Picker
@@ -11,11 +13,11 @@ const CategoryField = props => {
             mode="dropdown"
             prompt="Select Category"
         >
-            {props.categories.map(category => {
+            {Object.keys(categories).map(category => {
                 return (
                     <Picker.Item
                         key={category}
-                        label={category}
+                        label={categories[category].displayTitle}
                         value={category}
                     />
                 )

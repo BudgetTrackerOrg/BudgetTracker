@@ -137,7 +137,6 @@ class CategoryViewer extends React.Component {
                 </PopupDialog>
 
                 <View style={{ flex: 1 }}>
-                    {/* {timeFrame} */}
                     <CategorySummary
                         backButtonOnPress={() => this.props.navigation.goBack()}
                         showBackButton={this.props.showBackButton}
@@ -159,6 +158,7 @@ class CategoryViewer extends React.Component {
                                 title={expense.title}
                                 amount={expense.amount}
                                 dateAdded={expense.dateAdded}
+                                category={expense.category}
                                 onLongPress={transactionInfo =>
                                     this.showPopUp(transactionInfo)
                                 }
