@@ -1,6 +1,10 @@
 // All action "types" can be imported from the root of the "actions" directory
 // Future action types can also be imported from here
-import { ADD_TRANSACTION, DELETE_TRANSACTION } from '../actions'
+import {
+    ADD_TRANSACTION,
+    DELETE_TRANSACTION,
+    EDIT_TRANSACTION
+} from '../actions'
 
 export default (state = demoState(), action) => {
     switch (action.type) {
@@ -9,6 +13,9 @@ export default (state = demoState(), action) => {
             break
         case DELETE_TRANSACTION:
             return deleteTransaction(state, action.payload)
+            break
+        case EDIT_TRANSACTION:
+            return editTransaction(state, action.payload)
             break
         default:
             return state
@@ -30,6 +37,19 @@ const deleteTransaction = (state, id) => {
     for (let i = 0; i < expenses.length; ++i) {
         if (expenses[i].id === id) {
             expenses.splice(i, 1)
+            return { ...state, expenses }
+        }
+    }
+
+    return state
+}
+
+const editTransaction = (state, updatedTransaction) => {
+    expenses = state.expenses.slice() //copying by value, to avoid mutation
+
+    for (let i = 0; i < expenses.length; ++i) {
+        if (expenses[i].id === updatedTransaction.id) {
+            expenses[i] = updatedTransaction
             return { ...state, expenses }
         }
     }

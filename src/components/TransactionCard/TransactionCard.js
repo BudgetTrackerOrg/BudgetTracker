@@ -17,12 +17,10 @@ class TransactionCard extends Component {
             title: '',
             amount: '',
             dateAdded: new Date(),
-            displayCategory:
-                categories[Object.keys(categories)[0]].displayTitle,
-            category: this.getKeyFromDisplayText(this.displayCategory),
+            category: categories[Object.keys(categories)[0]].displayTitle,
             invalidTitle: null,
             invalidMoney: null
-        } // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker // "category" is for the KEY, which is used for the Redux State // There are two state properties pertaining to CATEGORY // Changes styling if fields are invalid
+        }
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
     }
@@ -40,19 +38,35 @@ class TransactionCard extends Component {
     }
 
     onSubmit(data) {
-        this.props.onSubmit(data)
+        let finalValues = {
+            title: data.title,
+            amount: data.amount,
+            dateAdded: data.dateAdded,
+            category: data.category
+        }
+        this.props.onSubmit(finalValues)
         this.setState(this.baseState)
     }
 
+    updateStateWithProps() {
+        this.setState({
+            title: this.props.title ? this.props.title : this.state.title,
+            amount: this.props.amount ? this.props.amount : this.state.amount,
+            dateAdded: this.props.dateAdded
+                ? this.props.dateAdded
+                : this.state.dateAdded,
+            category: this.props.category
+                ? this.props.category
+                : this.state.category
+        })
+    }
+
     render() {
-        console.log(this.state.title)
         return (
             <Card style={styles.form__fields}>
                 <Field
                     placeholder={this.props.titlePlaceholder}
-                    value={
-                        this.props.title ? this.props.title : this.state.title
-                    }
+                    value={this.state.title}
                     onChangeText={title => {
                         this.setState({ ...this.state, title })
                         // If field was previously invalid, it validates as soon as
@@ -65,12 +79,7 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    value={
-                        '$' +
-                        (this.props.amount
-                            ? this.props.amount
-                            : this.state.amount)
-                    }
+                    value={'$' + this.state.amount}
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 
@@ -89,38 +98,26 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidMoney}
                 />
                 <DateField
-                    date={
-                        this.props.dateAdded
-                            ? this.props.dateAdded
-                            : this.state.dateAdded
-                    }
-                    onDateChange={date =>
+                    date={this.state.dateAdded}
+                    onDateChange={date => {
+                        // doing the following because param which is being passed in is a string, which breaks things
+                        date = date.split('-')
+                        date = new Date(date[2], parseInt(date[0]) - 1, date[1])
+
                         this.setState({
                             ...this.state,
                             dateAdded: date
                         })
-                    }
+                    }}
                 />
                 <CategoryField
-                    categories={
-                        Object.keys(categories).map(
-                            category => categories[category].displayTitle
-                        ) // Fetches the list of categories from the global file
-                    }
                     onValueChange={category =>
                         this.setState({
                             ...this.state,
-                            category: this.getKeyFromDisplayText(category),
-                            // See comments in the constructor for explanation of
-                            // "category" and "displayCategory"
-                            displayCategory: category
+                            category
                         })
                     }
-                    selectedValue={
-                        this.props.category
-                            ? this.props.category
-                            : this.state.displayCategory
-                    }
+                    selectedValue={this.state.category}
                 />
                 <FormButton
                     buttonText={this.props.submitBtnText}
