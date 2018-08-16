@@ -32,7 +32,6 @@ export class MainPage extends Component {
                     <CategoriesPage expenses={this.props.expenses} />,
                     <ContentViewer backButton={false}>
                         <CategoryViewer
-                            category={'FOOD'}
                             expenses={this.props.expenses}
                             deleteTransactionCallback={
                                 this.props.deleteTransactionCallback

@@ -108,7 +108,7 @@ class CategoryViewer extends React.Component {
                 <PopupDialog
                     containerStyle={{ zIndex: 3 }}
                     width={0.8}
-                    height={230}
+                    height={270}
                     ref={popupDialog => {
                         this.popupDialog = popupDialog
                     }}
@@ -141,11 +141,12 @@ class CategoryViewer extends React.Component {
                         backButtonOnPress={() => this.props.navigation.goBack()}
                         showBackButton={this.props.showBackButton}
                         totalAmount={functions.getTotalAmount(
-                            this.props.expenses,
-                            this.props.category
+                            this.props.expenses
                         )}
                         categoryTitle={
-                            categories[this.props.category].displayTitle
+                            this.props.category
+                                ? categories[this.props.category].displayTitle
+                                : null
                         }
                     />
                 </View>
