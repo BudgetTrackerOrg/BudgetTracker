@@ -17,12 +17,10 @@ class TransactionCard extends Component {
             title: '',
             amount: '',
             dateAdded: new Date(),
-            displayCategory:
-                categories[Object.keys(categories)[0]].displayTitle,
-            category: this.getKeyFromDisplayText(this.displayCategory),
+            category: categories[Object.keys(categories)[0]].displayTitle,
             invalidTitle: null,
             invalidMoney: null
-        } // "displayCategory" is for the DROPDOWN MENU VALUE, for the Picker // "category" is for the KEY, which is used for the Redux State // There are two state properties pertaining to CATEGORY // Changes styling if fields are invalid
+        }
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
     }
@@ -44,7 +42,7 @@ class TransactionCard extends Component {
             title: data.title,
             amount: data.amount,
             dateAdded: data.dateAdded,
-            category: this.getKeyFromDisplayText(data.displayCategory)
+            category: data.category
         }
         this.props.onSubmit(finalValues)
         this.setState(this.baseState)
@@ -57,14 +55,9 @@ class TransactionCard extends Component {
             dateAdded: this.props.dateAdded
                 ? this.props.dateAdded
                 : this.state.dateAdded,
-            displayCategory: this.props.displayCategory
-                ? this.props.displayCategory
-                : this.state.displayCategory,
-            category: this.getKeyFromDisplayText(
-                this.props.displayCategory
-                    ? this.props.displayCategory
-                    : this.state.displayCategory
-            )
+            category: this.props.category
+                ? this.props.category
+                : this.state.category
         })
     }
 
@@ -106,29 +99,25 @@ class TransactionCard extends Component {
                 />
                 <DateField
                     date={this.state.dateAdded}
-                    onDateChange={date =>
+                    onDateChange={date => {
+                        // doing the following because param which is being passed in is a string, which breaks things
+                        date = date.split('-')
+                        date = new Date(date[2], parseInt(date[0]) - 1, date[1])
+
                         this.setState({
                             ...this.state,
                             dateAdded: date
                         })
-                    }
+                    }}
                 />
                 <CategoryField
-                    categories={
-                        Object.keys(categories).map(
-                            category => categories[category].displayTitle
-                        ) // Fetches the list of categories from the global file
-                    }
                     onValueChange={category =>
                         this.setState({
                             ...this.state,
-                            category: this.getKeyFromDisplayText(category),
-                            // See comments in the constructor for explanation of
-                            // "category" and "displayCategory"
-                            displayCategory: category
+                            category
                         })
                     }
-                    selectedValue={this.state.displayCategory}
+                    selectedValue={this.state.category}
                 />
                 <FormButton
                     buttonText={this.props.submitBtnText}
