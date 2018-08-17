@@ -17,7 +17,7 @@ class TransactionCard extends Component {
             title: '',
             amount: '',
             dateAdded: new Date(),
-            category: categories[Object.keys(categories)[0]].displayTitle,
+            category: Object.keys(categories)[0],
             invalidTitle: null,
             invalidMoney: null
         }
