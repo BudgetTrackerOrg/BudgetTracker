@@ -4,13 +4,15 @@ import { ScrollView, StyleSheet, Platform, Text, View } from 'react-native'
 export default props => {
     return (
         <ScrollView style={styles.main} bounces={true}>
-            {props.children}
+            {props.children.length > 0 ? (
+                props.children
+            ) : (
+                <Text style={{ textAlign: 'center' }}>
+                    No Transactions added
+                </Text>
+            )}
             {/* using this view to add space at the end of the list */}
-            <View
-                style={{
-                    height: 50
-                }}
-            />
+            <View style={{ height: 50 }} />
         </ScrollView>
     )
 }
