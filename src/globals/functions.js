@@ -67,6 +67,9 @@ export default {
 
     formatCurrency(amount) {
         if (amount === undefined) return
-        return '$' + amount
+        // toFixed(2) converts to 2 decimal places
+        // This does not affect the math calculations
+        // Only the value which is displayed
+        return '$' + amount.toFixed(2)
     }
 }
