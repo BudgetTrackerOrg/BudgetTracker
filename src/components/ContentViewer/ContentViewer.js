@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Button, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 export default props => {
     return (
