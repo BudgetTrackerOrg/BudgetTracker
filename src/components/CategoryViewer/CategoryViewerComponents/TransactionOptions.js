@@ -20,7 +20,7 @@ export default props => {
             </Text>
             <Text style={{ ...styles.text, marginTop: 5, marginBottom: 15 }}>
                 Added on{' '}
-                {/* {functions.toSimpleDateString(props.transactionInfo.dateAdded)} */}
+                {functions.toSimpleDateString(props.transactionInfo.dateAdded)}
             </Text>
             <View>
                 <TouchableOpacity

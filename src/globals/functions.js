@@ -23,9 +23,18 @@ export default {
 
     toSimpleDateString(date) {
         if (date === undefined) return
-        let str = MONTHS[date.getMonth()]
-        str += ' ' + date.getDate()
-        str += ', ' + date.getFullYear()
+        // NOTE
+        // props.dateAdded returns with a format of
+        // ex: 1969-07-20T07:20:18.000Z
+        // which we cannot apply getMonth, getDate, and getFullYear to.
+        // They all follow the same format, so substrings are applied equally.
+
+        // let str = MONTHS[date.getMonth()]
+        let str = MONTHS[parseInt(date.substr(5, 2)) - 1]
+        // str += ' ' + date.getDate()
+        str += ' ' + date.substr(8, 2)
+        // str += ', ' + date.getFullYear()
+        str += ', ' + date.substr(0, 4)
         return str
     },
 
@@ -36,7 +45,7 @@ export default {
         for (let i in expenses) {
             total += expenses[i].amount
 
-            if (categories[expenses[i].category] == undefined)
+            if (categories[expenses[i].category] === undefined)
                 categories[expenses[i].category] = {}
 
             if (categories[expenses[i].category]['total'] != undefined) {
