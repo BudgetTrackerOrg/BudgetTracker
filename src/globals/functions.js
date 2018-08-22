@@ -36,7 +36,7 @@ export default {
         for (let i in expenses) {
             total += expenses[i].amount
 
-            if (categories[expenses[i].category] == undefined)
+            if (categories[expenses[i].category] === undefined)
                 categories[expenses[i].category] = {}
 
             if (categories[expenses[i].category]['total'] != undefined) {

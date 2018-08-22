@@ -17,7 +17,9 @@ export default props => {
                         {functions.toTitleCase(props.title)}
                     </Text>
                     <Text style={styles.date}>
-                        {functions.toSimpleDateString(props.dateAdded)}
+                        {functions.toSimpleDateString(
+                            new Date(props.dateAdded)
+                        )}
                     </Text>
                 </View>
                 <View style={styles.right}>
