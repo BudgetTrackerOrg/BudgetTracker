@@ -6,7 +6,7 @@ import {
     EDIT_TRANSACTION
 } from '../actions'
 
-export default (state = demoState(), action) => {
+export default (state = initialState(), action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
             return addTransaction(state, action.payload)

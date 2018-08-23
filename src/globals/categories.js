@@ -11,7 +11,7 @@ export default {
     },
     FOOD: {
         displayTitle: 'Food',
-        displayIcon: 'cookie',
+        displayIcon: 'utensils',
         color: '#57c933'
     },
     BILLS: {
