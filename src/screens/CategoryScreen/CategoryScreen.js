@@ -1,14 +1,13 @@
-import React from 'react'
-import { ContentViewer, CategoryViewer } from '../../components'
-
-import styles from './CategoryScreen.scss'
-import { colors } from '../../globals'
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
-import { bindActionCreators } from 'redux'
+import { ContentViewer, CategoryViewer } from '../../components'
+import styles from './CategoryScreen.scss'
+import { colors } from '../../globals'
 import { deleteTransaction, editTransaction } from '../../store/actions'
 
-class CategoryScreen extends React.Component {
+class CategoryScreen extends Component {
     render() {
         const category = this.props.navigation.getParam('category', 'all')
         const expenses = this.props.expenses.filter(expense => {
