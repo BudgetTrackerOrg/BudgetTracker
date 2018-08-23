@@ -1,5 +1,12 @@
+import { FIRST_TIME_OPEN_ACTION } from '../actions'
+
 export default (state = initialState(), action) => {
-    return state
+    switch (action.type) {
+        case FIRST_TIME_OPEN_ACTION:
+            return { ...state, isFirstTimeOpened: false }
+        default:
+            return state
+    }
 }
 
 const initialState = () => {
@@ -9,6 +16,6 @@ const initialState = () => {
             Math.random()
                 .toString(36)
                 .substr(2, 9),
-        totalSum: 0
+        isFirstTimeOpened: true
     }
 }

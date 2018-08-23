@@ -1,13 +1,13 @@
 import React from 'react'
-import { HomeScreen } from './screens'
-import { CategoryScreen } from './screens'
+import { HomeScreen, CategoryScreen, OnboardingScreen } from './screens'
 
 import { createStackNavigator } from 'react-navigation'
 
 const RootStack = createStackNavigator(
     {
         Home: HomeScreen,
-        Category: CategoryScreen
+        Category: CategoryScreen,
+        Onboarding: OnboardingScreen
     },
     {
         initialRouteName: 'Home',

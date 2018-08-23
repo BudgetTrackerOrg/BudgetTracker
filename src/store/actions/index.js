@@ -4,3 +4,7 @@ export {
     default as deleteTransaction,
     DELETE_TRANSACTION
 } from './deleteTransaction'
+export {
+    default as firstTimeOpened,
+    FIRST_TIME_OPEN_ACTION
+} from './firstTimeOpened'
