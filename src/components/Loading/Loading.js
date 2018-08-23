@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { colors } from '../../globals'
 
@@ -11,17 +11,17 @@ const Loading = () => {
             colors={colors.backgroundGradient}
             style={styles.container}
         >
-            <ActivityIndicator size="large" color="red" />
+            <ActivityIndicator size="large" />
         </LinearGradient>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     }
-})
+}
 
 export default Loading
