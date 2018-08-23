@@ -7,12 +7,23 @@ import LinearGradient from 'react-native-linear-gradient'
 import { bindActionCreators } from 'redux'
 import { colors } from '../../globals'
 import { connect } from 'react-redux'
-import { addTransaction, deleteTransaction } from '../../store/actions'
+import {
+    addTransaction,
+    deleteTransaction,
+    firstTimeOpened
+} from '../../store/actions'
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = { currentPage: 0 }
+    }
+    componentDidMount() {
+        console.log(this.props.isFirstTimeOpened)
+        if (this.props.isFirstTimeOpened) {
+            this.props.firstTimeOpened()
+            this.props.navigation.navigate('Onboarding')
+        }
     }
 
     gotoCategoryScreen() {
@@ -112,6 +123,7 @@ const mapStateToProps = state => {
     return {
         // Keys referenced in this file as -> this.props.userID
         userID: state.main.id,
+        isFirstTimeOpened: state.main.isFirstTimeOpened,
         expenses: state.transaction.expenses
     }
 }
@@ -119,7 +131,10 @@ const mapStateToProps = state => {
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
-    return bindActionCreators({ addTransaction, deleteTransaction }, dispatch)
+    return bindActionCreators(
+        { addTransaction, deleteTransaction, firstTimeOpened },
+        dispatch
+    )
 }
 
 export default connect(
