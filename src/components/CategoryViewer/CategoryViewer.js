@@ -152,39 +152,26 @@ class CategoryViewer extends Component {
                     />
                 </View>
                 <View style={{ flex: 3, zIndex: 1 }}>
-                    <TransactionList>
-                        {/* {this.props.expenses.map(expense => (
-                            <TransactionListItem
-                                key={expense.id}
-                                id={expense.id}
-                                title={expense.title}
-                                amount={expense.amount}
-                                dateAdded={expense.dateAdded}
-                                category={expense.category}
-                                onLongPress={transactionInfo =>
-                                    this.showPopUp(transactionInfo)
-                                }
-                            />
-                        ))} */}
-                        <FlatList
-                            data={this.props.expenses}
-                            renderItem={({ expense }) => (
+                    <TransactionList
+                        data={this.props.expenses}
+                        renderItem={expense => {
+                            return (
                                 <TransactionListItem
-                                    key={expense.id}
-                                    id={expense.id}
-                                    title={expense.title}
-                                    amount={expense.amount}
-                                    dateAdded={expense.dateAdded}
-                                    category={expense.category}
+                                    key={expense.item.id}
+                                    id={expense.item.id}
+                                    title={expense.item.title}
+                                    amount={expense.item.amount}
+                                    dateAdded={expense.item.dateAdded}
+                                    category={expense.item.category}
                                     onLongPress={transactionInfo =>
                                         this.showPopUp(transactionInfo)
                                     }
                                 />
-                            )}
-                            extraData={this.state}
-                            keyExtractor={expense => expense.id}
-                        />
-                    </TransactionList>
+                            )
+                        }}
+                        extraData={this.state}
+                        keyExtractor={expense => expense.id}
+                    />
                 </View>
             </View>
         )
