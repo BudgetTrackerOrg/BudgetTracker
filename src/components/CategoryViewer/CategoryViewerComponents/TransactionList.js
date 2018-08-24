@@ -1,23 +1,20 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Platform, Text, View } from 'react-native'
+import { ScrollView, Platform, FlatList } from 'react-native'
 
 export default props => {
     return (
-        <ScrollView style={styles.main} bounces={true}>
-            {props.children.length > 0 ? (
-                props.children
-            ) : (
-                <Text style={{ textAlign: 'center' }}>
-                    No Transactions added
-                </Text>
-            )}
-            {/* using this view to add space at the end of the list */}
-            <View style={{ height: 50 }} />
+        <ScrollView style={styles.main} bounces={false}>
+            <FlatList
+                data={props.data}
+                renderItem={props.renderItem}
+                extraData={props.extraData}
+                keyExtractor={props.keyExtractor}
+            />
         </ScrollView>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = {
     main: {
         backgroundColor: '#f4f4f4',
         borderTopLeftRadius: 20,
@@ -36,4 +33,4 @@ const styles = StyleSheet.create({
             }
         })
     }
-})
+}
