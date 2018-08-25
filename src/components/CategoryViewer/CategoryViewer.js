@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, FlatList } from 'react-native'
 import {
     CategorySummary,
     TransactionList,
@@ -12,7 +12,7 @@ import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import CancelButton from '../Field/CancelButton'
 
-class CategoryViewer extends React.Component {
+class CategoryViewer extends Component {
     constructor(props) {
         super(props)
         this.state = { lastOptionsOpenedInfo: null }
@@ -38,6 +38,7 @@ class CategoryViewer extends React.Component {
         })
         this.popupDialog.dismiss()
     }
+
     render() {
         return (
             <View>
@@ -151,21 +152,26 @@ class CategoryViewer extends React.Component {
                     />
                 </View>
                 <View style={{ flex: 3, zIndex: 1 }}>
-                    <TransactionList>
-                        {this.props.expenses.map(expense => (
-                            <TransactionListItem
-                                key={expense.id}
-                                id={expense.id}
-                                title={expense.title}
-                                amount={expense.amount}
-                                dateAdded={expense.dateAdded}
-                                category={expense.category}
-                                onLongPress={transactionInfo =>
-                                    this.showPopUp(transactionInfo)
-                                }
-                            />
-                        ))}
-                    </TransactionList>
+                    <TransactionList
+                        data={this.props.expenses}
+                        renderItem={expense => {
+                            return (
+                                <TransactionListItem
+                                    key={expense.item.id}
+                                    id={expense.item.id}
+                                    title={expense.item.title}
+                                    amount={expense.item.amount}
+                                    dateAdded={expense.item.dateAdded}
+                                    category={expense.item.category}
+                                    onLongPress={transactionInfo =>
+                                        this.showPopUp(transactionInfo)
+                                    }
+                                />
+                            )
+                        }}
+                        extraData={this.state}
+                        keyExtractor={expense => expense.id}
+                    />
                 </View>
             </View>
         )

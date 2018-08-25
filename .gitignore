@@ -1,4 +1,8 @@
 
+# API KEYS
+#
+.env
+
 # OSX
 #
 .DS_Store
