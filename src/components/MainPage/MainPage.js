@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import CategoriesPage from '../CategoriesPage/CategoriesPage'
 import MultiViewSwitch from '../MultiViewSwitch/MultiViewSwitch'
