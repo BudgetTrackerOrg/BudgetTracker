@@ -28,8 +28,7 @@ class HomeScreen extends React.Component {
         this.state = { currentPage: 0 }
     }
     componentDidMount() {
-        console.log(this.props.isFirstTimeOpened)
-        if (this.props.isFirstTimeOpened) {
+        if (this.props.isFirstTimeOpened || true) {
             this.props.firstTimeOpened()
             this.props.navigation.navigate('Onboarding')
         }

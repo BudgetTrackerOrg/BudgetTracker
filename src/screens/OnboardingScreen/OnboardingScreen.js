@@ -23,7 +23,7 @@ class OnboardingScreen extends Component {
                 <Text style={styles.text}>
                     Login with your Google account, to backup your data!
                 </Text>
-                {/* <GoogleSigninButton style={{ width: 48, height: 48 }} /> */}
+                <GoogleSigninButton style={{ width: 48, height: 48 }} />
                 <TouchableHighlight
                     onPress={() => {
                         this.props.navigation.navigate('Home')
