@@ -1,6 +1,7 @@
-# Configuration
+
+# API KEYS
 #
-config.js
+.env
 
 # OSX
 #
