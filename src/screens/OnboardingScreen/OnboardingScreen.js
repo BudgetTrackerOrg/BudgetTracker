@@ -3,7 +3,7 @@ import { Text, TouchableHighlight } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { colors } from '../../globals'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
+import { GoogleSigninButton } from 'react-native-google-signin'
 
 class OnboardingScreen extends Component {
     render() {
@@ -24,10 +24,13 @@ class OnboardingScreen extends Component {
                     Login with your Google account, to backup your data!
                 </Text>
                 <GoogleSigninButton
-                    style={{ width: 48, height: 48 }}
-                    size={GoogleSigninButton.Size.Icon}
-                    color={GoogleSigninButton.Color.Dark}
-                    onPress={() => {}}
+                    style={{ width: 312, height: 48 }}
+                    size={GoogleSigninButton.Size.Wide}
+                    color={GoogleSigninButton.Color.Light}
+                    onPress={this.props.navigation.getParam(
+                        'signInCallback',
+                        () => {}
+                    )}
                     disabled={false}
                 />
                 <TouchableHighlight

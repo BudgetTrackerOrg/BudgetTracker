@@ -58,7 +58,7 @@
 		CA61F6457594FC4258FB346D /* libPods-BudgetTracker-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A046F20C145319FDE719E0 /* libPods-BudgetTracker-tvOSTests.a */; };
 		CA64A531E7FD427A8088E558 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D6702F5229846E9A552F134 /* AddressBook.framework */; };
 		CFE8A5674E874D3AA649E85C /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A544C78107E647B9B641ED5C /* Feather.ttf */; };
-		DE39C6DD2131DE6200B7CC1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE39C6DC2131DE6200B7CC1D /* GoogleService-Info.plist */; };
+		DEA2BD572132300400353201 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEA2BD562132300400353201 /* GoogleService-Info.plist */; };
 		DEC71B5B2131E01900FA54FD /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC71B2C2131E01800FA54FD /* GoogleSymbolUtilities.framework */; };
 		DEC71B5C2131E01900FA54FD /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC71B562131E01800FA54FD /* GoogleSignIn.framework */; };
 		DEC71B5D2131E01900FA54FD /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC71B572131E01800FA54FD /* GoogleUtilities.framework */; };
@@ -427,7 +427,7 @@
 		ABCAE8D233A34C4C89C143CF /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B28DB0A40FF84062A21F2BD7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		DE39C6DC2131DE6200B7CC1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DEA2BD562132300400353201 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DEC71B2C2131E01800FA54FD /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleSymbolUtilities.framework"; sourceTree = "<group>"; };
 		DEC71B562131E01800FA54FD /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleSignIn.framework"; sourceTree = "<group>"; };
 		DEC71B572131E01800FA54FD /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = "../node_modules/react-native-google-signin/ios/GoogleSdk/GoogleUtilities.framework"; sourceTree = "<group>"; };
@@ -597,6 +597,7 @@
 		13B07FAE1A68108700A75B9A /* BudgetTracker */ = {
 			isa = PBXGroup;
 			children = (
+				DEA2BD562132300400353201 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -604,7 +605,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				DE39C6DC2131DE6200B7CC1D /* GoogleService-Info.plist */,
 			);
 			name = BudgetTracker;
 			sourceTree = "<group>";
@@ -1308,7 +1308,7 @@
 				96110701826A44658C4A2B44 /* Foundation.ttf in Resources */,
 				93953FC784544E88816C2CE4 /* Ionicons.ttf in Resources */,
 				4E54516A7BFE4168A94EA5AC /* MaterialCommunityIcons.ttf in Resources */,
-				DE39C6DD2131DE6200B7CC1D /* GoogleService-Info.plist in Resources */,
+				DEA2BD572132300400353201 /* GoogleService-Info.plist in Resources */,
 				BF478A9B94BC43FB9B264388 /* MaterialIcons.ttf in Resources */,
 				E5EBB2BC6F784793B639565F /* Octicons.ttf in Resources */,
 				F85B7493D394444995E9FEA9 /* SimpleLineIcons.ttf in Resources */,
