@@ -1,7 +1,9 @@
 
-# API KEYS
+# API Keys
 #
 .env
+android/app/src/main/google-services.json
+android/app/google-services.json
 
 # OSX
 #
