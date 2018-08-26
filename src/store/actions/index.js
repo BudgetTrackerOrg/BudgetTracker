@@ -8,3 +8,4 @@ export {
     default as firstTimeOpened,
     FIRST_TIME_OPEN_ACTION
 } from './firstTimeOpened'
+export { default as setUserInfo, SET_USER_INFO } from './setUserInfo'
