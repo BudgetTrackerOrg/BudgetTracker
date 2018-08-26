@@ -18,12 +18,7 @@ import {
 } from 'react-native-dotenv'
 
 class rootApp extends Component {
-    //
-    // TODO
-    // wire this functionality up to the save button when the user
-    // wants to back their data up
-    //
-    componentWillMount() {
+    backupToFirebase() {
         const config = {
             apiKey: API_KEY,
             authDomain: AUTH_DOMAIN,
@@ -39,7 +34,7 @@ class rootApp extends Component {
             .ref('users/001') // change to the user's Google account info later || unique id reducer
             .set({
                 name: 'testing testing', // change to the user's Google account info later
-                spendings: "i'll change this to redux state later" // change to the redux state later
+                data: store
             })
             .then(() => {
                 console.log('INSERTED')
