@@ -1,7 +1,7 @@
 # BudgetTracker
 
 ## Dev Env Setup
-
+**Requires Python 2 to be [installed](https://www.python.org/downloads/release/python-2715/)
 ### Firebase Config files
 
 Download 'google-services.json' from firebase console, and place in the following location:
