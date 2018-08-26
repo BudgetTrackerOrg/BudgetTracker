@@ -1,5 +1,23 @@
 # BudgetTracker
 
+## Dev Env Setup
+**Requires Python 2 to be [installed](https://www.python.org/downloads/release/python-2715/)
+### Firebase Config files
+
+Download 'google-services.json' from firebase console, and place in the following location:
+
+- `./android/app/<here>`
+- `./android/src/main/<here>`
+
+Download 'GoogleService-Info.plist' from firebase console, and place in the following location:
+- `./ios/<here>`
+
+### Generate .env file
+
+Run `npm run genenv`
+
+Get the Web API key from firebase and place the api key in the .env file
+
 ## Practices to follow:
 
 -   **NEVER** format code, this can cause unnecessary conflicts in commits
