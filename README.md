@@ -5,11 +5,12 @@
 ### Firebase Config files
 
 Download 'google-services.json' from firebase console, and place in the following location:
-`./android/app/<here>`
-`./android/src/main/<here>`
+
+- `./android/app/<here>`
+- `./android/src/main/<here>`
 
 Download 'GoogleService-Info.plist' from firebase console, and place in the following location:
-`./ios/<here>`
+- `./ios/<here>`
 
 ### Generate .env file
 
