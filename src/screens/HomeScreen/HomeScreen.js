@@ -21,13 +21,14 @@ import {
 } from '../../store/actions'
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { GoogleSignin, statusCodes } from 'react-native-google-signin'
+import Connections from '../../Connections'
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = { currentPage: 0, userInfo: null }
     }
+
     componentDidMount() {
         if (this.props.isFirstTimeOpened || true) {
             this.props.firstTimeOpened()
@@ -36,42 +37,21 @@ class HomeScreen extends React.Component {
             })
         }
 
-        //set up google AUTH
-        GoogleSignin.configure({
-            ...Platform.select({
-                ios: {
-                    iosClientId:
-                        '496467650392-p8ci0mvhmnp4j6kf0lgd3rb3fk7a90q8.apps.googleusercontent.com'
-                },
-                android: {}
-            }),
-            webClientId:
-                '496467650392-u18865o2mjs0nilsr1shm7d3b1b6gcaf.apps.googleusercontent.com',
-            offlineAccess: false
-        })
+        Connections.init()
     }
 
     signIn = async () => {
-        console.log('starting login...')
-        try {
-            await GoogleSignin.hasPlayServices()
-            const userInfo = await GoogleSignin.signIn()
-            this.setState({ userInfo })
-            console.log(this.state.userInfo)
-        } catch (error) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                console.log('SIGN_IN_CANCELLED')
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                console.log('IN_PROGRESS')
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                console.log('PLAY_SERVICES_NOT_AVAILABLE')
-            } else {
-                console.log('OTHER')
-                console.log(error)
-                console.log({ error })
-                console.log(error.code)
-            }
-        }
+        let userInfo = await Connections.signIn()
+        this.setState({ ...this.state, userInfo }, () => {
+            console.log('Login Successful')
+        })
+    }
+
+    signOut = async () => {
+        await Connections.signOut()
+        this.setState({ ...this.state, userInfo: null }, () => {
+            console.log('Logout Successful')
+        })
     }
 
     gotoCategoryScreen() {
@@ -104,8 +84,17 @@ class HomeScreen extends React.Component {
                     <SidePanel
                         selectableOptions={[
                             {
-                                title: 'Sign In',
-                                onPress: this.closeSidePanel,
+                                title: this.state.userInfo
+                                    ? 'Sign out'
+                                    : 'Sign In',
+                                onPress: () => {
+                                    if (this.state.userInfo) {
+                                        this.signOut()
+                                    } else {
+                                        this.signIn()
+                                    }
+                                    this.closeSidePanel()
+                                },
                                 icon: 'google'
                             },
                             {
