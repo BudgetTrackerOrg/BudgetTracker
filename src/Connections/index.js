@@ -56,7 +56,7 @@ firebase.auth().onAuthStateChanged(user => {
     }
 
     store.dispatch(setUserInfo(userInfo))
-    this.backupToFirebase(user.uid, user.displayName)
+    this.backupToFirebase(userInfo.uid, userInfo.displayName)
 })
 
 backupToFirebase = (ref, name) => {
