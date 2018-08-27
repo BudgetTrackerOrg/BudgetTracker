@@ -27,10 +27,12 @@ class OnboardingScreen extends Component {
                     style={{ width: 312, height: 48 }}
                     size={GoogleSigninButton.Size.Wide}
                     color={GoogleSigninButton.Color.Light}
-                    onPress={this.props.navigation.getParam(
-                        'signInCallback',
-                        () => {}
-                    )}
+                    onPress={() => {
+                        this.props.navigation.getParam('signInCallback', () => {
+                            alert('Something is terribly wrong.')
+                        })()
+                        this.props.navigation.navigate('Home')
+                    }}
                     disabled={false}
                 />
                 <TouchableHighlight

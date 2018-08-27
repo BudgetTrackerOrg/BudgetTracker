@@ -17,6 +17,8 @@ project_id = data["project_info"]["project_id"]
 firebase_url = data["project_info"]["firebase_url"]
 storage_bucket = data["project_info"]["storage_bucket"]
 project_number = data["project_info"]["project_number"]
+ios_client_id = data["client"][0]["services"]["appinvite_service"]["other_platform_oauth_client"][1]["client_id"]
+web_client_id = data["client"][0]["services"]["appinvite_service"]["other_platform_oauth_client"][0]["client_id"]
 
 f= open(".env","w+")
 
@@ -26,5 +28,7 @@ f.write("REACT_APP_DATABASE_URL = '" + firebase_url + "'\n")
 f.write("REACT_APP_PROJECT_ID = '" + project_id + "'\n")
 f.write("REACT_APP_STORAGE_BUCKET = '" + storage_bucket + "'\n")
 f.write("REACT_APP_MESSAGING_SENDER_ID = '" + project_number + "'\n")
+f.write("REACT_APP_IOS_CLIENT_ID = '" + ios_client_id + "'\n")
+f.write("REACT_APP_WEB_CLIENT_ID = '" + web_client_id + "'\n")
 
 print('Generation complete, now get the Web API key from firebase and place the api key in the .env file')

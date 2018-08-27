@@ -19,16 +19,6 @@ import {
 
 class rootApp extends Component {
     backupToFirebase() {
-        const config = {
-            apiKey: API_KEY,
-            authDomain: AUTH_DOMAIN,
-            databaseURL: DATABASE_URL,
-            projectId: PROJECT_ID,
-            storageBucket: STORAGE_BUCKET,
-            messagingSenderId: MESSAGING_SENDER_ID
-        }
-        firebase.initializeApp(config)
-
         firebase
             .database()
             .ref('users/001') // change to the user's Google account info later || unique id reducer
