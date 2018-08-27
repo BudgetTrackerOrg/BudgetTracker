@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text } from 'react-native'
 import {
     CategorySummary,
     TransactionList,
@@ -85,7 +85,9 @@ class CategoryViewer extends Component {
                         dateAdded={
                             this.state.lastOptionsOpenedInfo == null
                                 ? null
-                                : this.state.lastOptionsOpenedInfo.dateAdded
+                                : new Date(
+                                      this.state.lastOptionsOpenedInfo.dateAdded
+                                  )
                         }
                         category={
                             this.state.lastOptionsOpenedInfo == null
