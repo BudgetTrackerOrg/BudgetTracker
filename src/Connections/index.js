@@ -11,7 +11,7 @@ import {
     REACT_APP_STORAGE_BUCKET as STORAGE_BUCKET,
     REACT_APP_MESSAGING_SENDER_ID as MESSAGING_SENDER_ID
 } from 'react-native-dotenv'
-import firebase from 'firebase'
+import * as firebase from 'firebase'
 import { store } from '../store'
 import { setUserInfo } from '../store/actions'
 
@@ -43,7 +43,7 @@ export default {
     signOut: authentication.signOut
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(user => {
     let userInfo = null
 
     if (user) {
@@ -56,4 +56,21 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 
     store.dispatch(setUserInfo(userInfo))
+    this.backupToFirebase(user.uid, user.displayName)
 })
+
+backupToFirebase = (ref, name) => {
+    firebase
+        .database()
+        .ref(ref)
+        .set({
+            name: name,
+            data: store.getState().transaction
+        })
+        .then(() => {
+            console.log('INSERTED')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
