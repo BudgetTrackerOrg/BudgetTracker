@@ -79,6 +79,7 @@ class HomeScreen extends React.Component {
         }
         return (
             <Drawer
+                tapToClose
                 ref={ref => (this.drawer = ref)}
                 content={
                     <SidePanel
