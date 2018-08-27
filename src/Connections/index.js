@@ -56,6 +56,8 @@ firebase.auth().onAuthStateChanged(user => {
     }
 
     store.dispatch(setUserInfo(userInfo))
+
+    // Saves the state to Firebase
     this.backupToFirebase(userInfo.uid, userInfo.displayName)
 })
 
@@ -64,13 +66,19 @@ backupToFirebase = (ref, name) => {
         .database()
         .ref(ref)
         .set({
-            name: name,
+            name,
             data: store.getState().transaction
         })
-        .then(() => {
-            console.log('INSERTED')
+        .then(() => console.log('INSERTED'))
+        .catch(err => console.log(err))
+}
+
+fetchFromFirebase = ref => {
+    firebase
+        .database()
+        .ref(ref)
+        .once('value', data => {
+            return data.toJSON()
         })
-        .catch(err => {
-            console.log(err)
-        })
+        .catch(err => console.log(err))
 }
