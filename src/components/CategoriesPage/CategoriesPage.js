@@ -12,9 +12,15 @@ export class CategoriesPage extends Component {
         return (
             <View>
                 <Text style={styles.main__subheading}>Total Spending</Text>
-                <Text style={styles.main__heading}>
-                    {functions.formatCurrency(expensesResult.total)}
-                </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text
+                        adjustsFontSizeToFit
+                        numberOfLines={1}
+                        style={styles.main__heading}
+                    >
+                        {functions.formatCurrency(expensesResult.total)}
+                    </Text>
+                </View>
                 <View style={styles.categories}>
                     {Object.keys(categories).map(category => (
                         <CategoryBox
