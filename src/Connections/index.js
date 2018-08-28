@@ -11,7 +11,7 @@ import {
     REACT_APP_STORAGE_BUCKET as STORAGE_BUCKET,
     REACT_APP_MESSAGING_SENDER_ID as MESSAGING_SENDER_ID
 } from 'react-native-dotenv'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 import { store } from '../store'
 import { setUserInfo } from '../store/actions'
 
@@ -56,6 +56,8 @@ firebase.auth().onAuthStateChanged(user => {
     }
 
     store.dispatch(setUserInfo(userInfo))
+
+    // This function should be called whenever an action changes the state
     this.backupToFirebase(userInfo.uid, userInfo.displayName)
 })
 
@@ -64,13 +66,8 @@ backupToFirebase = (ref, name) => {
         .database()
         .ref(ref)
         .set({
-            name: name,
+            name,
             data: store.getState().transaction
         })
-        .then(() => {
-            console.log('INSERTED')
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        .catch(err => console.log(err))
 }
