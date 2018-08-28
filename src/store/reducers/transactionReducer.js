@@ -9,10 +9,9 @@ import {
 import Connections from '../../Connections'
 
 export default (state = initialState(), action) => {
-    let tempState = state
     switch (action.type) {
         case ADD_TRANSACTION:
-            tempState = addTransaction(state, action.payload)
+            return addTransaction(state, action.payload)
             break
         case DELETE_TRANSACTION:
             return deleteTransaction(state, action.payload)
@@ -21,25 +20,21 @@ export default (state = initialState(), action) => {
             return editTransaction(state, action.payload)
             break
         default:
-            tempState = state
+            return state
     }
-    return tempState
 }
-
-const arr = []
 
 const addTransaction = (state, transaction) => {
     // update state following returned object accordingly
     if (transaction != undefined) {
         transaction['id'] = state.expenses.length
     }
-
-    arr.push({
+    state.expenses.push({
         ...transaction,
-        //         // null is being passed because they are
-        //         // not needed for every single data entry.
-        //         // they must be properties of the 'transaction' object in
-        //         // the action so that they can be read from the payload.
+        // null is being passed because they are
+        // not needed for each individual data entry.
+        // they must be properties of the 'transaction' object in
+        // the action so that they can be read from the payload.
         uid: null,
         displayName: null
     })
@@ -48,7 +43,7 @@ const addTransaction = (state, transaction) => {
         Connections.backupToFirebase(
             transaction.uid,
             transaction.displayName,
-            arr
+            state.expenses
         )
     }
 
