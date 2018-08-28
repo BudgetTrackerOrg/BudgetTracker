@@ -8,16 +8,26 @@ import {
 
 import { backupToFirebase } from '../../Connections'
 
-export default (state = initialState(), action) => {
+export default (
+    state = initialState(),
+    action,
+    uid = null,
+    displayName = null
+) => {
     switch (action.type) {
         case ADD_TRANSACTION:
-            return addTransaction(state, action.payload)
+            return addTransaction(
+                state,
+                action.payload,
+                state.uid,
+                state.displayName
+            )
             break
         case DELETE_TRANSACTION:
-            return deleteTransaction(state, action.payload)
+            return deleteTransaction(state, action.payload, uid, displayName)
             break
         case EDIT_TRANSACTION:
-            return editTransaction(state, action.payload)
+            return editTransaction(state, action.payload, uid, displayName)
             break
         default:
             return state
@@ -32,7 +42,7 @@ const addTransaction = (state, transaction, uid = null, displayName = null) => {
     if (uid && displayName) {
         backupToFirebase(uid, displayName)
     }
-    console.log(backupToFirebase(uid, displayName))
+    console.log(state, transaction, uid, displayName)
 
     return {
         ...state,
