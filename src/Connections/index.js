@@ -58,10 +58,10 @@ firebase.auth().onAuthStateChanged(user => {
     store.dispatch(setUserInfo(userInfo))
 
     // This function should be called whenever an action changes the state
-    this.backupToFirebase(userInfo.uid, userInfo.displayName)
+    // this.backupToFirebase(userInfo.uid, userInfo.displayName)
 })
 
-backupToFirebase = (ref, name) => {
+export const backupToFirebase = (ref, name) => {
     firebase
         .database()
         .ref(ref)

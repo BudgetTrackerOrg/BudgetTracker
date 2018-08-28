@@ -6,6 +6,8 @@ import {
     EDIT_TRANSACTION
 } from '../actions'
 
+import { backupToFirebase } from '../../Connections'
+
 export default (state = initialState(), action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
@@ -22,13 +24,22 @@ export default (state = initialState(), action) => {
     }
 }
 
-const addTransaction = (state, transaction) => {
+const addTransaction = (state, transaction, uid = null, displayName = null) => {
     // update state following returned object accordingly
     if (transaction != undefined) {
         transaction['id'] = state.expenses.length
     }
+    if (uid && displayName) {
+        backupToFirebase(uid, displayName)
+    }
+    console.log(backupToFirebase(uid, displayName))
 
-    return { ...state, expenses: [...state.expenses, transaction] }
+    return {
+        ...state,
+        expenses: [...state.expenses, transaction],
+        uid,
+        displayName
+    }
 }
 
 const deleteTransaction = (state, id) => {
