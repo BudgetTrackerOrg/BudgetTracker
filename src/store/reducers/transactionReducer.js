@@ -6,49 +6,55 @@ import {
     EDIT_TRANSACTION
 } from '../actions'
 
-import { backupToFirebase } from '../../Connections'
+import Connections from '../../Connections'
 
-export default (
-    state = initialState(),
-    action,
-    uid = null,
-    displayName = null
-) => {
+export default (state = initialState(), action) => {
+    let tempState = state
     switch (action.type) {
         case ADD_TRANSACTION:
-            return addTransaction(
-                state,
-                action.payload,
-                state.uid,
-                state.displayName
-            )
+            tempState = addTransaction(state, action.payload)
             break
         case DELETE_TRANSACTION:
-            return deleteTransaction(state, action.payload, uid, displayName)
+            return deleteTransaction(state, action.payload)
             break
         case EDIT_TRANSACTION:
-            return editTransaction(state, action.payload, uid, displayName)
+            return editTransaction(state, action.payload)
             break
         default:
-            return state
+            tempState = state
     }
+    return tempState
 }
 
-const addTransaction = (state, transaction, uid = null, displayName = null) => {
+const arr = []
+
+const addTransaction = (state, transaction) => {
     // update state following returned object accordingly
     if (transaction != undefined) {
         transaction['id'] = state.expenses.length
     }
-    if (uid && displayName) {
-        backupToFirebase(uid, displayName)
+
+    arr.push({
+        ...transaction,
+        //         // null is being passed because they are
+        //         // not needed for every single data entry.
+        //         // they must be properties of the 'transaction' object in
+        //         // the action so that they can be read from the payload.
+        uid: null,
+        displayName: null
+    })
+
+    if (transaction.uid && transaction.displayName) {
+        Connections.backupToFirebase(
+            transaction.uid,
+            transaction.displayName,
+            arr
+        )
     }
-    console.log(state, transaction, uid, displayName)
 
     return {
         ...state,
-        expenses: [...state.expenses, transaction],
-        uid,
-        displayName
+        expenses: [...state.expenses, transaction]
     }
 }
 

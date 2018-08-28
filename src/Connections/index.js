@@ -40,7 +40,15 @@ export default {
         })
     },
     signIn: authentication.signIn,
-    signOut: authentication.signOut
+    signOut: authentication.signOut,
+
+    backupToFirebase: (ref, name, data) => {
+        firebase
+            .database()
+            .ref(ref)
+            .set({ name, data })
+            .catch(err => console.log(err))
+    }
 }
 
 firebase.auth().onAuthStateChanged(user => {
@@ -57,14 +65,3 @@ firebase.auth().onAuthStateChanged(user => {
 
     store.dispatch(setUserInfo(userInfo))
 })
-
-export const backupToFirebase = (ref, name) => {
-    firebase
-        .database()
-        .ref(ref)
-        .set({
-            name,
-            data: store.getState().transaction
-        })
-        .catch(err => console.log(err))
-}
