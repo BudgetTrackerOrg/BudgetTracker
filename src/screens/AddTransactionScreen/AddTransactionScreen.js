@@ -24,13 +24,7 @@ class AddTransactionScreen extends Component {
 
     updateState(data) {
         this.setState(data, () => {
-            const { userInfo } = this.props.main
-            this.props.addTransaction(
-                this.state,
-                data,
-                userInfo.uid,
-                userInfo.displayName
-            )
+            this.props.addTransaction(this.state)
             this.props.closeForm()
         })
     }

@@ -9,42 +9,28 @@ import {
 import Connections from '../../Connections'
 
 export default (state = initialState(), action) => {
+    let newState = null
     switch (action.type) {
         case ADD_TRANSACTION:
-            return addTransaction(state, action.payload)
+            newState = addTransaction(state, action.payload)
+            Connections.backupToFirebase(newState)
             break
         case DELETE_TRANSACTION:
-            return deleteTransaction(state, action.payload)
+            newState = deleteTransaction(state, action.payload)
             break
         case EDIT_TRANSACTION:
-            return editTransaction(state, action.payload)
+            newState = editTransaction(state, action.payload)
             break
         default:
-            return state
+            newState = state
     }
+    return newState
 }
 
 const addTransaction = (state, transaction) => {
     // update state following returned object accordingly
     if (transaction != undefined) {
         transaction['id'] = state.expenses.length
-    }
-    state.expenses.push({
-        ...transaction,
-        // null is being passed because they are
-        // not needed for each individual data entry.
-        // they must be properties of the 'transaction' object in
-        // the action so that they can be read from the payload.
-        uid: null,
-        displayName: null
-    })
-
-    if (transaction.uid && transaction.displayName) {
-        Connections.backupToFirebase(
-            transaction.uid,
-            transaction.displayName,
-            state.expenses
-        )
     }
 
     return {
