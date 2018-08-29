@@ -49,6 +49,13 @@ export default {
             .ref(uid)
             .set({ name: displayName, data })
             .catch(err => console.log(err))
+    },
+    fetchFromFirebase: ref => {
+        firebase
+            .database()
+            .ref(ref)
+            .once('value', data => data.toJSON())
+            .catch(err => console.log(err))
     }
 }
 
