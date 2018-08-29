@@ -9,8 +9,6 @@ import { CancelButton } from '../../components/Field'
 import { addTransaction } from '../../store/actions'
 import TransactionCard from '../../components/TransactionCard/TransactionCard'
 
-// FIX - CATEGORY VALUE NOT DISPLAYING - FIX IN TRANSACTIONCARD.JS
-
 class AddTransactionScreen extends Component {
     constructor(props) {
         super(props)
@@ -58,7 +56,7 @@ class AddTransactionScreen extends Component {
 }
 
 const mapStateToProps = state => {
-    return {}
+    return { ...state }
 }
 
 const mapDispatchToProps = dispatch => {

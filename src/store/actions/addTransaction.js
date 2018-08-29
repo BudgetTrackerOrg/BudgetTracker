@@ -9,6 +9,7 @@ export default transaction => {
     // Math.floor is used because it is likely that any additional decimal places
     // were entered by accident, and rounding upwards would never be the intent
     transaction.amount = Math.floor((transaction.amount + 0.00001) * 100) / 100
+
     return {
         type: ADD_TRANSACTION,
         payload: transaction

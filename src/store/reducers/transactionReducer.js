@@ -6,20 +6,25 @@ import {
     EDIT_TRANSACTION
 } from '../actions'
 
+import Connections from '../../Connections'
+
 export default (state = initialState(), action) => {
+    let newState = null
     switch (action.type) {
         case ADD_TRANSACTION:
-            return addTransaction(state, action.payload)
+            newState = addTransaction(state, action.payload)
             break
         case DELETE_TRANSACTION:
-            return deleteTransaction(state, action.payload)
+            newState = deleteTransaction(state, action.payload)
             break
         case EDIT_TRANSACTION:
-            return editTransaction(state, action.payload)
+            newState = editTransaction(state, action.payload)
             break
         default:
-            return state
+            newState = state
     }
+    Connections.backupToFirebase(newState)
+    return newState
 }
 
 const addTransaction = (state, transaction) => {
@@ -28,7 +33,10 @@ const addTransaction = (state, transaction) => {
         transaction['id'] = state.expenses.length
     }
 
-    return { ...state, expenses: [...state.expenses, transaction] }
+    return {
+        ...state,
+        expenses: [...state.expenses, transaction]
+    }
 }
 
 const deleteTransaction = (state, id) => {

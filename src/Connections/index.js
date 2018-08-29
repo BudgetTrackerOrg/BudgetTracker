@@ -11,7 +11,7 @@ import {
     REACT_APP_STORAGE_BUCKET as STORAGE_BUCKET,
     REACT_APP_MESSAGING_SENDER_ID as MESSAGING_SENDER_ID
 } from 'react-native-dotenv'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 import { store } from '../store'
 import { setUserInfo } from '../store/actions'
 
@@ -40,7 +40,16 @@ export default {
         })
     },
     signIn: authentication.signIn,
-    signOut: authentication.signOut
+    signOut: authentication.signOut,
+
+    backupToFirebase: data => {
+        const { uid, displayName } = this.connectionUserInfo
+        firebase
+            .database()
+            .ref(uid)
+            .set({ name: displayName, data })
+            .catch(err => console.log(err))
+    }
 }
 
 firebase.auth().onAuthStateChanged(user => {
@@ -51,33 +60,10 @@ firebase.auth().onAuthStateChanged(user => {
         userInfo = {
             uid: user.uid,
             displayName: user.displayName,
-            email: user.email,
-            // Fetches the state from Firebase if user is logged in
-            data: this.fetchFromFirebase(this.uid)
+            email: user.email
         }
     }
 
+    this.connectionUserInfo = userInfo
     store.dispatch(setUserInfo(userInfo))
-
-    // Saves the state to Firebase
-    this.backupToFirebase(userInfo.uid, userInfo.displayName)
 })
-
-backupToFirebase = (ref, name) => {
-    firebase
-        .database()
-        .ref(ref)
-        .set({
-            name,
-            data: store.getState().transaction
-        })
-        .catch(err => console.log(err))
-}
-
-fetchFromFirebase = ref => {
-    firebase
-        .database()
-        .ref(ref)
-        .once('value', data => data.toJSON())
-        .catch(err => console.log(err))
-}
