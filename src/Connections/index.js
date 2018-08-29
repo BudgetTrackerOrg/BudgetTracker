@@ -43,17 +43,16 @@ export default {
     signOut: authentication.signOut,
 
     backupToFirebase: data => {
-        const { uid, displayName } = this.connectionUserInfo
         firebase
             .database()
-            .ref(uid)
-            .set({ name: displayName, data })
+            .ref(this.uid)
+            .set({ data })
             .catch(err => console.log(err))
     },
-    fetchFromFirebase: ref => {
+    fetchFromFirebase: () => {
         firebase
             .database()
-            .ref(ref)
+            .ref(this.uid)
             .once('value', data => data.toJSON())
             .catch(err => console.log(err))
     }
@@ -66,11 +65,10 @@ firebase.auth().onAuthStateChanged(user => {
         // User is signed in.
         userInfo = {
             uid: user.uid,
-            displayName: user.displayName,
             email: user.email
         }
     }
 
-    this.connectionUserInfo = userInfo
+    this.uid = userInfo.uid
     store.dispatch(setUserInfo(userInfo))
 })
