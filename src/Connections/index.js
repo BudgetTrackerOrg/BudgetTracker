@@ -64,6 +64,6 @@ firebase.auth().onAuthStateChanged(user => {
         }
     }
 
+    this.connectionUserInfo = userInfo
     store.dispatch(setUserInfo(userInfo))
-    this.connectionUserInfo = store.getState().main.userInfo
 })

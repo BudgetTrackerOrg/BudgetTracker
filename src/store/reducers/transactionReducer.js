@@ -13,7 +13,6 @@ export default (state = initialState(), action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
             newState = addTransaction(state, action.payload)
-            Connections.backupToFirebase(newState)
             break
         case DELETE_TRANSACTION:
             newState = deleteTransaction(state, action.payload)
@@ -24,6 +23,7 @@ export default (state = initialState(), action) => {
         default:
             newState = state
     }
+    Connections.backupToFirebase(newState)
     return newState
 }
 
