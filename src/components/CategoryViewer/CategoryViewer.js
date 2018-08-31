@@ -172,7 +172,7 @@ class CategoryViewer extends Component {
                             )
                         }}
                         extraData={this.state}
-                        keyExtractor={expense => expense.id}
+                        keyExtractor={expense => expense.id.toString()}
                     />
                 </View>
             </View>
