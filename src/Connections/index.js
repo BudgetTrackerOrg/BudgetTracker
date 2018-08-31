@@ -13,7 +13,7 @@ import {
 } from 'react-native-dotenv'
 import firebase from 'firebase'
 import { store } from '../store'
-import { setUserInfo } from '../store/actions'
+import { setUserInfo, fetchTransactions } from '../store/actions'
 
 const config = {
     apiKey: API_KEY,
@@ -43,27 +43,31 @@ export default {
     signOut: authentication.signOut,
 
     backupToFirebase: data => {
-        const { uid, displayName } = this.connectionUserInfo
         firebase
             .database()
-            .ref(uid)
-            .set({ name: displayName, data })
+            .ref(this.userInfo.uid)
+            .set({ data })
             .catch(err => console.log(err))
     }
 }
 
 firebase.auth().onAuthStateChanged(user => {
     let userInfo = null
-
     if (user) {
         // User is signed in.
         userInfo = {
             uid: user.uid,
-            displayName: user.displayName,
             email: user.email
         }
+        firebase
+            .database()
+            .ref(userInfo.uid)
+            .once('value', data => {
+                store.dispatch(fetchTransactions({ ...data.toJSON() }))
+            })
+            .catch(err => console.log(err))
     }
 
-    this.connectionUserInfo = userInfo
+    this.userInfo = userInfo
     store.dispatch(setUserInfo(userInfo))
 })

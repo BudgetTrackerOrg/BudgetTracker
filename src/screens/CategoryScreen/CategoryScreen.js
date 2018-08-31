@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import _ from 'lodash'
 import { ContentViewer, CategoryViewer } from '../../components'
 import styles from './CategoryScreen.scss'
 import { colors } from '../../globals'
@@ -10,8 +11,8 @@ import { deleteTransaction, editTransaction } from '../../store/actions'
 class CategoryScreen extends Component {
     render() {
         const category = this.props.navigation.getParam('category', 'all')
-        const expenses = this.props.expenses.filter(expense => {
-            return expense.category == category
+        const expenses = _.filter(this.props.expenses, expense => {
+            return expense.category === category
         })
         return (
             <LinearGradient

@@ -1,5 +1,8 @@
-import { FIRST_TIME_OPEN_ACTION } from '../actions'
-import { SET_USER_INFO } from '../actions'
+import {
+    FIRST_TIME_OPEN_ACTION,
+    SET_USER_INFO,
+    FETCH_TRANSACTIONS
+} from '../actions'
 
 export default (state = initialState(), action) => {
     switch (action.type) {
@@ -7,6 +10,10 @@ export default (state = initialState(), action) => {
             return { ...state, isFirstTimeOpened: false }
         case SET_USER_INFO:
             return { ...state, userInfo: action.payload }
+        case FETCH_TRANSACTIONS:
+            // The 'fetchTransactions' action is what fetches all of the user's
+            // transaction data from the Firebase, once they have logged in.
+            return action.payload.data
         default:
             return state
     }

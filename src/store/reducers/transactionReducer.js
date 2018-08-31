@@ -13,17 +13,23 @@ export default (state = initialState(), action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
             newState = addTransaction(state, action.payload)
-            break
-        case DELETE_TRANSACTION:
-            newState = deleteTransaction(state, action.payload)
+            Connections.backupToFirebase(newState)
             break
         case EDIT_TRANSACTION:
             newState = editTransaction(state, action.payload)
+            Connections.backupToFirebase(newState)
+            break
+        case DELETE_TRANSACTION:
+            newState = deleteTransaction(state, action.payload)
+            Connections.backupToFirebase(newState)
             break
         default:
             newState = state
     }
-    Connections.backupToFirebase(newState)
+    // NOTE
+    // Connections.backupToFirebase() *cannot* be called from here
+    // It will throw an error because the userInfo object is initially null.
+    // This is because by default, onAuthStateChanged is called twice immediately
     return newState
 }
 
