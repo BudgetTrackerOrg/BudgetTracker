@@ -29,14 +29,18 @@ export default (state = initialState(), action) => {
     // NOTE
     // Connections.backupToFirebase() *cannot* be called from here
     // It will throw an error because the userInfo object is initially null.
-    // This is because by default, onAuthStateChanged is called twice immediately
+    // This is because by default, onAuthStateChanged is called immediately
     return newState
 }
 
 const addTransaction = (state, transaction) => {
     // update state following returned object accordingly
-    if (transaction != undefined) {
-        transaction['id'] = state.expenses.length
+    if (transaction !== undefined) {
+        // This creates a ten-digit randomized number for the ID.
+        // This is now being used rather than the length of the array because
+        // the length will change if items are deleted, so it would cause
+        // conflicting IDs and leave the user unable to add new items
+        transaction['id'] = Math.floor(Math.random() * 10000000000)
     }
 
     return {

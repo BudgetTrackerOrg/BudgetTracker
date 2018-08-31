@@ -17,6 +17,7 @@ export default (state = initialState(), action) => {
                 // This condition must be checked, as onAuthStateChanged inside
                 // Connections/index has a default behaviour of being called
                 // initially, multiple times, no matter what
+                // This prevents it from returning undefined and throwing an error
                 return action.payload.data
             } else {
                 return state

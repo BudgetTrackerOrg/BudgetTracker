@@ -18,7 +18,8 @@ class AddTransactionScreen extends Component {
             title: null,
             amount: null,
             dateAdded: null,
-            category: null
+            category: null,
+            id: null
         }
     }
 
