@@ -13,7 +13,14 @@ export default (state = initialState(), action) => {
         case FETCH_TRANSACTIONS:
             // The 'fetchTransactions' action is what fetches all of the user's
             // transaction data from the Firebase, once they have logged in.
-            return action.payload.data
+            if (action.payload.data) {
+                // This condition must be checked, as onAuthStateChanged inside
+                // Connections/index has a default behaviour of being called
+                // initially, multiple times, no matter what
+                return action.payload.data
+            } else {
+                return state
+            }
         default:
             return state
     }
