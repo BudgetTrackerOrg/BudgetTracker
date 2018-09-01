@@ -3,7 +3,8 @@
 import {
     ADD_TRANSACTION,
     DELETE_TRANSACTION,
-    EDIT_TRANSACTION
+    EDIT_TRANSACTION,
+    FETCH_TRANSACTIONS
 } from '../actions'
 
 import Connections from '../../Connections'
@@ -22,6 +23,19 @@ export default (state = initialState(), action) => {
         case DELETE_TRANSACTION:
             newState = deleteTransaction(state, action.payload)
             Connections.backupToFirebase(newState)
+            break
+        case FETCH_TRANSACTIONS:
+            // The 'fetchTransactions' action is what fetches all of the user's
+            // transaction data from the Firebase, once they have logged in.
+            if (action.payload.data) {
+                // This condition must be checked, as onAuthStateChanged inside
+                // Connections/index has a default behaviour of being called
+                // initially, multiple times, no matter what
+                // This prevents it from returning undefined and throwing an error
+                return { ...state, expenses: action.payload.data.expenses }
+            } else {
+                return state
+            }
             break
         default:
             newState = state

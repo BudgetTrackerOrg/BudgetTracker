@@ -40,18 +40,14 @@ class HomeScreen extends React.Component {
         Connections.init()
     }
 
-    signIn = async () => {
-        let userInfo = await Connections.signIn()
-        this.setState({ ...this.state, userInfo }, () => {
-            console.log('Login Successful')
-        })
+    signIn = () => {
+        console.log('SignIn Clicked')
+        Connections.signIn()
     }
 
-    signOut = async () => {
-        await Connections.signOut()
-        this.setState({ ...this.state, userInfo: null }, () => {
-            console.log('Logout Successful')
-        })
+    signOut = () => {
+        console.log('SignOut Clicked')
+        Connections.signOut()
     }
 
     gotoCategoryScreen() {
@@ -77,6 +73,7 @@ class HomeScreen extends React.Component {
                 color: this.state.currentPage === 1 ? '#212121' : '#EEE'
             }
         }
+
         return (
             <Drawer
                 tapToClose
@@ -85,11 +82,11 @@ class HomeScreen extends React.Component {
                     <SidePanel
                         selectableOptions={[
                             {
-                                title: this.state.userInfo
+                                title: this.props.userID
                                     ? 'Sign out'
                                     : 'Sign In',
                                 onPress: () => {
-                                    if (this.state.userInfo) {
+                                    if (this.props.userID) {
                                         this.signOut()
                                     } else {
                                         this.signIn()
@@ -201,7 +198,7 @@ class HomeScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         // Keys referenced in this file as -> this.props.userID
-        userID: state.main.id,
+        userID: state.main.userInfo ? state.main.userInfo.uid : null,
         isFirstTimeOpened: state.main.isFirstTimeOpened,
         expenses: state.transaction.expenses
     }

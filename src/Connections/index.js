@@ -25,7 +25,7 @@ const config = {
 }
 firebase.initializeApp(config)
 
-export default {
+const connections = {
     init: async () => {
         //set up google AUTH
         GoogleSignin.configure({
@@ -43,31 +43,48 @@ export default {
     signOut: authentication.signOut,
 
     backupToFirebase: data => {
-        firebase
-            .database()
-            .ref(this.userInfo.uid)
-            .set({ data })
-            .catch(err => console.log(err))
+        // backs up ONLY if user is singed in
+        if (this.user) {
+            firebase
+                .database()
+                .ref(this.user.uid)
+                .set({
+                    data
+                })
+                .catch(err => console.log(err))
+        }
+    },
+
+    fetchFromFirebase: async () => {
+        if (this.user) {
+            firebase
+                .database()
+                .ref(this.user.uid)
+                .once('value', data => {
+                    store.dispatch(
+                        fetchTransactions({
+                            ...data.toJSON()
+                        })
+                    )
+                })
+                .catch(err => console.log(err))
+        }
     }
 }
 
 firebase.auth().onAuthStateChanged(user => {
     let userInfo = null
+
     if (user) {
         // User is signed in.
-        userInfo = {
-            uid: user.uid,
-            email: user.email
-        }
-        firebase
-            .database()
-            .ref(userInfo.uid)
-            .once('value', data => {
-                store.dispatch(fetchTransactions({ ...data.toJSON() }))
-            })
-            .catch(err => console.log(err))
+        userInfo = { uid: user.uid, email: user.email }
     }
 
-    this.userInfo = userInfo
+    this.user = userInfo
+
+    connections.fetchFromFirebase()
+
     store.dispatch(setUserInfo(userInfo))
 })
+
+export default connections
