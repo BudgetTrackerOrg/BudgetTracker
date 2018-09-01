@@ -1,5 +1,5 @@
 import { GoogleSignin } from 'react-native-google-signin'
-import { Platform } from 'react-native'
+import { Platform, Alert } from 'react-native'
 import authentication from './authentication'
 import {
     REACT_APP_IOS_CLIENT_ID as IOS_CLIENT_ID,
@@ -69,6 +69,9 @@ const connections = {
                 })
                 .catch(err => console.log(err))
         }
+    },
+    getCurrentUser() {
+        return this.user
     }
 }
 
@@ -82,8 +85,7 @@ firebase.auth().onAuthStateChanged(user => {
 
     this.user = userInfo
 
-    connections.fetchFromFirebase()
-
+    //connections.fetchFromFirebase()
     store.dispatch(setUserInfo(userInfo))
 })
 
