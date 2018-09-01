@@ -1,6 +1,8 @@
 import { GoogleSignin, statusCodes } from 'react-native-google-signin'
 import firebase from 'firebase'
-
+import { Alert } from 'react-native'
+import connections from './index'
+import { store } from '../store'
 export default {
     signIn: async () => {
         try {
@@ -14,16 +16,35 @@ export default {
             firebase
                 .auth()
                 .signInAndRetrieveDataWithCredential(credential)
-                .catch(function(error) {
-                    // Handle Errors here.
-                    var errorCode = error.code
-                    var errorMessage = error.message
-                    // The email of the user's account used.
-                    var email = error.email
-                    // The firebase.auth.AuthCredential type that was used.
-                    var credential = error.credential
-                    // ...
+
+                .catch(error => {
+                    console.log(error)
                 })
+
+            Alert.alert(
+                'Backup with Google Account',
+                'How would you like to link "' +
+                    userInfo.email +
+                    '" to BudgetTracker?',
+                [
+                    {
+                        text: 'Backup Data from Device',
+                        onPress: () => {
+                            connections.backupToFirebase({
+                                expenses: store.getState().transaction.expenses
+                            })
+                        }
+                    },
+                    {
+                        text: 'Fetch data from Cloud',
+                        onPress: () => {
+                            connections.fetchFromFirebase()
+                        }
+                    }
+                ]
+            )
+
+            userInfo.loginType = 0
 
             return userInfo
         } catch (error) {

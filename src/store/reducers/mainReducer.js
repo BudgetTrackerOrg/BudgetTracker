@@ -1,5 +1,4 @@
-import { FIRST_TIME_OPEN_ACTION } from '../actions'
-import { SET_USER_INFO } from '../actions'
+import { FIRST_TIME_OPEN_ACTION, SET_USER_INFO } from '../actions'
 
 export default (state = initialState(), action) => {
     switch (action.type) {

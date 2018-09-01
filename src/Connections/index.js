@@ -1,5 +1,5 @@
 import { GoogleSignin } from 'react-native-google-signin'
-import { Platform } from 'react-native'
+import { Platform, Alert } from 'react-native'
 import authentication from './authentication'
 import {
     REACT_APP_IOS_CLIENT_ID as IOS_CLIENT_ID,
@@ -13,7 +13,7 @@ import {
 } from 'react-native-dotenv'
 import firebase from 'firebase'
 import { store } from '../store'
-import { setUserInfo } from '../store/actions'
+import { setUserInfo, fetchTransactions } from '../store/actions'
 
 const config = {
     apiKey: API_KEY,
@@ -25,7 +25,7 @@ const config = {
 }
 firebase.initializeApp(config)
 
-export default {
+const connections = {
     init: async () => {
         //set up google AUTH
         GoogleSignin.configure({
@@ -43,12 +43,35 @@ export default {
     signOut: authentication.signOut,
 
     backupToFirebase: data => {
-        const { uid, displayName } = this.connectionUserInfo
-        firebase
-            .database()
-            .ref(uid)
-            .set({ name: displayName, data })
-            .catch(err => console.log(err))
+        // backs up ONLY if user is singed in
+        if (this.user) {
+            firebase
+                .database()
+                .ref(this.user.uid)
+                .set({
+                    data
+                })
+                .catch(err => console.log(err))
+        }
+    },
+
+    fetchFromFirebase: async () => {
+        if (this.user) {
+            firebase
+                .database()
+                .ref(this.user.uid)
+                .once('value', data => {
+                    store.dispatch(
+                        fetchTransactions({
+                            ...data.toJSON()
+                        })
+                    )
+                })
+                .catch(err => console.log(err))
+        }
+    },
+    getCurrentUser() {
+        return this.user
     }
 }
 
@@ -57,13 +80,13 @@ firebase.auth().onAuthStateChanged(user => {
 
     if (user) {
         // User is signed in.
-        userInfo = {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email
-        }
+        userInfo = { uid: user.uid, email: user.email }
     }
 
-    this.connectionUserInfo = userInfo
+    this.user = userInfo
+
+    //connections.fetchFromFirebase()
     store.dispatch(setUserInfo(userInfo))
 })
+
+export default connections
