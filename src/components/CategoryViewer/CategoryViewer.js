@@ -98,7 +98,6 @@ class CategoryViewer extends Component {
                         submitBtnText="Update"
                         onSubmit={updatedTransaction => {
                             this.editDialog.dismiss()
-                            console.log(this.props)
                             this.props.editTransactionCallback(
                                 updatedTransaction,
                                 this.state.lastOptionsOpenedInfo == null
@@ -132,9 +131,6 @@ class CategoryViewer extends Component {
                         deleteTransactionCallback={
                             this.props.deleteTransactionCallback
                         }
-                        popupDialog={this.popupDialog}
-                        editDialog={this.editDialog}
-                        transCard={this.transCard}
                         editTransactionCallback={() => {
                             this.popupDialog.dismiss()
                             this.editDialog.show()
