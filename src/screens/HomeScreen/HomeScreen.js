@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import {
     addTransaction,
     deleteTransaction,
+    editTransaction,
     firstTimeOpened
 } from '../../store/actions'
 import Drawer from 'react-native-drawer'
@@ -126,6 +127,7 @@ class HomeScreen extends React.Component {
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }
+                            editTransactionCallback={this.props.editTransaction}
                         />
                     </ContentViewer>
 
@@ -208,7 +210,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
     return bindActionCreators(
-        { addTransaction, deleteTransaction, firstTimeOpened },
+        { addTransaction, deleteTransaction, editTransaction, firstTimeOpened },
         dispatch
     )
 }

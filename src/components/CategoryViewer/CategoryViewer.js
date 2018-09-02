@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import { withNavigation } from 'react-navigation'
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import {
     CategorySummary,
     TransactionList,
     TransactionListItem,
     TransactionOptions
 } from './CategoryViewerComponents'
-import { categories, functions } from '../../globals'
 import TransactionCard from '../TransactionCard/TransactionCard'
-import { withNavigation } from 'react-navigation'
-import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import CancelButton from '../Field/CancelButton'
+import { categories, functions } from '../../globals'
 
 class CategoryViewer extends Component {
     constructor(props) {
@@ -63,7 +63,7 @@ class CategoryViewer extends Component {
                         }}
                     />
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>
-                        Edit Details{' '}
+                        Edit Details:{' '}
                         {this.state.lastOptionsOpenedInfo == null
                             ? ''
                             : this.state.lastOptionsOpenedInfo.title}
@@ -98,6 +98,7 @@ class CategoryViewer extends Component {
                         submitBtnText="Update"
                         onSubmit={updatedTransaction => {
                             this.editDialog.dismiss()
+                            console.log(this.props)
                             this.props.editTransactionCallback(
                                 updatedTransaction,
                                 this.state.lastOptionsOpenedInfo == null
@@ -131,6 +132,9 @@ class CategoryViewer extends Component {
                         deleteTransactionCallback={
                             this.props.deleteTransactionCallback
                         }
+                        popupDialog={this.popupDialog}
+                        editDialog={this.editDialog}
+                        transCard={this.transCard}
                         editTransactionCallback={() => {
                             this.popupDialog.dismiss()
                             this.editDialog.show()

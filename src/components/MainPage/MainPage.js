@@ -35,6 +35,9 @@ export class MainPage extends Component {
                             deleteTransactionCallback={
                                 this.props.deleteTransactionCallback
                             }
+                            editTransactionCallback={
+                                this.props.editTransactionCallback
+                            }
                         />
                     </ContentViewer>
                 ]}
