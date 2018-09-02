@@ -24,11 +24,11 @@ export default {
             Alert.alert(
                 'Backup with Google Account',
                 'How would you like to link "' +
-                    userInfo.email +
+                    userInfo.user.email +
                     '" to BudgetTracker?',
                 [
                     {
-                        text: 'Backup Data from Device',
+                        text: 'Backup data from Device',
                         onPress: () => {
                             connections.backupToFirebase({
                                 expenses: store.getState().transaction.expenses

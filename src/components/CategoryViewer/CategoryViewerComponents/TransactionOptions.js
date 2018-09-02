@@ -28,7 +28,7 @@ export default props => {
                 <TouchableOpacity
                     style={styles.button}
                     onPressOut={() => {
-                        props.editTransactionCallback()
+                        props.editTransactionCallback(props.transactionInfo.id)
                     }}
                 >
                     <Text style={styles.buttonLabel}>Edit</Text>
