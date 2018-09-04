@@ -31,7 +31,7 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.isFirstTimeOpened || true) {
+        if (this.props.isFirstTimeOpened) {
             this.props.firstTimeOpened()
             this.props.navigation.navigate('Onboarding', {
                 signInCallback: this.signIn

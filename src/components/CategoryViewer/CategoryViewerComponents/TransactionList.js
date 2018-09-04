@@ -1,15 +1,30 @@
 import React from 'react'
-import { ScrollView, Platform, FlatList } from 'react-native'
+import { ScrollView, Platform, FlatList, Text } from 'react-native'
 
 export default props => {
-    return (
-        <ScrollView style={styles.main} bounces={false}>
+    let content = (
+        <Text
+            style={{
+                textAlign: 'center'
+            }}
+        >
+            No Transactions
+        </Text>
+    )
+
+    if (props.data.length > 0) {
+        content = (
             <FlatList
                 data={props.data}
                 renderItem={props.renderItem}
                 extraData={props.extraData}
                 keyExtractor={props.keyExtractor}
             />
+        )
+    }
+    return (
+        <ScrollView style={styles.main} bounces={false}>
+            {content}
         </ScrollView>
     )
 }
