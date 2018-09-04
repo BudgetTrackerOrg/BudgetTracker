@@ -38,6 +38,7 @@ export class MainPage extends Component {
                             editTransactionCallback={
                                 this.props.editTransactionCallback
                             }
+                            showCategory={true}
                         />
                     </ContentViewer>
                 ]}
