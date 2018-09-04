@@ -16,35 +16,40 @@ export default {
             firebase
                 .auth()
                 .signInAndRetrieveDataWithCredential(credential)
-
+                .then(user => {
+                    if (!user.additionalUserInfo.isNewUser) {
+                        Alert.alert(
+                            'Backup with Google Account',
+                            'How would you like to link "' +
+                                userInfo.user.email +
+                                '" to BudgetTracker?',
+                            [
+                                {
+                                    text: 'Backup data from Device',
+                                    onPress: () => {
+                                        connections.backupToFirebase({
+                                            expenses: store.getState()
+                                                .transaction.expenses
+                                        })
+                                    }
+                                },
+                                {
+                                    text: 'Fetch data from Cloud',
+                                    onPress: () => {
+                                        connections.fetchFromFirebase()
+                                    }
+                                }
+                            ]
+                        )
+                    } else {
+                        connections.backupToFirebase({
+                            expenses: store.getState().transaction.expenses
+                        })
+                    }
+                })
                 .catch(error => {
                     console.log(error)
                 })
-
-            Alert.alert(
-                'Backup with Google Account',
-                'How would you like to link "' +
-                    userInfo.user.email +
-                    '" to BudgetTracker?',
-                [
-                    {
-                        text: 'Backup data from Device',
-                        onPress: () => {
-                            connections.backupToFirebase({
-                                expenses: store.getState().transaction.expenses
-                            })
-                        }
-                    },
-                    {
-                        text: 'Fetch data from Cloud',
-                        onPress: () => {
-                            connections.fetchFromFirebase()
-                        }
-                    }
-                ]
-            )
-
-            userInfo.loginType = 0
 
             return userInfo
         } catch (error) {
