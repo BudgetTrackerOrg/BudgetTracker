@@ -21,9 +21,6 @@ class AddTransactionScreen extends Component {
             category: null,
             id: null
         }
-        this.backgroundColor = setTimeout(() => {
-            return 'red'
-        }, 1000)
     }
 
     updateState(data) {
@@ -33,23 +30,11 @@ class AddTransactionScreen extends Component {
         })
     }
 
-    // blurBackground = () => {
-    // start = setTimeout(() => {
-    //     this.backgroundColor = 'red'
-    // }, 1000)
-
-    // }
-
     render() {
         return (
-            <View
-                style={[
-                    styles.form,
-                    {
-                        backgroundColor: this.backgroundColor
-                    }
-                ]}
-                // colors={colors.backgroundGradient}
+            <LinearGradient
+                style={styles.form}
+                colors={colors.backgroundGradient}
             >
                 <CancelButton
                     style={styles.cancelButton}
@@ -66,7 +51,7 @@ class AddTransactionScreen extends Component {
                         onSubmit={this.updateState.bind(this)}
                     />
                 </View>
-            </View>
+            </LinearGradient>
         )
     }
 }
