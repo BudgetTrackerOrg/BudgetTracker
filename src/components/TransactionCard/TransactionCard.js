@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Entities from 'html-entities/lib/html5-entities'
 import {
     CategoryField,
     DateField,
@@ -7,7 +8,7 @@ import {
     MoneyField
 } from '../../components/Field'
 import Card from '../Card/Card'
-import { categories } from '../../globals'
+import { categories, currencies } from '../../globals'
 import styles from './TransactionCard.scss'
 
 class TransactionCard extends Component {
@@ -24,6 +25,9 @@ class TransactionCard extends Component {
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
     }
+
+    // This allows the decoding of Entity characters for currency symbols
+    entities = new Entities()
 
     getKeyFromDisplayText(text) {
         let returnValue = text
@@ -78,10 +82,11 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    // TODO:
-                    // Make a variable for the '$'. Default will be $ but the
-                    // user should be allowed to change currency
-                    value={'$' + this.state.amount}
+                    value={
+                        // make a variable for this later
+                        this.entities.decode(currencies[17].symbol) +
+                        this.state.amount
+                    }
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 

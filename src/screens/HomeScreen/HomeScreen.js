@@ -1,5 +1,11 @@
 import React from 'react'
 import { TouchableOpacity, Platform } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
+import { Picker } from 'react-native-picker-dropdown'
+import Drawer from 'react-native-drawer'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
     Footer,
     ContentViewer,
@@ -10,24 +16,22 @@ import {
 import Popup from '../../components/Popup/Popup'
 import AddTransactionScreen from '../AddTransactionScreen/AddTransactionScreen'
 import styles from './HomeScreen.scss'
-import LinearGradient from 'react-native-linear-gradient'
-import { bindActionCreators } from 'redux'
-import { colors } from '../../globals'
-import { connect } from 'react-redux'
+import { colors, currencies } from '../../globals'
 import {
     addTransaction,
     deleteTransaction,
     editTransaction,
     firstTimeOpened
 } from '../../store/actions'
-import Drawer from 'react-native-drawer'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Connections from '../../Connections'
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { currentPage: 0, userInfo: null }
+        this.state = {
+            currentPage: 0,
+            userInfo: null
+        }
     }
 
     componentDidMount() {
@@ -64,6 +68,12 @@ class HomeScreen extends React.Component {
         this.drawer.open()
     }
 
+    selectCurrency = () => {
+        // open the picker,
+        // change the currency everywhere,
+        // set the preference in the redux state/Firebase
+    }
+
     // This allows the function toggleForm from <Popup /> to be called in this file
     popup = React.createRef()
     mainPage = React.createRef()
@@ -97,9 +107,9 @@ class HomeScreen extends React.Component {
                                 icon: 'google'
                             },
                             {
-                                title: 'Settings',
-                                onPress: this.closeSidePanel,
-                                icon: 'cog'
+                                title: 'Change Currency',
+                                onPress: this.selectCurrency,
+                                icon: 'money'
                             }
                         ]}
                     />
