@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LinearGradient from 'react-native-linear-gradient'
-import { colors } from '../../globals'
+import { colors, currencies } from '../../globals'
 import styles from './AddTransactionScreen.scss'
 import { CancelButton } from '../../components/Field'
 import { addTransaction } from '../../store/actions'
@@ -47,6 +47,7 @@ class AddTransactionScreen extends Component {
                     </Text>
                     <TransactionCard
                         titlePlaceholder="What did you buy?"
+                        currencyType={this.props.currencyType}
                         submitBtnText="Add"
                         onSubmit={this.updateState.bind(this)}
                     />

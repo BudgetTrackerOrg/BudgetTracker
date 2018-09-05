@@ -71,5 +71,8 @@ export default {
         // This does not affect the math calculations
         // Only the value which is displayed
         return '$' + amount.toFixed(2)
+
+        // TODO
+        // create a variable and use that instead of the $, it should change every instance
     }
 }

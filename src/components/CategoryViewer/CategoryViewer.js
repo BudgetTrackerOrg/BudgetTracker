@@ -10,7 +10,7 @@ import {
 } from './CategoryViewerComponents'
 import TransactionCard from '../TransactionCard/TransactionCard'
 import CancelButton from '../Field/CancelButton'
-import { categories, functions } from '../../globals'
+import { categories, functions, currencies } from '../../globals'
 
 class CategoryViewer extends Component {
     constructor(props) {

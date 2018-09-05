@@ -8,7 +8,7 @@ import {
     MoneyField
 } from '../../components/Field'
 import Card from '../Card/Card'
-import { categories, currencies } from '../../globals'
+import { categories } from '../../globals'
 import styles from './TransactionCard.scss'
 
 class TransactionCard extends Component {
@@ -84,7 +84,7 @@ class TransactionCard extends Component {
                 <MoneyField
                     value={
                         // make a variable for this later
-                        this.entities.decode(currencies[17].symbol) +
+                        this.entities.decode(this.props.currencyType) +
                         this.state.amount
                     }
                     onChangeText={val => {

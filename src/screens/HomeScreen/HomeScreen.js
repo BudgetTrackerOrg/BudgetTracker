@@ -21,7 +21,8 @@ import {
     addTransaction,
     deleteTransaction,
     editTransaction,
-    firstTimeOpened
+    firstTimeOpened,
+    setCurrency
 } from '../../store/actions'
 import Connections from '../../Connections'
 
@@ -72,6 +73,8 @@ class HomeScreen extends React.Component {
         // open the picker,
         // change the currency everywhere,
         // set the preference in the redux state/Firebase
+        // change this later obviously
+        this.props.setCurrency(currencies[17].symbol)
     }
 
     // This allows the function toggleForm from <Popup /> to be called in this file
@@ -146,6 +149,11 @@ class HomeScreen extends React.Component {
                             <AddTransactionScreen
                                 heading="Add Purchase"
                                 titlePlaceholder="What did you buy?"
+                                // This sets the default as USD if no currency is chosen in settings
+                                currencyType={
+                                    this.props.selectedCurrency ||
+                                    currencies[0].symbol
+                                }
                                 submitBtnText="Add"
                                 closeForm={() =>
                                     this.popup.current.toggleForm()
@@ -212,7 +220,8 @@ const mapStateToProps = state => {
         // Keys referenced in this file as -> this.props.userID
         userID: state.main.userInfo ? state.main.userInfo.uid : null,
         isFirstTimeOpened: state.main.isFirstTimeOpened,
-        expenses: state.transaction.expenses
+        expenses: state.transaction.expenses,
+        selectedCurrency: state.main.selectedCurrency
     }
 }
 
@@ -220,7 +229,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
     return bindActionCreators(
-        { addTransaction, deleteTransaction, editTransaction, firstTimeOpened },
+        {
+            addTransaction,
+            deleteTransaction,
+            editTransaction,
+            firstTimeOpened,
+            setCurrency
+        },
         dispatch
     )
 }
