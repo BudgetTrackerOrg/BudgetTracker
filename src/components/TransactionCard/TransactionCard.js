@@ -45,7 +45,6 @@ class TransactionCard extends Component {
             category: data.category
         }
         this.props.onSubmit(finalValues)
-        this.setState(this.baseState)
     }
 
     updateStateWithProps() {
@@ -68,7 +67,7 @@ class TransactionCard extends Component {
                     placeholder={this.props.titlePlaceholder}
                     value={this.state.title}
                     onChangeText={title => {
-                        this.setState({ ...this.state, title })
+                        this.setState({ ...this.state, title: title.trim() })
                         // If field was previously invalid, it validates as soon as
                         // something is entered into the field
                         if (this.state.invalidTitle)
@@ -79,6 +78,9 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
+                    // TODO:
+                    // Make a variable for the '$'. Default will be $ but the
+                    // user should be allowed to change currency
                     value={'$' + this.state.amount}
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
@@ -150,15 +152,8 @@ class TransactionCard extends Component {
                                     })
                                 } else {
                                     this.setState(
-                                        // This is placed onSubmit and not onChangeText
-                                        // because trim() has very strange behaviour
-                                        // when applied to onChangeText
-                                        // If a better alternative is found,
-                                        // please go ahead
-                                        {
-                                            title: this.state.title.trim()
-                                        },
-                                        () => this.onSubmit(this.state)
+                                        this.onSubmit(this.state),
+                                        () => this.setState(this.baseState)
                                     )
                                 }
                             }
