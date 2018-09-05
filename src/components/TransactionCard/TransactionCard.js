@@ -4,11 +4,15 @@ import {
     DateField,
     Field,
     FormButton,
-    MoneyField
+    MoneyField,
+    CancelButton
 } from '../../components/Field'
 import Card from '../Card/Card'
+import TransactionTypeSelector from '../TransactionTypeSelector/TransactionTypeSelector'
 import { categories } from '../../globals'
 import styles from './TransactionCard.scss'
+import { TouchableHighlight, Text, View } from 'react-native'
+import { Picker } from 'react-native-picker-dropdown'
 
 class TransactionCard extends Component {
     constructor(props) {
@@ -19,7 +23,8 @@ class TransactionCard extends Component {
             dateAdded: new Date(),
             category: Object.keys(categories)[0],
             invalidTitle: null,
-            invalidMoney: null
+            invalidMoney: null,
+            transactionType: ''
         }
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
@@ -42,8 +47,14 @@ class TransactionCard extends Component {
             title: data.title,
             amount: data.amount,
             dateAdded: data.dateAdded,
-            category: data.category
+            category: data.category,
+            transactionType: data.transactionType
         }
+
+        if (data.transactionType === 'income') {
+            finalValues.category = 'income'
+        }
+
         this.props.onSubmit(finalValues)
         this.setState(this.baseState)
     }
@@ -62,10 +73,10 @@ class TransactionCard extends Component {
     }
 
     render() {
-        return (
-            <Card style={styles.form__fields}>
+        let spendingForm = (
+            <View>
                 <Field
-                    placeholder={this.props.titlePlaceholder}
+                    placeholder={'What did you buy?'}
                     value={this.state.title}
                     onChangeText={title => {
                         this.setState({ ...this.state, title })
@@ -119,8 +130,99 @@ class TransactionCard extends Component {
                     }
                     selectedValue={this.state.category}
                 />
+            </View>
+        )
+
+        let incomeForm = (
+            <View>
+                <Field
+                    placeholder={'Title'}
+                    value={this.state.title}
+                    onChangeText={title => {
+                        this.setState({ ...this.state, title })
+                        // If field was previously invalid, it validates as soon as
+                        // something is entered into the field
+                        if (this.state.invalidTitle)
+                            this.setState({
+                                invalidTitle: null
+                            })
+                    }}
+                    invalidStyles={this.state.invalidTitle}
+                />
+                <MoneyField
+                    value={'$' + this.state.amount}
+                    onChangeText={val => {
+                        const regex = /([0-9.]+)/g
+
+                        this.setState({
+                            ...this.state,
+                            // This ternary expression returns a float
+                            amount: val.match(regex) ? val.match(regex)[0] : ''
+                        })
+                        // If field was previously invalid, it validates as soon as
+                        // something is entered into the field
+                        if (this.state.invalidMoney)
+                            this.setState({
+                                invalidMoney: null
+                            })
+                    }}
+                    invalidStyles={this.state.invalidMoney}
+                />
+                <DateField
+                    date={this.state.dateAdded}
+                    onDateChange={date => {
+                        // doing the following because param which is being passed in is a string, which breaks things
+                        date = date.split('-')
+                        date = new Date(date[2], parseInt(date[0]) - 1, date[1])
+
+                        this.setState({
+                            ...this.state,
+                            dateAdded: date
+                        })
+                    }}
+                />
+            </View>
+        )
+
+        let form
+        let header
+        if (this.state.transactionType === 'spending') {
+            form = spendingForm
+            header = 'Add Expense'
+        } else if (this.props.isEditForm) {
+            form = spendingForm
+            header = 'Edit Details for ' + this.state.title
+        } else {
+            form = incomeForm
+            header = 'Add Income'
+        }
+        return (
+            <Card style={styles.form__fields}>
+                {this.props.isEditForm ? null : (
+                    <TransactionTypeSelector
+                        onSelection={type => {
+                            this.setState({
+                                ...this.state,
+                                transactionType: type
+                            })
+                        }}
+                    />
+                )}
+                <Text
+                    style={{
+                        textAlign: 'center',
+                        fontSize: 20,
+                        marginTop: 15,
+                        marginBottom: 15
+                    }}
+                >
+                    {header}
+                </Text>
+
+                {form}
+
                 <FormButton
-                    buttonText={this.props.submitBtnText}
+                    buttonText={'Add'}
                     onPress={() => {
                         this.setState(
                             {
@@ -165,6 +267,13 @@ class TransactionCard extends Component {
                         )
                     }}
                 />
+                {this.props.isEditForm ? null : (
+                    <TouchableHighlight onPress={this.props.onCancelPress}>
+                        <Text style={{ textAlign: 'center', color: '#5362E4' }}>
+                            Cancel
+                        </Text>
+                    </TouchableHighlight>
+                )}
             </Card>
         )
     }
