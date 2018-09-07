@@ -144,7 +144,7 @@ class CategoryViewer extends Component {
                         categoryTitle={
                             this.props.category
                                 ? categories[this.props.category].displayTitle
-                                : null
+                                : 'All Transactions'
                         }
                     />
                 </View>
@@ -160,6 +160,7 @@ class CategoryViewer extends Component {
                                     amount={expense.item.amount}
                                     dateAdded={expense.item.dateAdded}
                                     category={expense.item.category}
+                                    showCategory={this.props.showCategory}
                                     onLongPress={transactionInfo =>
                                         this.showPopUp(transactionInfo)
                                     }

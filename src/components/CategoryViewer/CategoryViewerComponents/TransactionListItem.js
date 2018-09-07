@@ -6,13 +6,24 @@ import {
     Platform,
     TouchableWithoutFeedback
 } from 'react-native'
-import { functions } from '../../../globals'
+import { functions, categories } from '../../../globals'
 
 export default props => {
     return (
-        <TouchableWithoutFeedback onLongPress={() => props.onLongPress(props)}>
+        <TouchableWithoutFeedback
+            onLongPress={() => props.onLongPress(props)}
+            showCategory={props.showCategory}
+        >
             <View style={styles.main}>
                 <View style={styles.left}>
+                    <Text
+                        style={{
+                            display: props.showCategory ? 'flex' : 'none',
+                            color: '#333'
+                        }}
+                    >
+                        {categories[props.category].displayTitle}
+                    </Text>
                     <Text style={styles.title}>
                         {functions.toTitleCase(props.title)}
                     </Text>
