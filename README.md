@@ -12,14 +12,14 @@ Download 'google-services.json' from firebase console, and place in the followin
 Download 'GoogleService-Info.plist' from firebase console, and place in the following location:
 - `./ios/<here>`
 
-Add `BTKey.keystore` file to `./android/app/<here>`
-
-
 ### Generate .env file
 
 Run `npm run genenv`
 
 Get the Web API key from firebase and place the api key in the .env file
+
+### Android store key
+Add `BTKey.keystore` file to `./android/app/<here>`
 
 ## Practices to follow:
 
