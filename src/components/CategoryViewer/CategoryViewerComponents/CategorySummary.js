@@ -1,32 +1,33 @@
 import React from 'react'
-import {
-    View,
-    StyleSheet,
-    Dimensions,
-    Text,
-    TouchableOpacity
-} from 'react-native'
+import { connect } from 'react-redux'
+import { View, Dimensions, Text } from 'react-native'
 import { functions } from '../../../globals'
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import CancelButton from '../../Field/CancelButton'
 
-export default props => {
-    return (
-        <View style={styles.main}>
-            {props.showBackButton && (
-                <CancelButton onPress={props.backButtonOnPress} />
-            )}
-            <Text style={styles.categoryTitle}>{props.categoryTitle}</Text>
-            <Text style={styles.totalAmount}>
-                {functions.formatCurrency(props.totalAmount)}
-            </Text>
-        </View>
-    )
+class CategorySummary extends React.Component {
+    render() {
+        return (
+            <View style={styles.main}>
+                {this.props.showBackButton && (
+                    <CancelButton onPress={this.props.backButtonOnPress} />
+                )}
+                <Text style={styles.categoryTitle}>
+                    {this.props.categoryTitle}
+                </Text>
+                <Text style={styles.totalAmount}>
+                    {functions.formatCurrency(
+                        this.props.totalAmount,
+                        this.props.selectedCurrency.symbol
+                    )}
+                </Text>
+            </View>
+        )
+    }
 }
 
 var { height, width } = Dimensions.get('window')
 
-const styles = StyleSheet.create({
+const styles = {
     main: {
         flex: 1,
         width,
@@ -45,4 +46,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     }
-})
+}
+
+const mapStateToProps = state => {
+    return { selectedCurrency: state.main.selectedCurrency }
+}
+
+export default connect(mapStateToProps)(CategorySummary)

@@ -1,3 +1,7 @@
+import Entities from 'html-entities/lib/html5-entities'
+// This allows the decoding of Entity characters for currency symbols
+let entities = new Entities()
+
 const MONTHS = [
     'January',
     'February',
@@ -65,14 +69,13 @@ export default {
         return total
     },
 
-    formatCurrency(amount) {
+    formatCurrency(amount, currencySymbol = '&#36;') {
+        // &#36; is the default value of '$', which gets
+        // decoded in the return statement
         if (amount === undefined) return
         // toFixed(2) converts to 2 decimal places
         // This does not affect the math calculations
         // Only the value which is displayed
-        return '$' + amount.toFixed(2)
-
-        // TODO
-        // create a variable and use that instead of the $, it should change every instance
+        return entities.decode(currencySymbol) + amount.toFixed(2)
     }
 }

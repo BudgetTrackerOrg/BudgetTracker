@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
 import styles from './CategoriesPage.scss'
 import { withNavigation } from 'react-navigation'
@@ -18,7 +19,10 @@ export class CategoriesPage extends Component {
                         numberOfLines={1}
                         style={styles.main__heading}
                     >
-                        {functions.formatCurrency(expensesResult.total)}
+                        {functions.formatCurrency(
+                            expensesResult.total,
+                            this.props.selectedCurrency.symbol
+                        )}
                     </Text>
                 </View>
                 <View style={styles.categories}>
@@ -47,4 +51,8 @@ export class CategoriesPage extends Component {
     }
 }
 
-export default withNavigation(CategoriesPage)
+const mapStateToProps = state => {
+    return { selectedCurrency: state.main.selectedCurrency }
+}
+
+export default withNavigation(connect(mapStateToProps)(CategoriesPage))

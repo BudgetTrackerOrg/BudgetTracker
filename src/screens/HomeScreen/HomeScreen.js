@@ -1,11 +1,12 @@
 import React from 'react'
-import { TouchableOpacity, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
-import { Picker } from 'react-native-picker-dropdown'
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import ModalSelector from 'react-native-modal-selector'
+import Entities from 'html-entities/lib/html5-entities'
 import {
     Footer,
     ContentViewer,
@@ -33,6 +34,16 @@ class HomeScreen extends React.Component {
             currentPage: 0,
             userInfo: null
         }
+    }
+
+    // This allows the decoding of Entity characters for currency symbols
+    entities = new Entities()
+
+    componentWillMount() {
+        // If no currency is selected by the user,
+        // it will have a default value of USD, due to
+        // the action setCurrency's default value
+        this.props.setCurrency(this.props.selectedCurrency)
     }
 
     componentDidMount() {
@@ -69,14 +80,6 @@ class HomeScreen extends React.Component {
         this.drawer.open()
     }
 
-    selectCurrency = () => {
-        // open the picker,
-        // change the currency everywhere,
-        // set the preference in the redux state/Firebase
-        // change this later obviously
-        this.props.setCurrency(currencies[17].symbol)
-    }
-
     // This allows the function toggleForm from <Popup /> to be called in this file
     popup = React.createRef()
     mainPage = React.createRef()
@@ -108,14 +111,65 @@ class HomeScreen extends React.Component {
                                     this.closeSidePanel()
                                 },
                                 icon: 'google'
-                            },
-                            {
-                                title: 'Change Currency',
-                                onPress: this.selectCurrency,
-                                icon: 'money'
                             }
                         ]}
-                    />
+                    >
+                        {
+                            <ModalSelector
+                                backdropPressToClose
+                                data={currencies}
+                                initValue={`${
+                                    this.props.selectedCurrency.code
+                                } (${this.entities.decode(
+                                    this.props.selectedCurrency.symbol
+                                )})`}
+                                onChange={val => this.props.setCurrency(val)}
+                                animationType="fade"
+                                style={{
+                                    flexDirection: 'column',
+                                    justifyContent: 'flex-start',
+                                    alignContent: 'flex-start',
+                                    alignItems: 'flex-start'
+                                }}
+                                selectStyle={{
+                                    borderColor: 'transparent',
+                                    margin: 0,
+                                    padding: 0,
+                                    backgroundColor: 'red'
+                                }}
+                                overlayStyle={{
+                                    flex: 1,
+                                    padding: '5%',
+                                    justifyContent: 'center',
+                                    backgroundColor: 'transparent'
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        padding: 20,
+                                        flexDirection: 'row',
+                                        // flexGrow: 1,
+                                        // alignSelf: 'stretch',
+                                        backgroundColor: 'green'
+                                    }}
+                                >
+                                    <Icon
+                                        name="money"
+                                        size={20}
+                                        color="white"
+                                        style={{ marginRight: 10 }}
+                                    />
+                                    <Text style={{ color: '#fff' }}>
+                                        {`${
+                                            this.props.selectedCurrency.code
+                                        } (${this.entities.decode(
+                                            this.props.selectedCurrency.symbol
+                                        )})`}
+                                    </Text>
+                                </View>
+                            </ModalSelector>
+                        }
+                    </SidePanel>
                 }
                 captureGestures={true}
                 openDrawerOffset={0.5}
@@ -149,10 +203,8 @@ class HomeScreen extends React.Component {
                             <AddTransactionScreen
                                 heading="Add Purchase"
                                 titlePlaceholder="What did you buy?"
-                                // This sets the default as USD if no currency is chosen in settings
                                 currencyType={
-                                    this.props.selectedCurrency ||
-                                    currencies[0].symbol
+                                    this.props.selectedCurrency.symbol
                                 }
                                 submitBtnText="Add"
                                 closeForm={() =>

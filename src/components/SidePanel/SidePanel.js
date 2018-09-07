@@ -16,6 +16,8 @@ export default props => {
                         />
                     )
                 })}
+
+                {props.children}
             </List>
         </View>
     )
