@@ -62,13 +62,8 @@ class CategoryViewer extends Component {
                             this.popupDialog.show()
                         }}
                     />
-                    <Text style={{ textAlign: 'center', fontSize: 20 }}>
-                        Edit Details:{' '}
-                        {this.state.lastOptionsOpenedInfo == null
-                            ? ''
-                            : this.state.lastOptionsOpenedInfo.title}
-                    </Text>
                     <TransactionCard
+                        isEditForm={true}
                         ref={transCard => {
                             this.transCard = transCard
                         }}

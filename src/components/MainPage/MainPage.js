@@ -28,10 +28,14 @@ export class MainPage extends Component {
             <MultiViewSwitch
                 currentPage={this.state.pageDisplayed}
                 pages={[
-                    <CategoriesPage expenses={this.props.expenses} />,
+                    <CategoriesPage
+                        expenses={this.props.expenses}
+                        income={this.props.income}
+                    />,
                     <ContentViewer backButton={false}>
                         <CategoryViewer
                             expenses={this.props.expenses}
+                            income={this.props.income}
                             deleteTransactionCallback={
                                 this.props.deleteTransactionCallback
                             }

@@ -124,6 +124,7 @@ class HomeScreen extends React.Component {
                         <MainPage
                             onRef={ref => (this.mainPage = ref)}
                             expenses={this.props.expenses}
+                            income={this.props.income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }
@@ -134,9 +135,6 @@ class HomeScreen extends React.Component {
                     <Popup
                         display={
                             <AddTransactionScreen
-                                heading="Add Purchase"
-                                titlePlaceholder="What did you buy?"
-                                submitBtnText="Add"
                                 closeForm={() =>
                                     this.popup.current.toggleForm()
                                 }
@@ -202,7 +200,8 @@ const mapStateToProps = state => {
         // Keys referenced in this file as -> this.props.userID
         userID: state.main.userInfo ? state.main.userInfo.uid : null,
         isFirstTimeOpened: state.main.isFirstTimeOpened,
-        expenses: state.transaction.expenses
+        expenses: state.transaction.expenses,
+        income: state.transaction.income
     }
 }
 
