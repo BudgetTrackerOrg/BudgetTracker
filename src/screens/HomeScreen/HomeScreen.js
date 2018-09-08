@@ -125,32 +125,13 @@ class HomeScreen extends React.Component {
                                 )})`}
                                 onChange={val => this.props.setCurrency(val)}
                                 animationType="fade"
-                                style={{
-                                    flexDirection: 'column',
-                                    justifyContent: 'flex-start',
-                                    alignContent: 'flex-start',
-                                    alignItems: 'flex-start'
-                                }}
-                                selectStyle={{
-                                    borderColor: 'transparent',
-                                    margin: 0,
-                                    padding: 0,
-                                    backgroundColor: 'red'
-                                }}
-                                overlayStyle={{
-                                    flex: 1,
-                                    padding: '5%',
-                                    justifyContent: 'center',
-                                    backgroundColor: 'transparent'
-                                }}
                             >
                                 <View
                                     style={{
                                         padding: 20,
                                         flexDirection: 'row',
-                                        // flexGrow: 1,
-                                        // alignSelf: 'stretch',
-                                        backgroundColor: 'green'
+                                        alignItems: 'center',
+                                        width: 500
                                     }}
                                 >
                                     <Icon
