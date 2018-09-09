@@ -95,6 +95,9 @@ class HomeScreen extends React.Component {
             <Drawer
                 tapToClose
                 ref={ref => (this.drawer = ref)}
+                captureGestures={true}
+                panOpenMask={0.25}
+                elevation={4}
                 content={
                     <SidePanel
                         selectableOptions={[
