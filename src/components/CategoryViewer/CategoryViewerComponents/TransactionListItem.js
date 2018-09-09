@@ -11,6 +11,8 @@ import { functions, categories } from '../../../globals'
 
 class TransactionListItem extends React.Component {
     render() {
+        let isIncome = this.props.category === 'income'
+
         return (
             <TouchableWithoutFeedback
                 onLongPress={() => this.props.onLongPress(this.props)}
@@ -26,9 +28,16 @@ class TransactionListItem extends React.Component {
                                 color: '#333'
                             }}
                         >
-                            {categories[this.props.category].displayTitle}
+                            {isIncome
+                                ? ''
+                                : categories[this.props.category].displayTitle}
                         </Text>
-                        <Text style={styles.title}>
+                        <Text
+                            style={[
+                                styles.title,
+                                { color: isIncome ? 'green' : '#333' }
+                            ]}
+                        >
                             {functions.toTitleCase(this.props.title)}
                         </Text>
                         <Text style={styles.date}>

@@ -150,7 +150,9 @@ class CategoryViewer extends Component {
                 </View>
                 <View style={{ flex: 3, zIndex: 1 }}>
                     <TransactionList
-                        data={this.props.expenses}
+                        expenses={this.props.expenses}
+                        income={this.props.income}
+                        onlyExpenses={this.props.onlyExpenses}
                         renderItem={expense => {
                             return (
                                 <TransactionListItem
