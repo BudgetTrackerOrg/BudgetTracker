@@ -25,11 +25,11 @@ class TransactionListItem extends React.Component {
                                 display: this.props.showCategory
                                     ? 'flex'
                                     : 'none',
-                                color: '#333'
+                                color: isIncome ? 'green' : '#333'
                             }}
                         >
                             {isIncome
-                                ? ''
+                                ? 'Income'
                                 : categories[this.props.category].displayTitle}
                         </Text>
                         <Text
