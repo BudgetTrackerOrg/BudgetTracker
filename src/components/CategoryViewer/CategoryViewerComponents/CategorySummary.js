@@ -44,7 +44,7 @@ const styles = {
     categoryTitle: {
         fontSize: 15,
         textAlign: 'center',
-        color: 'white'
+        color: '#ffd031'
     }
 }
 

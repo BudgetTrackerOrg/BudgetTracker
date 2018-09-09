@@ -76,11 +76,19 @@ const addTransaction = (state, transaction) => {
 
 const deleteTransaction = (state, id) => {
     expenses = state.expenses.slice() //copying by value, to avoid mutation
+    income = state.income.slice() //copying by value, to avoid mutation
 
     for (let i = 0; i < expenses.length; ++i) {
         if (expenses[i].id === id) {
             expenses.splice(i, 1)
             return { ...state, expenses }
+        }
+    }
+
+    for (let i = 0; i < income.length; ++i) {
+        if (income[i].id === id) {
+            income.splice(i, 1)
+            return { ...state, income }
         }
     }
 
