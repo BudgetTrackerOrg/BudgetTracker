@@ -32,27 +32,16 @@ class AddTransactionScreen extends Component {
 
     render() {
         return (
-            <LinearGradient
-                style={styles.form}
-                colors={colors.backgroundGradient}
-            >
-                <CancelButton
-                    style={styles.cancelButton}
-                    buttonText="Back"
-                    onPress={this.props.closeForm}
-                />
+            <View style={styles.form} colors={colors.backgroundGradient}>
                 <View>
-                    <Text style={styles.form__heading}>
-                        {this.props.heading}
-                    </Text>
                     <TransactionCard
                         titlePlaceholder="What did you buy?"
                         currencyType={this.props.currencyType}
-                        submitBtnText="Add"
+                        onCancelPress={this.props.closeForm}
                         onSubmit={this.updateState.bind(this)}
                     />
                 </View>
-            </LinearGradient>
+            </View>
         )
     }
 }

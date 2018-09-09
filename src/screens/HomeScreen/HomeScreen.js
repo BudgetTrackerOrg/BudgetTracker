@@ -172,6 +172,7 @@ class HomeScreen extends React.Component {
                         <MainPage
                             onRef={ref => (this.mainPage = ref)}
                             expenses={this.props.expenses}
+                            income={this.props.income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }
@@ -182,12 +183,9 @@ class HomeScreen extends React.Component {
                     <Popup
                         display={
                             <AddTransactionScreen
-                                heading="Add Purchase"
-                                titlePlaceholder="What did you buy?"
                                 currencyType={
                                     this.props.selectedCurrency.symbol
                                 }
-                                submitBtnText="Add"
                                 closeForm={() =>
                                     this.popup.current.toggleForm()
                                 }
@@ -254,7 +252,9 @@ const mapStateToProps = state => {
         userID: state.main.userInfo ? state.main.userInfo.uid : null,
         isFirstTimeOpened: state.main.isFirstTimeOpened,
         expenses: state.transaction.expenses,
-        selectedCurrency: state.main.selectedCurrency
+        selectedCurrency: state.main.selectedCurrency,
+        income: state.transaction.income
+
     }
 }
 

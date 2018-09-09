@@ -18,6 +18,9 @@ Run `npm run genenv`
 
 Get the Web API key from firebase and place the api key in the .env file
 
+### Android store key
+Add `BTKey.keystore` file to `./android/app/<here>`
+
 ## Practices to follow:
 
 -   **NEVER** format code, this can cause unnecessary conflicts in commits

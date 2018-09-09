@@ -5,11 +5,14 @@ import styles from './CategoriesPage.scss'
 import { withNavigation } from 'react-navigation'
 import CategoryBox from '../Categories/CategoryBox'
 import { categories, functions } from '../../globals'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 export class CategoriesPage extends Component {
     render() {
         let expensesResult = functions.getExpenseResult(this.props.expenses)
+        let incomeResult = functions.getExpenseResult(this.props.income)
 
+        let totalResult = incomeResult.total - expensesResult.total
         return (
             <View>
                 <Text style={styles.main__subheading}>Total Spending</Text>
@@ -17,11 +20,17 @@ export class CategoriesPage extends Component {
                     <Text
                         adjustsFontSizeToFit
                         numberOfLines={1}
-                        style={styles.main__heading}
+                        style={{
+                            ...styles.main__heading,
+                            color: totalResult < 0 ? 'red' : 'white'
+                        }}
                     >
-                        {functions.formatCurrency(
-                            expensesResult.total,
-                            this.props.selectedCurrency.symbol
+                        {functions.formatCurrency(totalResult,
+                            this.props.selectedCurrency.symbol)}
+                        {totalResult < 0 ? (
+                            <Icon name="sort-down" size={20} color="red" />
+                        ) : (
+                            ''
                         )}
                     </Text>
                 </View>

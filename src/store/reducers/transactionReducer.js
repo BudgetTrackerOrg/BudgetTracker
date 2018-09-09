@@ -57,10 +57,17 @@ const addTransaction = (state, transaction) => {
         transaction['id'] = Math.floor(Math.random() * 10000000000)
     }
 
-    return {
-        ...state,
-        expenses: [...state.expenses, transaction]
+    console.log(transaction)
+    let expenses = [...state.expenses]
+    let income = [...state.income]
+
+    if (transaction.transactionType === 'spending') {
+        expenses.push(transaction)
+    } else if (transaction.transactionType === 'income') {
+        income.push(transaction)
     }
+
+    return { ...state, expenses, income }
 }
 
 const deleteTransaction = (state, id) => {
