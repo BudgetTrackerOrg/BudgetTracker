@@ -27,9 +27,17 @@ export default {
                                 {
                                     text: 'Backup data from Device',
                                     onPress: () => {
-                                        connections.backupToFirebase({
-                                            expenses: store.getState()
-                                                .transaction.expenses
+                                        connections.backupToFirebase.transactions(
+                                            {
+                                                expenses: store.getState()
+                                                    .transaction.expenses,
+                                                income: store.getState()
+                                                    .transaction.income
+                                            }
+                                        )
+                                        connections.backupToFirebase.currency({
+                                            selectedCurrency: store.getState()
+                                                .main.selectedCurrency
                                         })
                                     }
                                 },
@@ -42,8 +50,15 @@ export default {
                             ]
                         )
                     } else {
-                        connections.backupToFirebase({
-                            expenses: store.getState().transaction.expenses
+                        connections.backupToFirebase.transactions({
+                            expenses: store.getState().transaction.expenses,
+                            income: store.getState().transaction.income,
+                            selectedCurrency: store.getState().main
+                                .selectedCurrency
+                        })
+                        connections.backupToFirebase.currency({
+                            selectedCurrency: store.getState().main
+                                .selectedCurrency
                         })
                     }
                 })

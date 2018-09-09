@@ -3,9 +3,12 @@ const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS'
 
 export { FETCH_TRANSACTIONS }
 
-export default transactions => {
+export default input => {
     return {
         type: FETCH_TRANSACTIONS,
-        payload: transactions
+        payload: {
+            income: input.transactions.income,
+            expenses: input.transactions.expenses
+        }
     }
 }

@@ -13,7 +13,7 @@ import {
 } from 'react-native-dotenv'
 import firebase from 'firebase'
 import { store } from '../store'
-import { setUserInfo, fetchTransactions } from '../store/actions'
+import { setUserInfo, fetchTransactions, setCurrency } from '../store/actions'
 
 const config = {
     apiKey: API_KEY,
@@ -42,16 +42,20 @@ const connections = {
     signIn: authentication.signIn,
     signOut: authentication.signOut,
 
-    backupToFirebase: data => {
-        // backs up ONLY if user is singed in
-        if (this.user) {
-            firebase
-                .database()
-                .ref(this.user.uid)
-                .set({
-                    data
-                })
-                .catch(err => console.log(err))
+    backupToFirebase: {
+        transactions: input => {
+            let data = {
+                transactions: { expenses: input.expenses, income: input.income }
+            }
+
+            sendDataToFirebase(data)
+        },
+        currency: input => {
+            let data = {
+                selectedCurrency: input.selectedCurrency
+            }
+
+            sendDataToFirebase(data)
         }
     },
 
@@ -61,17 +65,30 @@ const connections = {
                 .database()
                 .ref(this.user.uid)
                 .once('value', data => {
-                    store.dispatch(
-                        fetchTransactions({
-                            ...data.toJSON()
-                        })
-                    )
+                    let backedupData = {
+                        ...data.toJSON(),
+                        isFetch: true
+                    }
+
+                    // dispatch actions to backup data
+                    store.dispatch(setCurrency(backedupData))
+                    store.dispatch(fetchTransactions(backedupData))
                 })
                 .catch(err => console.log(err))
         }
     },
     getCurrentUser() {
         return this.user
+    }
+}
+let sendDataToFirebase = data => {
+    // backs up ONLY if user is singed in
+    if (this.user) {
+        firebase
+            .database()
+            .ref(this.user.uid)
+            .update(data)
+            .catch(err => console.log(err))
     }
 }
 

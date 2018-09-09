@@ -5,6 +5,12 @@ const SET_CURRENCY = 'SET_CURRENCY'
 
 export { SET_CURRENCY }
 
-export default (selectedCurrency = currencies[0]) => {
-    return { type: SET_CURRENCY, payload: selectedCurrency }
+export default (data = { selectedCurrency: currencies[0] }) => {
+    return {
+        type: SET_CURRENCY,
+        payload: {
+            selectedCurrency: data.selectedCurrency,
+            isFetch: data.isFetch
+        }
+    }
 }

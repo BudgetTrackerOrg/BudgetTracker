@@ -13,6 +13,7 @@ export class CategoriesPage extends Component {
         let incomeResult = functions.getExpenseResult(this.props.income)
 
         let totalResult = incomeResult.total - expensesResult.total
+
         return (
             <View>
                 <Text style={styles.main__subheading}>Total Spending</Text>
@@ -25,8 +26,10 @@ export class CategoriesPage extends Component {
                             color: totalResult < 0 ? 'red' : 'white'
                         }}
                     >
-                        {functions.formatCurrency(totalResult,
-                            this.props.selectedCurrency.symbol)}
+                        {functions.formatCurrency(
+                            totalResult,
+                            this.props.selectedCurrency.symbol
+                        )}
                         {totalResult < 0 ? (
                             <Icon name="sort-down" size={20} color="red" />
                         ) : (
