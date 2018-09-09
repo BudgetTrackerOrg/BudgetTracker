@@ -18,3 +18,5 @@ export {
 } from './firstTimeOpened'
 
 export { default as setUserInfo, SET_USER_INFO } from './setUserInfo'
+
+export { default as setCurrency, SET_CURRENCY } from './setCurrency'

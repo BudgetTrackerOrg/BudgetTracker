@@ -1,5 +1,12 @@
 import React from 'react'
-import { TouchableOpacity, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
+import Drawer from 'react-native-drawer'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import ModalSelector from 'react-native-modal-selector'
+import Entities from 'html-entities/lib/html5-entities'
 import {
     Footer,
     ContentViewer,
@@ -10,24 +17,33 @@ import {
 import Popup from '../../components/Popup/Popup'
 import AddTransactionScreen from '../AddTransactionScreen/AddTransactionScreen'
 import styles from './HomeScreen.scss'
-import LinearGradient from 'react-native-linear-gradient'
-import { bindActionCreators } from 'redux'
-import { colors } from '../../globals'
-import { connect } from 'react-redux'
+import { colors, currencies } from '../../globals'
 import {
     addTransaction,
     deleteTransaction,
     editTransaction,
-    firstTimeOpened
+    firstTimeOpened,
+    setCurrency
 } from '../../store/actions'
-import Drawer from 'react-native-drawer'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Connections from '../../Connections'
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { currentPage: 0, userInfo: null }
+        this.state = {
+            currentPage: 0,
+            userInfo: null
+        }
+    }
+
+    // This allows the decoding of Entity characters for currency symbols
+    entities = new Entities()
+
+    componentWillMount() {
+        // If no currency is selected by the user,
+        // it will have a default value of USD, due to
+        // the action setCurrency's default value
+        this.props.setCurrency(this.props.selectedCurrency)
     }
 
     componentDidMount() {
@@ -95,14 +111,46 @@ class HomeScreen extends React.Component {
                                     this.closeSidePanel()
                                 },
                                 icon: 'google'
-                            },
-                            {
-                                title: 'Settings',
-                                onPress: this.closeSidePanel,
-                                icon: 'cog'
                             }
                         ]}
-                    />
+                    >
+                        {
+                            <ModalSelector
+                                backdropPressToClose
+                                data={currencies}
+                                initValue={`${
+                                    this.props.selectedCurrency.code
+                                } (${this.entities.decode(
+                                    this.props.selectedCurrency.symbol
+                                )})`}
+                                onChange={val => this.props.setCurrency(val)}
+                                animationType="fade"
+                            >
+                                <View
+                                    style={{
+                                        padding: 20,
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        width: 500
+                                    }}
+                                >
+                                    <Icon
+                                        name="money"
+                                        size={20}
+                                        color="white"
+                                        style={{ marginRight: 10 }}
+                                    />
+                                    <Text style={{ color: '#fff' }}>
+                                        {`${
+                                            this.props.selectedCurrency.code
+                                        } (${this.entities.decode(
+                                            this.props.selectedCurrency.symbol
+                                        )})`}
+                                    </Text>
+                                </View>
+                            </ModalSelector>
+                        }
+                    </SidePanel>
                 }
                 captureGestures={true}
                 openDrawerOffset={0.5}
@@ -135,6 +183,9 @@ class HomeScreen extends React.Component {
                     <Popup
                         display={
                             <AddTransactionScreen
+                                currencyType={
+                                    this.props.selectedCurrency.symbol
+                                }
                                 closeForm={() =>
                                     this.popup.current.toggleForm()
                                 }
@@ -201,7 +252,9 @@ const mapStateToProps = state => {
         userID: state.main.userInfo ? state.main.userInfo.uid : null,
         isFirstTimeOpened: state.main.isFirstTimeOpened,
         expenses: state.transaction.expenses,
+        selectedCurrency: state.main.selectedCurrency,
         income: state.transaction.income
+
     }
 }
 
@@ -209,7 +262,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
     return bindActionCreators(
-        { addTransaction, deleteTransaction, editTransaction, firstTimeOpened },
+        {
+            addTransaction,
+            deleteTransaction,
+            editTransaction,
+            firstTimeOpened,
+            setCurrency
+        },
         dispatch
     )
 }

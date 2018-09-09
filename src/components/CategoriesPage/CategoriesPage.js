@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
 import styles from './CategoriesPage.scss'
 import { withNavigation } from 'react-navigation'
@@ -24,7 +25,8 @@ export class CategoriesPage extends Component {
                             color: totalResult < 0 ? 'red' : 'white'
                         }}
                     >
-                        {functions.formatCurrency(totalResult)}
+                        {functions.formatCurrency(totalResult,
+                            this.props.selectedCurrency.symbol)}
                         {totalResult < 0 ? (
                             <Icon name="sort-down" size={20} color="red" />
                         ) : (
@@ -58,4 +60,8 @@ export class CategoriesPage extends Component {
     }
 }
 
-export default withNavigation(CategoriesPage)
+const mapStateToProps = state => {
+    return { selectedCurrency: state.main.selectedCurrency }
+}
+
+export default withNavigation(connect(mapStateToProps)(CategoriesPage))

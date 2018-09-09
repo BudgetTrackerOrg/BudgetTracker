@@ -1,4 +1,4 @@
-import { FIRST_TIME_OPEN_ACTION, SET_USER_INFO } from '../actions'
+import { FIRST_TIME_OPEN_ACTION, SET_USER_INFO, SET_CURRENCY } from '../actions'
 
 export default (state = initialState(), action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ export default (state = initialState(), action) => {
             return { ...state, isFirstTimeOpened: false }
         case SET_USER_INFO:
             return { ...state, userInfo: action.payload }
+        case SET_CURRENCY:
+            return { ...state, selectedCurrency: action.payload }
         default:
             return state
     }

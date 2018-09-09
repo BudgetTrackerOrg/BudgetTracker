@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Entities from 'html-entities/lib/html5-entities'
 import {
     CategoryField,
     DateField,
@@ -30,6 +31,9 @@ class TransactionCard extends Component {
         this.invalid = { borderColor: '#a31a11' }
     }
 
+    // This allows the decoding of Entity characters for currency symbols
+    entities = new Entities()
+
     getKeyFromDisplayText(text) {
         let returnValue = text
 
@@ -56,7 +60,6 @@ class TransactionCard extends Component {
         }
 
         this.props.onSubmit(finalValues)
-        this.setState(this.baseState)
     }
 
     updateStateWithProps() {
@@ -79,7 +82,7 @@ class TransactionCard extends Component {
                     placeholder={'What did you buy?'}
                     value={this.state.title}
                     onChangeText={title => {
-                        this.setState({ ...this.state, title })
+                        this.setState({ ...this.state, title: title.trim() })
                         // If field was previously invalid, it validates as soon as
                         // something is entered into the field
                         if (this.state.invalidTitle)
@@ -90,7 +93,11 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    value={'$' + this.state.amount}
+                    value={
+                        // make a variable for this later
+                        this.entities.decode(this.props.currencyType) +
+                        this.state.amount
+                    }
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 
@@ -252,15 +259,8 @@ class TransactionCard extends Component {
                                     })
                                 } else {
                                     this.setState(
-                                        // This is placed onSubmit and not onChangeText
-                                        // because trim() has very strange behaviour
-                                        // when applied to onChangeText
-                                        // If a better alternative is found,
-                                        // please go ahead
-                                        {
-                                            title: this.state.title.trim()
-                                        },
-                                        () => this.onSubmit(this.state)
+                                        this.onSubmit(this.state),
+                                        () => this.setState(this.baseState)
                                     )
                                 }
                             }

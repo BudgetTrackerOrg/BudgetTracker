@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View } from 'react-native'
 import { List, ListItem } from '../List'
 
 export default props => {
@@ -16,15 +16,17 @@ export default props => {
                         />
                     )
                 })}
+
+                {props.children}
             </List>
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#212121'
     }
-})
+}
