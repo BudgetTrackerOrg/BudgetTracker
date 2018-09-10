@@ -2,20 +2,31 @@ import React from 'react'
 import { ScrollView, Platform, FlatList, Text } from 'react-native'
 
 export default props => {
+    let data = []
+
+    if (props.onlyExpenses) {
+        data = [...props.expenses]
+    } else {
+        // loop through each array adding them to data object
+        Object.keys(props.expenses).forEach(key => {
+            data.push(props.expenses[key])
+        })
+
+        Object.keys(props.income).forEach(key => {
+            data.push(props.income[key])
+        })
+    }
+
     let content = (
-        <Text
-            style={{
-                textAlign: 'center'
-            }}
-        >
-            No Transactions
+        <Text style={{ textAlign: 'center' }}>
+            No Transactions {data.length}
         </Text>
     )
 
-    if (props.data.length > 0) {
+    if (data.length > 0) {
         content = (
             <FlatList
-                data={props.data}
+                data={data}
                 renderItem={props.renderItem}
                 extraData={props.extraData}
                 keyExtractor={props.keyExtractor}

@@ -25,6 +25,7 @@ class CategoryScreen extends Component {
                     <CategoryViewer
                         category={category}
                         expenses={expenses}
+                        onlyExpenses={true}
                         showBackButton={true}
                         deleteTransactionCallback={this.props.deleteTransaction}
                         editTransactionCallback={this.props.editTransaction}

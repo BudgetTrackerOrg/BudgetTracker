@@ -27,9 +27,17 @@ export default {
                                 {
                                     text: 'Backup data from Device',
                                     onPress: () => {
-                                        connections.backupToFirebase({
-                                            expenses: store.getState()
-                                                .transaction.expenses
+                                        connections.backupToFirebase.transactions(
+                                            {
+                                                expenses: store.getState()
+                                                    .transaction.expenses,
+                                                income: store.getState()
+                                                    .transaction.income
+                                            }
+                                        )
+                                        connections.backupToFirebase.currency({
+                                            selectedCurrency: store.getState()
+                                                .main.selectedCurrency
                                         })
                                     }
                                 },
@@ -42,8 +50,15 @@ export default {
                             ]
                         )
                     } else {
-                        connections.backupToFirebase({
-                            expenses: store.getState().transaction.expenses
+                        connections.backupToFirebase.transactions({
+                            expenses: store.getState().transaction.expenses,
+                            income: store.getState().transaction.income,
+                            selectedCurrency: store.getState().main
+                                .selectedCurrency
+                        })
+                        connections.backupToFirebase.currency({
+                            selectedCurrency: store.getState().main
+                                .selectedCurrency
                         })
                     }
                 })
@@ -55,13 +70,22 @@ export default {
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 console.log('SIGN_IN_CANCELLED')
+                Alert.alert('Sign in cancelled')
             } else if (error.code === statusCodes.IN_PROGRESS) {
                 console.log('IN_PROGRESS')
+                Alert.alert('Another Sign in currently in progress')
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 console.log('PLAY_SERVICES_NOT_AVAILABLE')
+                Alert.alert(
+                    'Google Play Services are currently unavailable, please try again later'
+                )
             } else {
                 console.log('OTHER')
                 console.log(error)
+                Alert.alert(
+                    'Whoops! Something went wrong, try again later.',
+                    'Make sure you are connected to the internet.'
+                )
             }
         }
     },

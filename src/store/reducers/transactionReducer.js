@@ -14,25 +14,30 @@ export default (state = initialState(), action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
             newState = addTransaction(state, action.payload)
-            Connections.backupToFirebase(newState)
+            Connections.backupToFirebase.transactions(newState)
             break
         case EDIT_TRANSACTION:
             newState = editTransaction(state, action.payload)
-            Connections.backupToFirebase(newState)
+            Connections.backupToFirebase.transactions(newState)
             break
         case DELETE_TRANSACTION:
             newState = deleteTransaction(state, action.payload)
-            Connections.backupToFirebase(newState)
+            Connections.backupToFirebase.transactions(newState)
             break
         case FETCH_TRANSACTIONS:
             // The 'fetchTransactions' action is what fetches all of the user's
             // transaction data from the Firebase, once they have logged in.
-            if (action.payload.data) {
+
+            if (action.payload) {
                 // This condition must be checked, as onAuthStateChanged inside
                 // Connections/index has a default behaviour of being called
                 // initially, multiple times, no matter what
                 // This prevents it from returning undefined and throwing an error
-                return { ...state, expenses: action.payload.data.expenses }
+                return {
+                    ...state,
+                    expenses: action.payload.expenses,
+                    income: action.payload.income
+                }
             } else {
                 return state
             }
@@ -57,9 +62,8 @@ const addTransaction = (state, transaction) => {
         transaction['id'] = Math.floor(Math.random() * 10000000000)
     }
 
-    console.log(transaction)
-    let expenses = [...state.expenses]
-    let income = [...state.income]
+    let expenses = [...(state.expenses ? state.expenses : [])]
+    let income = [...(state.income ? state.income : [])]
 
     if (transaction.transactionType === 'spending') {
         expenses.push(transaction)
@@ -72,11 +76,19 @@ const addTransaction = (state, transaction) => {
 
 const deleteTransaction = (state, id) => {
     expenses = state.expenses.slice() //copying by value, to avoid mutation
+    income = state.income.slice() //copying by value, to avoid mutation
 
     for (let i = 0; i < expenses.length; ++i) {
         if (expenses[i].id === id) {
             expenses.splice(i, 1)
             return { ...state, expenses }
+        }
+    }
+
+    for (let i = 0; i < income.length; ++i) {
+        if (income[i].id === id) {
+            income.splice(i, 1)
+            return { ...state, income }
         }
     }
 

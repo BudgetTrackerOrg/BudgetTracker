@@ -95,6 +95,7 @@ class HomeScreen extends React.Component {
             <Drawer
                 tapToClose
                 ref={ref => (this.drawer = ref)}
+                elevation={4}
                 content={
                     <SidePanel
                         selectableOptions={[
@@ -116,6 +117,9 @@ class HomeScreen extends React.Component {
                     >
                         {
                             <ModalSelector
+                                onModalOpen={() => {
+                                    this.closeSidePanel()
+                                }}
                                 backdropPressToClose
                                 data={currencies}
                                 initValue={`${
@@ -123,7 +127,11 @@ class HomeScreen extends React.Component {
                                 } (${this.entities.decode(
                                     this.props.selectedCurrency.symbol
                                 )})`}
-                                onChange={val => this.props.setCurrency(val)}
+                                onChange={val =>
+                                    this.props.setCurrency({
+                                        selectedCurrency: val
+                                    })
+                                }
                                 animationType="fade"
                             >
                                 <View
@@ -254,7 +262,6 @@ const mapStateToProps = state => {
         expenses: state.transaction.expenses,
         selectedCurrency: state.main.selectedCurrency,
         income: state.transaction.income
-
     }
 }
 
