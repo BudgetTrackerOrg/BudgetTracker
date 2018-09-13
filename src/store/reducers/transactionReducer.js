@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 // All action "types" can be imported from the root of the "actions" directory
 // Future action types can also be imported from here
 import {
@@ -62,8 +64,8 @@ const addTransaction = (state, transaction) => {
         transaction['id'] = Math.floor(Math.random() * 10000000000)
     }
 
-    let expenses = [...(state.expenses ? state.expenses : [])]
-    let income = [...(state.income ? state.income : [])]
+    let expenses = _.map({ ...state.expenses }) || []
+    let income = _.map({ ...state.income }) || []
 
     if (transaction.transactionType === 'spending') {
         expenses.push(transaction)
