@@ -94,6 +94,7 @@ class HomeScreen extends React.Component {
         return (
             <Drawer
                 tapToClose
+                type="static"
                 ref={ref => (this.drawer = ref)}
                 elevation={4}
                 content={
@@ -115,49 +116,45 @@ class HomeScreen extends React.Component {
                             }
                         ]}
                     >
-                        {
-                            <ModalSelector
-                                onModalOpen={() => {
-                                    this.closeSidePanel()
+                        <ModalSelector
+                            backdropPressToClose
+                            onModalOpen={() => this.closeSidePanel()}
+                            data={currencies}
+                            initValue={`${
+                                this.props.selectedCurrency.code
+                            } (${this.entities.decode(
+                                this.props.selectedCurrency.symbol
+                            )})`}
+                            onChange={selectedCurrency =>
+                                this.props.setCurrency({
+                                    selectedCurrency
+                                })
+                            }
+                            animationType="fade"
+                        >
+                            <View
+                                style={{
+                                    padding: 20,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    width: 500
                                 }}
-                                backdropPressToClose
-                                data={currencies}
-                                initValue={`${
-                                    this.props.selectedCurrency.code
-                                } (${this.entities.decode(
-                                    this.props.selectedCurrency.symbol
-                                )})`}
-                                onChange={val =>
-                                    this.props.setCurrency({
-                                        selectedCurrency: val
-                                    })
-                                }
-                                animationType="fade"
                             >
-                                <View
-                                    style={{
-                                        padding: 20,
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        width: 500
-                                    }}
-                                >
-                                    <Icon
-                                        name="money"
-                                        size={20}
-                                        color="white"
-                                        style={{ marginRight: 10 }}
-                                    />
-                                    <Text style={{ color: '#fff' }}>
-                                        {`${
-                                            this.props.selectedCurrency.code
-                                        } (${this.entities.decode(
-                                            this.props.selectedCurrency.symbol
-                                        )})`}
-                                    </Text>
-                                </View>
-                            </ModalSelector>
-                        }
+                                <Icon
+                                    name="money"
+                                    size={20}
+                                    color="white"
+                                    style={{ marginRight: 10 }}
+                                />
+                                <Text style={{ color: '#fff' }}>
+                                    {`${
+                                        this.props.selectedCurrency.code
+                                    } (${this.entities.decode(
+                                        this.props.selectedCurrency.symbol
+                                    )})`}
+                                </Text>
+                            </View>
+                        </ModalSelector>
                     </SidePanel>
                 }
                 captureGestures={true}
