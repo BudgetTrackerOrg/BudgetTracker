@@ -94,7 +94,6 @@ class TransactionCard extends Component {
                 />
                 <MoneyField
                     value={
-                        // make a variable for this later
                         this.entities.decode(this.props.currencyType) +
                         this.state.amount
                     }
@@ -157,7 +156,10 @@ class TransactionCard extends Component {
                     invalidStyles={this.state.invalidTitle}
                 />
                 <MoneyField
-                    value={'$' + this.state.amount}
+                    value={
+                        this.entities.decode(this.props.currencyType) +
+                        this.state.amount
+                    }
                     onChangeText={val => {
                         const regex = /([0-9.]+)/g
 
