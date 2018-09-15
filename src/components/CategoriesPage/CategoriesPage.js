@@ -10,21 +10,17 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export class CategoriesPage extends Component {
     render() {
         let expensesResult = functions.getExpenseResult(this.props.expenses)
-        let incomeResult = functions.getExpenseResult(this.props.income)
 
-        let totalResult = incomeResult.total - expensesResult.total
+        let totalResult = expensesResult.total
 
         return (
             <View>
-                <Text style={styles.main__subheading}>Total Spending</Text>
+                <Text style={styles.main__subheading}>TOTAL SPENDING</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Text
                         adjustsFontSizeToFit
                         numberOfLines={1}
-                        style={{
-                            ...styles.main__heading,
-                            color: totalResult < 0 ? 'red' : 'white'
-                        }}
+                        style={styles.main__heading}
                     >
                         {functions.formatCurrency(
                             totalResult,
