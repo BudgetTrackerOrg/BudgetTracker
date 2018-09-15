@@ -32,7 +32,10 @@ class HomeScreen extends React.Component {
         super(props)
         this.state = {
             currentPage: 0,
-            userInfo: null
+            userInfo: null,
+            filterSelected: 'all',
+            expenses: this.props.expenses,
+            income: this.props.income
         }
     }
 
@@ -73,6 +76,50 @@ class HomeScreen extends React.Component {
         }
     }
 
+    _filter(trans, filter) {
+        let filteredList = []
+        let now = new Date()
+        for (key in trans) {
+            let t = trans[key]
+            let dateAdded = new Date(t.dateAdded)
+            switch (filter) {
+                case 'today':
+                    if (
+                        dateAdded.setHours(0, 0, 0, 0) ===
+                        now.setHours(0, 0, 0, 0)
+                    ) {
+                        filteredList.push(t)
+                    }
+                    break
+                case 'month':
+                    if (dateAdded.getMonth() === now.getMonth()) {
+                        filteredList.push(t)
+                    }
+                    break
+                case 'year':
+                    if (dateAdded.getFullYear() === now.getFullYear()) {
+                        filteredList.push(t)
+                    }
+                    break
+                default:
+                    filteredList.push(t)
+                    break
+            }
+        }
+        console.log(filteredList)
+        return filteredList
+    }
+
+    filterChangedCallback(filter) {
+        console.log(filter)
+        this.setState({
+            ...this.state,
+            filterSelected: filter,
+            expenses: this._filter(this.props.expenses, filter),
+            income: this._filter(this.props.income, filter)
+        })
+    }
+
     closeSidePanel = () => {
         this.drawer.close()
     }
@@ -94,7 +141,6 @@ class HomeScreen extends React.Component {
         return (
             <Drawer
                 tapToClose
-                type="static"
                 ref={ref => (this.drawer = ref)}
                 elevation={4}
                 content={
@@ -175,9 +221,12 @@ class HomeScreen extends React.Component {
 
                     <ContentViewer>
                         <MainPage
+                            filterChangedCallback={this.filterChangedCallback.bind(
+                                this
+                            )}
                             onRef={ref => (this.mainPage = ref)}
-                            expenses={this.props.expenses}
-                            income={this.props.income}
+                            expenses={this.state.expenses}
+                            income={this.state.income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }

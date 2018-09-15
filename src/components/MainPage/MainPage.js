@@ -25,6 +25,7 @@ export class MainPage extends Component {
     render() {
         return (
             <MultiViewSwitch
+                filterChangedCallback={this.props.filterChangedCallback}
                 currentPage={this.state.pageDisplayed}
                 pages={[
                     <CategoriesPage

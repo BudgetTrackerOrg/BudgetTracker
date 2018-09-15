@@ -6,6 +6,7 @@ import { categories, functions, currencies } from '../../globals'
 import { connect } from 'react-redux'
 
 import CategoriesPageStyles from '../CategoriesPage/CategoriesPage.scss'
+import Icon from 'react-native-vector-icons/FontAwesome'
 class OverviewPage extends Component {
     render() {
         console.log(this.props.expenses)
@@ -42,7 +43,7 @@ class OverviewPage extends Component {
                     </Text>
                 </View>
                 <View style={styles.main}>
-                    <Text>TEST</Text>
+                    <Text>TESTTESTT</Text>
                 </View>
             </View>
         )
@@ -53,7 +54,11 @@ class OverviewPage extends Component {
 
 const styles = {
     main: {
-        flex: 1
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     }
 }
 

@@ -26,11 +26,6 @@ export class CategoriesPage extends Component {
                             totalResult,
                             this.props.selectedCurrency.symbol
                         )}
-                        {totalResult < 0 ? (
-                            <Icon name="sort-down" size={20} color="red" />
-                        ) : (
-                            ''
-                        )}
                     </Text>
                 </View>
                 <View style={styles.categories}>
@@ -48,7 +43,9 @@ export class CategoriesPage extends Component {
                             }
                             onPress={() => {
                                 this.props.navigation.navigate('Category', {
-                                    category
+                                    category,
+                                    expenses: this.props.expenses,
+                                    income: this.props.income
                                 })
                             }}
                         />

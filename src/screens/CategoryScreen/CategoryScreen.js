@@ -11,9 +11,12 @@ import { deleteTransaction, editTransaction } from '../../store/actions'
 class CategoryScreen extends Component {
     render() {
         const category = this.props.navigation.getParam('category', 'all')
-        const expenses = _.filter(this.props.expenses, expense => {
-            return expense.category === category
-        })
+        const expenses = _.filter(
+            this.props.navigation.getParam('expenses', []),
+            expense => {
+                return expense.category === category
+            }
+        )
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -37,9 +40,7 @@ class CategoryScreen extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        expenses: state.transaction.expenses
-    }
+    return {}
 }
 
 // mapDispatchToProps is what allows the component to fire off an action
