@@ -60,6 +60,9 @@ class HomeScreen extends React.Component {
         Connections.init()
     }
 
+    componentDidUpdate() {
+        console.log('updated')
+    }
     signIn = () => {
         console.log('SignIn Clicked')
         Connections.signIn()
@@ -114,9 +117,7 @@ class HomeScreen extends React.Component {
         console.log(filter)
         this.setState({
             ...this.state,
-            filterSelected: filter,
-            expenses: this._filter(this.props.expenses, filter),
-            income: this._filter(this.props.income, filter)
+            filterSelected: filter
         })
     }
 
@@ -132,11 +133,19 @@ class HomeScreen extends React.Component {
     mainPage = React.createRef()
 
     render() {
+        console.log('render called')
         let style = {
             footerButton: {
                 color: this.state.currentPage === 1 ? '#212121' : '#EEE'
             }
         }
+
+        //gets filtered transactions
+        let expenses = this._filter(
+            this.props.expenses,
+            this.state.filterSelected
+        )
+        let income = this._filter(this.props.income, this.state.filterSelected)
 
         return (
             <Drawer
@@ -225,8 +234,8 @@ class HomeScreen extends React.Component {
                                 this
                             )}
                             onRef={ref => (this.mainPage = ref)}
-                            expenses={this.state.expenses}
-                            income={this.state.income}
+                            expenses={expenses}
+                            income={income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }
