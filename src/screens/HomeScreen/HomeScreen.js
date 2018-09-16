@@ -150,6 +150,7 @@ class HomeScreen extends React.Component {
         return (
             <Drawer
                 tapToClose
+                type={Platform.OS === 'ios' ? 'static' : 'displace'}
                 ref={ref => (this.drawer = ref)}
                 elevation={4}
                 content={
