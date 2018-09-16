@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 
 const TransactionTypeSelector = props => {
     return (
@@ -15,6 +15,7 @@ const TransactionTypeSelector = props => {
                 color={props.selected ? props.color : '#aaa'}
                 style={{ margin: 10 }}
             />
+            <Text>{props.title}</Text>
         </TouchableOpacity>
     )
 }

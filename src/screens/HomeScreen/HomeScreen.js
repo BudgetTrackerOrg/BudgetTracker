@@ -32,7 +32,10 @@ class HomeScreen extends React.Component {
         super(props)
         this.state = {
             currentPage: 0,
-            userInfo: null
+            userInfo: null,
+            filterSelected: 'all',
+            expenses: this.props.expenses,
+            income: this.props.income
         }
     }
 
@@ -57,6 +60,9 @@ class HomeScreen extends React.Component {
         Connections.init()
     }
 
+    componentDidUpdate() {
+        console.log('updated')
+    }
     signIn = () => {
         console.log('SignIn Clicked')
         Connections.signIn()
@@ -73,6 +79,48 @@ class HomeScreen extends React.Component {
         }
     }
 
+    _filter(trans, filter) {
+        let filteredList = []
+        let now = new Date()
+        for (key in trans) {
+            let t = trans[key]
+            let dateAdded = new Date(t.dateAdded)
+            switch (filter) {
+                case 'today':
+                    if (
+                        dateAdded.setHours(0, 0, 0, 0) ===
+                        now.setHours(0, 0, 0, 0)
+                    ) {
+                        filteredList.push(t)
+                    }
+                    break
+                case 'month':
+                    if (dateAdded.getMonth() === now.getMonth()) {
+                        filteredList.push(t)
+                    }
+                    break
+                case 'year':
+                    if (dateAdded.getFullYear() === now.getFullYear()) {
+                        filteredList.push(t)
+                    }
+                    break
+                default:
+                    filteredList.push(t)
+                    break
+            }
+        }
+        console.log(filteredList)
+        return filteredList
+    }
+
+    filterChangedCallback(filter) {
+        console.log(filter)
+        this.setState({
+            ...this.state,
+            filterSelected: filter
+        })
+    }
+
     closeSidePanel = () => {
         this.drawer.close()
     }
@@ -85,11 +133,19 @@ class HomeScreen extends React.Component {
     mainPage = React.createRef()
 
     render() {
+        console.log('render called')
         let style = {
             footerButton: {
                 color: this.state.currentPage === 1 ? '#212121' : '#EEE'
             }
         }
+
+        //gets filtered transactions
+        let expenses = this._filter(
+            this.props.expenses,
+            this.state.filterSelected
+        )
+        let income = this._filter(this.props.income, this.state.filterSelected)
 
         return (
             <Drawer
@@ -115,49 +171,45 @@ class HomeScreen extends React.Component {
                             }
                         ]}
                     >
-                        {
-                            <ModalSelector
-                                onModalOpen={() => {
-                                    this.closeSidePanel()
+                        <ModalSelector
+                            backdropPressToClose
+                            onModalOpen={() => this.closeSidePanel()}
+                            data={currencies}
+                            initValue={`${
+                                this.props.selectedCurrency.code
+                            } (${this.entities.decode(
+                                this.props.selectedCurrency.symbol
+                            )})`}
+                            onChange={selectedCurrency =>
+                                this.props.setCurrency({
+                                    selectedCurrency
+                                })
+                            }
+                            animationType="fade"
+                        >
+                            <View
+                                style={{
+                                    padding: 20,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    width: 500
                                 }}
-                                backdropPressToClose
-                                data={currencies}
-                                initValue={`${
-                                    this.props.selectedCurrency.code
-                                } (${this.entities.decode(
-                                    this.props.selectedCurrency.symbol
-                                )})`}
-                                onChange={val =>
-                                    this.props.setCurrency({
-                                        selectedCurrency: val
-                                    })
-                                }
-                                animationType="fade"
                             >
-                                <View
-                                    style={{
-                                        padding: 20,
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        width: 500
-                                    }}
-                                >
-                                    <Icon
-                                        name="money"
-                                        size={20}
-                                        color="white"
-                                        style={{ marginRight: 10 }}
-                                    />
-                                    <Text style={{ color: '#fff' }}>
-                                        {`${
-                                            this.props.selectedCurrency.code
-                                        } (${this.entities.decode(
-                                            this.props.selectedCurrency.symbol
-                                        )})`}
-                                    </Text>
-                                </View>
-                            </ModalSelector>
-                        }
+                                <Icon
+                                    name="money"
+                                    size={20}
+                                    color="white"
+                                    style={{ marginRight: 10 }}
+                                />
+                                <Text style={{ color: '#fff' }}>
+                                    {`${
+                                        this.props.selectedCurrency.code
+                                    } (${this.entities.decode(
+                                        this.props.selectedCurrency.symbol
+                                    )})`}
+                                </Text>
+                            </View>
+                        </ModalSelector>
                     </SidePanel>
                 }
                 captureGestures={true}
@@ -178,9 +230,12 @@ class HomeScreen extends React.Component {
 
                     <ContentViewer>
                         <MainPage
+                            filterChangedCallback={this.filterChangedCallback.bind(
+                                this
+                            )}
                             onRef={ref => (this.mainPage = ref)}
-                            expenses={this.props.expenses}
-                            income={this.props.income}
+                            expenses={expenses}
+                            income={income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }

@@ -10,30 +10,21 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export class CategoriesPage extends Component {
     render() {
         let expensesResult = functions.getExpenseResult(this.props.expenses)
-        let incomeResult = functions.getExpenseResult(this.props.income)
 
-        let totalResult = incomeResult.total - expensesResult.total
+        let totalResult = expensesResult.total
 
         return (
             <View>
-                <Text style={styles.main__subheading}>Total Spending</Text>
+                <Text style={styles.main__subheading}>TOTAL SPENDING</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Text
                         adjustsFontSizeToFit
                         numberOfLines={1}
-                        style={{
-                            ...styles.main__heading,
-                            color: totalResult < 0 ? 'red' : 'white'
-                        }}
+                        style={styles.main__heading}
                     >
                         {functions.formatCurrency(
                             totalResult,
                             this.props.selectedCurrency.symbol
-                        )}
-                        {totalResult < 0 ? (
-                            <Icon name="sort-down" size={20} color="red" />
-                        ) : (
-                            ''
                         )}
                     </Text>
                 </View>
@@ -52,7 +43,9 @@ export class CategoriesPage extends Component {
                             }
                             onPress={() => {
                                 this.props.navigation.navigate('Category', {
-                                    category
+                                    category,
+                                    expenses: this.props.expenses,
+                                    income: this.props.income
                                 })
                             }}
                         />

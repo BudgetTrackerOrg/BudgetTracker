@@ -205,10 +205,13 @@ class TransactionCard extends Component {
             form = incomeForm
             header = 'Add Income'
         }
+
+        let transactionTypeSelectorRef = React.createRef()
         return (
             <Card style={styles.form__fields}>
                 {this.props.isEditForm ? null : (
                     <TransactionTypeSelector
+                        ref={transactionTypeSelectorRef}
                         onSelection={type => {
                             this.setState({
                                 ...this.state,
@@ -270,7 +273,12 @@ class TransactionCard extends Component {
                     }}
                 />
                 {this.props.isEditForm ? null : (
-                    <TouchableHighlight onPress={this.props.onCancelPress}>
+                    <TouchableHighlight
+                        onPress={() => {
+                            this.props.onCancelPress()
+                            transactionTypeSelectorRef.current.reset()
+                        }}
+                    >
                         <Text style={{ textAlign: 'center', color: '#5362E4' }}>
                             Cancel
                         </Text>
