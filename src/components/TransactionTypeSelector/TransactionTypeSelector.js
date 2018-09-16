@@ -7,6 +7,7 @@ class TransactionTypeSelector extends React.Component {
         super(props)
         // All state values will be updated immediately before form is submitted
         // The state properties which are edited are in TransactionCard.js
+
         this.state = { selectedValue: 'income' }
     }
 
@@ -19,6 +20,13 @@ class TransactionTypeSelector extends React.Component {
             this.props.onSelection(this.state.selectedValue)
         })
     }
+
+    setTransactionType = selectedValue => {
+        this.setState({ ...this.state, selectedValue }, () =>
+            this.props.onSelection(this.state.selectedValue)
+        )
+    }
+
     render() {
         return (
             <View style={{ borderBottomColor: '#eee', borderBottomWidth: 0.5 }}>
@@ -39,19 +47,7 @@ class TransactionTypeSelector extends React.Component {
                         color="green"
                         title="Income"
                         value="income"
-                        onClick={value => {
-                            this.setState(
-                                {
-                                    ...this.state,
-                                    selectedValue: value
-                                },
-                                () => {
-                                    this.props.onSelection(
-                                        this.state.selectedValue
-                                    )
-                                }
-                            )
-                        }}
+                        onClick={value => this.setTransactionType(value)}
                     />
                     <TransactionTypeSelectorButton
                         selected={this.state.selectedValue === 'spending'}
@@ -59,19 +55,7 @@ class TransactionTypeSelector extends React.Component {
                         color="red"
                         title="Spending"
                         value="spending"
-                        onClick={value => {
-                            this.setState(
-                                {
-                                    ...this.state,
-                                    selectedValue: value
-                                },
-                                () => {
-                                    this.props.onSelection(
-                                        this.state.selectedValue
-                                    )
-                                }
-                            )
-                        }}
+                        onClick={value => this.setTransactionType(value)}
                     />
                 </View>
             </View>

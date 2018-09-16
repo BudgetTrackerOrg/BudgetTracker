@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
+import { TouchableHighlight, Text, View } from 'react-native'
 import Entities from 'html-entities/lib/html5-entities'
 import {
     CategoryField,
     DateField,
     Field,
     FormButton,
-    MoneyField,
-    CancelButton
+    MoneyField
 } from '../../components/Field'
 import Card from '../Card/Card'
 import TransactionTypeSelector from '../TransactionTypeSelector/TransactionTypeSelector'
 import { categories } from '../../globals'
 import styles from './TransactionCard.scss'
-import { TouchableHighlight, Text, View } from 'react-native'
-import { Picker } from 'react-native-picker-dropdown'
 
 class TransactionCard extends Component {
     constructor(props) {
@@ -33,6 +31,9 @@ class TransactionCard extends Component {
 
     // This allows the decoding of Entity characters for currency symbols
     entities = new Entities()
+
+    // This calls the reset method in ./TransactionTypeSelector.js
+    transactionTypeSelectorRef = React.createRef()
 
     getKeyFromDisplayText(text) {
         let returnValue = text
@@ -60,6 +61,7 @@ class TransactionCard extends Component {
         }
 
         this.props.onSubmit(finalValues)
+        this.transactionTypeSelectorRef.current.reset()
     }
 
     updateStateWithProps() {
@@ -206,12 +208,11 @@ class TransactionCard extends Component {
             header = 'Add Income'
         }
 
-        let transactionTypeSelectorRef = React.createRef()
         return (
             <Card style={styles.form__fields}>
                 {this.props.isEditForm ? null : (
                     <TransactionTypeSelector
-                        ref={transactionTypeSelectorRef}
+                        ref={this.transactionTypeSelectorRef}
                         onSelection={type => {
                             this.setState({
                                 ...this.state,
@@ -276,7 +277,7 @@ class TransactionCard extends Component {
                     <TouchableHighlight
                         onPress={() => {
                             this.props.onCancelPress()
-                            transactionTypeSelectorRef.current.reset()
+                            this.transactionTypeSelectorRef.current.reset()
                         }}
                     >
                         <Text style={{ textAlign: 'center', color: '#5362E4' }}>
