@@ -109,12 +109,12 @@ class HomeScreen extends React.Component {
                     break
             }
         }
-        // console.log(filteredList)
+        console.log(filteredList)
         return filteredList
     }
 
     filterChangedCallback(filter) {
-        // console.log(filter)
+        console.log(filter)
         this.setState({
             ...this.state,
             filterSelected: filter
@@ -133,7 +133,7 @@ class HomeScreen extends React.Component {
     mainPage = React.createRef()
 
     render() {
-        // console.log('render called')
+        console.log('render called')
         let style = {
             footerButton: {
                 color: this.state.currentPage === 1 ? '#212121' : '#EEE'
