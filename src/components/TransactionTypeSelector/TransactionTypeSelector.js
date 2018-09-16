@@ -13,6 +13,12 @@ class TransactionTypeSelector extends React.Component {
     componentDidMount() {
         this.props.onSelection(this.state.selectedValue)
     }
+
+    reset() {
+        this.setState({ ...this.state, selectedValue: 'income' }, () => {
+            this.props.onSelection(this.state.selectedValue)
+        })
+    }
     render() {
         return (
             <View style={{ borderBottomColor: '#eee', borderBottomWidth: 0.5 }}>
