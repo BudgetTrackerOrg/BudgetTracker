@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import {
@@ -10,7 +10,7 @@ import {
 } from './CategoryViewerComponents'
 import TransactionCard from '../TransactionCard/TransactionCard'
 import CancelButton from '../Field/CancelButton'
-import { categories, functions, currencies } from '../../globals'
+import { categories, functions } from '../../globals'
 
 class CategoryViewer extends Component {
     constructor(props) {
