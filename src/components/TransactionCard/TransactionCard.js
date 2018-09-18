@@ -61,19 +61,18 @@ class TransactionCard extends Component {
         }
 
         this.props.onSubmit(finalValues)
-        this.transactionTypeSelectorRef.current.reset()
+
+        if (!this.props.isEditForm) {
+            this.transactionTypeSelectorRef.current.reset()
+        }
     }
 
     updateStateWithProps() {
         this.setState({
-            title: this.props.title ? this.props.title : this.state.title,
-            amount: this.props.amount ? this.props.amount : this.state.amount,
-            dateAdded: this.props.dateAdded
-                ? this.props.dateAdded
-                : this.state.dateAdded,
-            category: this.props.category
-                ? this.props.category
-                : this.state.category
+            title: this.props.title || this.state.title,
+            amount: this.props.amount || this.state.amount,
+            dateAdded: this.props.dateAdded || this.state.dateAdded,
+            category: this.props.category || this.state.category
         })
     }
 
@@ -84,7 +83,7 @@ class TransactionCard extends Component {
                     placeholder={'What did you buy?'}
                     value={this.state.title}
                     onChangeText={title => {
-                        this.setState({ ...this.state, title: title.trim() })
+                        this.setState({ ...this.state, title })
                         // If field was previously invalid, it validates as soon as
                         // something is entered into the field
                         if (this.state.invalidTitle)
@@ -197,15 +196,19 @@ class TransactionCard extends Component {
 
         let form
         let header
+        let buttonText
         if (this.state.transactionType === 'spending') {
             form = spendingForm
             header = 'Add Expense'
+            buttonText = 'Add'
         } else if (this.props.isEditForm) {
             form = spendingForm
             header = 'Edit Details for ' + this.state.title
+            buttonText = 'Update'
         } else {
             form = incomeForm
             header = 'Add Income'
+            buttonText = 'Add'
         }
 
         return (
@@ -235,11 +238,13 @@ class TransactionCard extends Component {
                 {form}
 
                 <FormButton
-                    buttonText={'Add'}
+                    // buttonText is a variable which has a value of either 'Add' or 'Update'
+                    buttonText={buttonText}
                     onPress={() => {
                         this.setState(
                             {
                                 ...this.state,
+                                title: this.state.title.trim(),
                                 amount: parseFloat(this.state.amount)
                             },
                             () => {

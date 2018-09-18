@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Platform } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Platform,
+    BackHandler
+} from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
@@ -35,7 +41,9 @@ class HomeScreen extends React.Component {
             userInfo: null,
             filterSelected: 'all',
             expenses: this.props.expenses,
-            income: this.props.income
+            income: this.props.income,
+            drawerIsOpen: false,
+            formIsOpen: false
         }
     }
 
@@ -47,6 +55,19 @@ class HomeScreen extends React.Component {
         // it will have a default value of USD, due to
         // the action setCurrency's default value
         this.props.setCurrency(this.props.selectedCurrency)
+
+        // This listener method is for Android - it escapes the
+        // default behaviour of closing the application if the device's
+        // back button is pressed while the drawer or form is open
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            if (this.state.drawerIsOpen) {
+                this.closeSidePanel()
+            }
+            if (this.state.formIsOpen) {
+                this.popup.current.toggleForm()
+            }
+            return true
+        })
     }
 
     componentDidMount() {
@@ -150,6 +171,12 @@ class HomeScreen extends React.Component {
         return (
             <Drawer
                 tapToClose
+                onOpen={() =>
+                    this.setState({ ...this.state, drawerIsOpen: true })
+                }
+                onClose={() =>
+                    this.setState({ ...this.state, drawerIsOpen: false })
+                }
                 type={Platform.OS === 'ios' ? 'static' : 'displace'}
                 ref={ref => (this.drawer = ref)}
                 elevation={4}
@@ -250,9 +277,10 @@ class HomeScreen extends React.Component {
                                 currencyType={
                                     this.props.selectedCurrency.symbol
                                 }
-                                closeForm={() =>
+                                closeForm={() => {
                                     this.popup.current.toggleForm()
-                                }
+                                    this.setState({ formIsOpen: false })
+                                }}
                             />
                         }
                         ref={this.popup}
@@ -282,7 +310,10 @@ class HomeScreen extends React.Component {
                             icon="md-keypad"
                         />
                         <FooterButton
-                            onPress={() => this.popup.current.toggleForm()}
+                            onPress={() => {
+                                this.popup.current.toggleForm()
+                                this.setState({ formIsOpen: true })
+                            }}
                             title="Add"
                             icon="md-add"
                             iconStyle={style.footerButton}

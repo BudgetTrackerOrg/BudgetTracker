@@ -8,14 +8,15 @@ const TransactionTypeSelector = props => {
             onPress={() => {
                 props.onClick(props.value)
             }}
+            style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}
         >
             <Icon
                 name={props.icon}
                 size={40}
                 color={props.selected ? props.color : '#aaa'}
-                style={{ margin: 10 }}
+                style={{ marginTop: 10 }}
             />
-            <Text>{props.title}</Text>
+            <Text style={{ marginBottom: 10 }}>{props.title}</Text>
         </TouchableOpacity>
     )
 }

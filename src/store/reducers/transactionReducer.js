@@ -98,7 +98,7 @@ const deleteTransaction = (state, id) => {
 }
 
 const editTransaction = (state, updatedTransaction) => {
-    expenses = state.expenses.slice() //copying by value, to avoid mutation
+    expenses = _.map({ ...state.expenses }) || []
 
     for (let i = 0; i < expenses.length; ++i) {
         if (expenses[i].id === updatedTransaction.id) {
