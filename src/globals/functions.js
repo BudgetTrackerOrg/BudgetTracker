@@ -82,6 +82,8 @@ export default {
         // This is for formatting negative dollar amounts so that
         // the negative (-) comes before the dollar sign ($)
         // Example: $-1000.00 --> -$1000.00
+        // Note: Currencies such as AFN naturally have the symbol
+        // at the end, so the negative sign is also at the end
         if (amount < 0) {
             formatted = formatted.split('')
             let tempSymbol = formatted[0]
