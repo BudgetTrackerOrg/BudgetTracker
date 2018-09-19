@@ -286,6 +286,17 @@ class TransactionCard extends Component {
                         onPress={() => {
                             this.props.onCancelPress()
                             this.transactionTypeSelectorRef.current.reset()
+                            // If the form is closed while the inputs are invalid (red outline)
+                            // this will reset them for when the form is opened next time
+                            if (
+                                this.state.invalidTitle ||
+                                this.state.invalidMoney
+                            ) {
+                                this.setState({
+                                    invalidTitle: null,
+                                    invalidMoney: null
+                                })
+                            }
                         }}
                     >
                         <Text style={{ textAlign: 'center', color: '#5362E4' }}>
