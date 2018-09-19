@@ -5,7 +5,6 @@ import styles from './CategoriesPage.scss'
 import { withNavigation } from 'react-navigation'
 import CategoryBox from '../Categories/CategoryBox'
 import { categories, functions } from '../../globals'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 export class CategoriesPage extends Component {
     render() {
@@ -16,7 +15,7 @@ export class CategoriesPage extends Component {
 
         return (
             <View>
-                <Text style={styles.main__subheading}>TOTAL SPENDING</Text>
+                <Text style={styles.main__subheading}>TOTAL NET</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Text
                         adjustsFontSizeToFit
