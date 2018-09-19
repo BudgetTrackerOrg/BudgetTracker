@@ -35,7 +35,7 @@ export class MainPage extends Component {
                                 : {})
                         }}
                     >
-                        <Text style={styles.filerText}>Today</Text>
+                        <Text style={styles.filterText}>Today</Text>
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={{
@@ -48,7 +48,7 @@ export class MainPage extends Component {
                             this.filterChanged('month')
                         }}
                     >
-                        <Text style={styles.filerText}>This Month</Text>
+                        <Text style={styles.filterText}>This Month</Text>
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={{
@@ -61,7 +61,7 @@ export class MainPage extends Component {
                             this.filterChanged('year')
                         }}
                     >
-                        <Text style={styles.filerText}>This Year</Text>
+                        <Text style={styles.filterText}>This Year</Text>
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={{
@@ -74,7 +74,7 @@ export class MainPage extends Component {
                             this.filterChanged('all')
                         }}
                     >
-                        <Text style={styles.filerText}>All Time</Text>
+                        <Text style={styles.filterText}>All Time</Text>
                     </TouchableHighlight>
                 </View>
                 <View>{this.props.pages[this.state.currentPage]}</View>
@@ -92,7 +92,7 @@ const styles = {
     filterButton: {
         padding: 5
     },
-    filerText: { color: 'white' },
+    filterText: { color: 'white' },
     selected: {
         borderBottomColor: 'white',
         borderBottomWidth: 2,
