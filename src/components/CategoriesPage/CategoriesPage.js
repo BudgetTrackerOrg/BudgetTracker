@@ -10,8 +10,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export class CategoriesPage extends Component {
     render() {
         let expensesResult = functions.getExpenseResult(this.props.expenses)
+        let incomeResult = functions.getExpenseResult(this.props.income)
 
-        let totalResult = expensesResult.total
+        let totalResult = incomeResult.total - expensesResult.total
 
         return (
             <View>
