@@ -77,65 +77,72 @@ class TransactionCard extends Component {
     }
 
     render() {
+        // The following fields are identical in both the Expenses and Spendings forms
+        let titleField = placeholder => (
+            <Field
+                placeholder={placeholder}
+                value={this.state.title}
+                onChangeText={title => {
+                    this.setState({ ...this.state, title })
+                    // If field was previously invalid, it validates as soon as
+                    // something is entered into the field
+                    if (this.state.invalidTitle)
+                        this.setState({
+                            invalidTitle: null
+                        })
+                }}
+                invalidStyles={this.state.invalidTitle}
+            />
+        )
+        let moneyField = (
+            <MoneyField
+                value={
+                    this.entities.decode(this.props.currencyType) +
+                    this.state.amount
+                }
+                onChangeText={val => {
+                    const regex = /([0-9.]+)/g
+
+                    this.setState({
+                        ...this.state,
+                        // This ternary expression returns a float
+                        amount: val.match(regex) ? val.match(regex)[0] : ''
+                    })
+                    // If field was previously invalid, it validates as soon as
+                    // something is entered into the field
+                    if (this.state.invalidMoney)
+                        this.setState({
+                            invalidMoney: null
+                        })
+                }}
+                invalidStyles={this.state.invalidMoney}
+            />
+        )
+        let dateField = (
+            <DateField
+                date={this.state.dateAdded}
+                onDateChange={date => {
+                    // doing the following because param which is being passed in is a string, which breaks things
+                    date = date.split('-')
+                    date = new Date(date[2], parseInt(date[0]) - 1, date[1])
+
+                    this.setState({
+                        ...this.state,
+                        dateAdded: date
+                    })
+                }}
+            />
+        )
+
         let spendingForm = (
             <View>
-                <Field
-                    placeholder={'What did you buy?'}
-                    value={this.state.title}
-                    onChangeText={title => {
-                        this.setState({ ...this.state, title })
-                        // If field was previously invalid, it validates as soon as
-                        // something is entered into the field
-                        if (this.state.invalidTitle)
-                            this.setState({
-                                invalidTitle: null
-                            })
-                    }}
-                    invalidStyles={this.state.invalidTitle}
-                />
-                <MoneyField
-                    value={
-                        this.entities.decode(this.props.currencyType) +
-                        this.state.amount
-                    }
-                    onChangeText={val => {
-                        const regex = /([0-9.]+)/g
-
-                        this.setState({
-                            ...this.state,
-                            // This ternary expression returns a float
-                            amount: val.match(regex) ? val.match(regex)[0] : ''
-                        })
-                        // If field was previously invalid, it validates as soon as
-                        // something is entered into the field
-                        if (this.state.invalidMoney)
-                            this.setState({
-                                invalidMoney: null
-                            })
-                    }}
-                    invalidStyles={this.state.invalidMoney}
-                />
-                <DateField
-                    date={this.state.dateAdded}
-                    onDateChange={date => {
-                        // doing the following because param which is being passed in is a string, which breaks things
-                        date = date.split('-')
-                        date = new Date(date[2], parseInt(date[0]) - 1, date[1])
-
-                        this.setState({
-                            ...this.state,
-                            dateAdded: date
-                        })
-                    }}
-                />
+                {titleField('What did you buy?')}
+                {moneyField}
+                {dateField}
                 <CategoryField
                     onValueChange={category =>
-                        this.setState(
-                            {
-                                ...this.state,
-                                category
-                            },
-                            () => Keyboard.dismiss()
+                        this.setState({ ...this.state, category }, () =>
+                            Keyboard.dismiss()
                         )
                     }
                     selectedValue={this.state.category}
@@ -145,55 +152,9 @@ class TransactionCard extends Component {
 
         let incomeForm = (
             <View>
-                <Field
-                    placeholder={'Title'}
-                    value={this.state.title}
-                    onChangeText={title => {
-                        this.setState({ ...this.state, title })
-                        // If field was previously invalid, it validates as soon as
-                        // something is entered into the field
-                        if (this.state.invalidTitle)
-                            this.setState({
-                                invalidTitle: null
-                            })
-                    }}
-                    invalidStyles={this.state.invalidTitle}
-                />
-                <MoneyField
-                    value={
-                        this.entities.decode(this.props.currencyType) +
-                        this.state.amount
-                    }
-                    onChangeText={val => {
-                        const regex = /([0-9.]+)/g
-
-                        this.setState({
-                            ...this.state,
-                            // This ternary expression returns a float
-                            amount: val.match(regex) ? val.match(regex)[0] : ''
-                        })
-                        // If field was previously invalid, it validates as soon as
-                        // something is entered into the field
-                        if (this.state.invalidMoney)
-                            this.setState({
-                                invalidMoney: null
-                            })
-                    }}
-                    invalidStyles={this.state.invalidMoney}
-                />
-                <DateField
-                    date={this.state.dateAdded}
-                    onDateChange={date => {
-                        // doing the following because param which is being passed in is a string, which breaks things
-                        date = date.split('-')
-                        date = new Date(date[2], parseInt(date[0]) - 1, date[1])
-
-                        this.setState({
-                            ...this.state,
-                            dateAdded: date
-                        })
-                    }}
-                />
+                {titleField('Title')}
+                {moneyField}
+                {dateField}
             </View>
         )
 
