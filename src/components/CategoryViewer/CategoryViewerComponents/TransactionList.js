@@ -18,9 +18,7 @@ export default props => {
     }
 
     let content = (
-        <Text style={{ textAlign: 'center' }}>
-            No Transactions {data.length}
-        </Text>
+        <Text style={{ textAlign: 'center' }}>No transactions yet</Text>
     )
 
     if (data.length > 0) {
