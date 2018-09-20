@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Keyboard, KeyboardAvoidingView } from 'react-native'
+import { View, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { colors } from '../../globals'
@@ -32,14 +32,11 @@ class AddTransactionScreen extends Component {
     render() {
         return (
             <View style={styles.form} colors={colors.backgroundGradient}>
-                <KeyboardAvoidingView behavior="padding">
-                    <TransactionCard
-                        titlePlaceholder="What did you buy?"
-                        currencyType={this.props.currencyType}
-                        onCancelPress={this.props.closeForm}
-                        onSubmit={this.updateState.bind(this)}
-                    />
-                </KeyboardAvoidingView>
+                <TransactionCard
+                    currencyType={this.props.currencyType}
+                    onCancelPress={this.props.closeForm}
+                    onSubmit={this.updateState.bind(this)}
+                />
             </View>
         )
     }

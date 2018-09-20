@@ -7,7 +7,7 @@ import { categories } from '../../globals'
 const CategoryField = props => {
     return (
         <Picker
-            style={[styles.input, styles.input__field]}
+            style={[styles.input, styles.input__picker]}
             selectedValue={props.selectedValue}
             onValueChange={props.onValueChange}
             mode="dropdown"

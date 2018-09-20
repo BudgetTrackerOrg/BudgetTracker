@@ -89,8 +89,6 @@ class CategoryViewer extends Component {
                                 ? null
                                 : this.state.lastOptionsOpenedInfo.category
                         }
-                        titlePlaceholder="What did you buy?"
-                        submitBtnText="Update"
                         onSubmit={updatedTransaction => {
                             this.editDialog.dismiss()
                             this.props.editTransactionCallback(
