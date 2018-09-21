@@ -23,8 +23,7 @@ class TransactionCard extends Component {
             category: Object.keys(categories)[0],
             invalidTitle: null,
             invalidMoney: null,
-            transactionType: '',
-            isMoneyFocused: false
+            transactionType: ''
         }
         this.baseState = this.state
         this.invalid = { borderColor: '#a31a11' }
