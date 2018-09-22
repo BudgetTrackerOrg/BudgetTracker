@@ -79,11 +79,30 @@ class HomeScreen extends React.Component {
         }
 
         Connections.init()
+
+        //gets filtered transactions
+        let expenses = this._filter(
+            this.props.expenses,
+            this.state.filterSelected
+        )
+        let income = this._filter(this.props.income, this.state.filterSelected)
+
+        this.setState({ ...this.state, expenses, income }, () =>
+            console.log('inside the componentDidMount', this.state.expenses)
+        )
     }
 
     componentDidUpdate() {
         console.log('updated')
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ ...this.state, expenses: nextProps.expenses }, () => {
+            // this.state.expenses is the new value after the item is edited
+            console.log(this.state.expenses)
+        })
+    }
+
     signIn = () => {
         console.log('SignIn Clicked')
         Connections.signIn()
@@ -94,11 +113,12 @@ class HomeScreen extends React.Component {
         Connections.signOut()
     }
 
-    gotoCategoryScreen() {
-        return () => {
-            this.props.navigation.navigate('Category')
-        }
-    }
+    // This function is never called anywhere in the app
+    // gotoCategoryScreen() {
+    //     return () => {
+    //         this.props.navigation.navigate('Category')
+    //     }
+    // }
 
     _filter(trans, filter) {
         let filteredList = []
@@ -162,11 +182,13 @@ class HomeScreen extends React.Component {
         }
 
         //gets filtered transactions
-        let expenses = this._filter(
-            this.props.expenses,
-            this.state.filterSelected
-        )
-        let income = this._filter(this.props.income, this.state.filterSelected)
+        // let expenses = this._filter(
+        //     this.props.expenses,
+        //     this.state.filterSelected
+        // )
+        // let income = this._filter(this.props.income, this.state.filterSelected)
+
+        // this.setState({ ...this.state, expenses, income })
 
         return (
             <Drawer
@@ -262,8 +284,9 @@ class HomeScreen extends React.Component {
                                 this
                             )}
                             onRef={ref => (this.mainPage = ref)}
-                            expenses={expenses}
-                            income={income}
+                            // These originally referenced the vars inside render()
+                            expenses={this.state.expenses}
+                            income={this.state.income}
                             deleteTransactionCallback={
                                 this.props.deleteTransaction
                             }
