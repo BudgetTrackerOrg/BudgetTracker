@@ -11,6 +11,9 @@ const Field = props => {
             placeholder={props.placeholder}
             placeholderTextColor="#848484"
             underlineColorAndroid="transparent"
+            blurOnSubmit={false}
+            returnKeyType={'next'}
+            onSubmitEditing={props.onSubmitEditing}
         />
     )
 }
