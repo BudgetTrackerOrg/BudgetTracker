@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Platform } from 'react-native'
+import { View, Text, Platform, Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import { categories, functions, currencies } from '../../globals'
@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 
 import CategoriesPageStyles from '../CategoriesPage/CategoriesPage.scss'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+const width = Dimensions.get('window')
+
 class OverviewPage extends Component {
     render() {
         console.log(this.props.expenses)
@@ -44,7 +47,9 @@ class OverviewPage extends Component {
                 </View>
                 <View style={styles.dashboardInfo}>
                     <View style={styles.dashboardIncome}>
-                        <View style={styles.graphLabel}>
+                        <View
+                            style={[styles.graphLabel, styles.graphLabelIncome]}
+                        >
                             <Text style={styles.dashboardHeadingText}>
                                 INCOME
                             </Text>
@@ -55,28 +60,45 @@ class OverviewPage extends Component {
                                 ]}
                             />
                         </View>
-                        <Text style={styles.dashboardAmountText}>
-                            {functions.formatCurrency(
-                                incomeResult.total,
-                                this.props.selectedCurrency.symbol
-                            )}
-                        </Text>
+                        <View>
+                            <Text
+                                style={[
+                                    styles.amountText,
+                                    styles.amountTextIncome
+                                ]}
+                            >
+                                {functions.formatCurrency(
+                                    incomeResult.total,
+                                    this.props.selectedCurrency.symbol
+                                )}
+                            </Text>
+                        </View>
                     </View>
 
                     <View style={styles.dashboardExpenses}>
-                        <View style={styles.graphLabel}>
+                        <View
+                            style={[
+                                styles.graphLabel,
+                                styles.graphLabelExpenses
+                            ]}
+                        >
                             <View
                                 style={[
                                     styles.graphLabelIcon,
-                                    styles.graphLabelIconSpendings
+                                    styles.graphLabelIconExpenses
                                 ]}
                             />
                             <Text style={styles.dashboardHeadingText}>
-                                SPENDINGS
+                                EXPENSES
                             </Text>
                         </View>
                         <View>
-                            <Text style={styles.dashboardAmountText}>
+                            <Text
+                                style={[
+                                    styles.amountText,
+                                    styles.amountTextExpenses
+                                ]}
+                            >
                                 {functions.formatCurrency(
                                     expensesResult.total,
                                     this.props.selectedCurrency.symbol
@@ -101,24 +123,34 @@ const styles = {
         justifyContent: 'center'
     },
     dashboardInfo: {
-        flex: 1
+        flex: 1,
+        flexDirection: 'row'
     },
     dashboardIncome: {
+        width: width / 2,
         flex: 1,
-        alignItems: 'flex-start'
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
     },
     dashboardExpenses: {
-        flex: 1,
-        alignItems: 'flex-end'
+        width: width / 2,
+        flex: 1
     },
     dashboardHeadingText: {
         color: '#fff',
         fontSize: 18
     },
-    dashboardAmountText: {
+    amountText: {
         color: '#fff',
         fontSize: 20,
         marginTop: 10
+    },
+    amountTextIncome: {
+        marginRight: 38
+    },
+    amountTextExpenses: {
+        marginLeft: 38
     },
     graphLabel: {
         flexDirection: 'row',
@@ -126,15 +158,16 @@ const styles = {
     },
     graphLabelIcon: {
         width: 18,
-        height: 18
+        height: 18,
+        marginLeft: 10,
+        marginRight: 10
     },
     graphLabelIconIncome: {
-        marginLeft: 10,
-        backgroundColor: 'green'
+        backgroundColor: 'green',
+        justifyContent: 'flex-end'
     },
-    graphLabelIconSpendings: {
-        marginRight: 10,
-        backgroundColor: 'red'
+    graphLabelIconExpenses: {
+        backgroundColor: '#af3123'
     }
 }
 
