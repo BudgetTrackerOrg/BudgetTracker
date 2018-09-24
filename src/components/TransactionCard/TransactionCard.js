@@ -10,7 +10,7 @@ import {
 } from '../../components/Field'
 import Card from '../Card/Card'
 import TransactionTypeSelector from '../TransactionTypeSelector/TransactionTypeSelector'
-import { categories } from '../../globals'
+import { categories, functions } from '../../globals'
 import styles from './TransactionCard.scss'
 
 class TransactionCard extends Component {
@@ -92,10 +92,14 @@ class TransactionCard extends Component {
                         })
                 }}
                 invalidStyles={this.state.invalidTitle}
+                onSubmitEditing={() =>
+                    functions.focusTextInput(this.refs.moneyFieldRef)
+                }
             />
         )
         let moneyField = (
             <MoneyField
+                ref="moneyFieldRef"
                 value={
                     this.entities.decode(this.props.currencyType) +
                     this.state.amount

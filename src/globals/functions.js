@@ -1,3 +1,6 @@
+import { findNodeHandle } from 'react-native'
+import TextInputState from 'react-native/lib/TextInputState'
+
 import Entities from 'html-entities/lib/html5-entities'
 // This allows the decoding of Entity characters for currency symbols
 let entities = new Entities()
@@ -93,5 +96,15 @@ export default {
         }
 
         return formatted
+    },
+
+    // Helper function for focusing the next TextInput
+    // This is used because focus() has been deprecated in React Native
+    focusTextInput(node) {
+        try {
+            TextInputState.focusTextInput(findNodeHandle(node))
+        } catch (e) {
+            console.log("Couldn't focus text input: ", e.message)
+        }
     }
 }
