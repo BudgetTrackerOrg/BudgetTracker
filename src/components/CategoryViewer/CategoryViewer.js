@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, BackHandler } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import {
@@ -22,6 +22,12 @@ class CategoryViewer extends Component {
     timeFrame = 'month'
     popupDialog = null
     editDialog = null
+
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () =>
+            this.props.navigation.goBack()
+        )
+    }
 
     showPopUp(lastOptionsOpenedInfo) {
         this.setState({
