@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, Platform, Dimensions } from 'react-native'
-import { withNavigation } from 'react-navigation'
-import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
-import { categories, functions, currencies } from '../../globals'
 import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
+import { functions } from '../../globals'
+import CategoryBox from '../Categories/CategoryBox'
 
 import CategoriesPageStyles from '../CategoriesPage/CategoriesPage.scss'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 const width = Dimensions.get('window')
 
@@ -20,6 +21,32 @@ class OverviewPage extends Component {
 
         let totalResult = incomeResult.total - expensesResult.total
         console.log(totalResult)
+
+        // percentage represents the ratio of spendings to savings
+        // example:
+        // expenses: $100
+        // income: $150
+        // result: 40% of total value of all transactions are expenses
+        let percentage =
+            (expensesResult.total /
+                (expensesResult.total + incomeResult.total)) *
+            100
+        let icon
+        let iconColor
+        let percentageColor = 'green'
+        let shadowColor = 'red'
+
+        if (totalResult > 0) {
+            icon = 'smile'
+            iconColor = 'green'
+        } else if (totalResult === 0) {
+            icon = 'meh'
+            iconColor = 'black'
+        } else {
+            icon = 'frown'
+            iconColor = 'red'
+        }
+
         return (
             <View>
                 <Text style={CategoriesPageStyles.main__subheading}>
@@ -45,6 +72,8 @@ class OverviewPage extends Component {
                         )}
                     </Text>
                 </View>
+
+                {/*
                 <View style={styles.dashboardInfo}>
                     <View style={styles.dashboardIncome}>
                         <View
@@ -107,6 +136,21 @@ class OverviewPage extends Component {
                         </View>
                     </View>
                 </View>
+                */}
+
+                <View style={styles.graphContainer}>
+                    <CategoryBox
+                        // These variables are defined inside the render() method
+                        radius={50}
+                        percentage={percentage}
+                        percentageColor={percentageColor}
+                        shadowColor={shadowColor}
+                        disabled={true}
+                        categoryIcon={icon}
+                        categoryIconSize={40}
+                        categoryIconColor={iconColor}
+                    />
+                </View>
             </View>
         )
     }
@@ -168,7 +212,8 @@ const styles = {
     },
     graphLabelIconExpenses: {
         backgroundColor: '#af3123'
-    }
+    },
+    graphContainer: {}
 }
 
 const mapStateToProps = state => {
