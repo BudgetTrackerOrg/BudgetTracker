@@ -17,6 +17,10 @@
 
     &__picker {
         padding: 0;
+
+        &__ios {
+            padding: 0.8rem;
+        }
     }
 
     &__button {
