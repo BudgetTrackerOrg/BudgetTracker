@@ -8,14 +8,12 @@ import { categories, functions } from '../../globals'
 
 export class CategoriesPage extends Component {
     render() {
+        // expensesResult returns an object with properties for category and total
         let expensesResult = functions.getExpenseResult(this.props.expenses)
-        let incomeResult = functions.getExpenseResult(this.props.income)
-
-        let totalResult = incomeResult.total - expensesResult.total
 
         return (
             <View>
-                <Text style={styles.main__subheading}>TOTAL NET</Text>
+                <Text style={styles.main__subheading}>TOTAL SPENDINGS</Text>
                 <View style={{ flexDirection: 'row' }}>
                     <Text
                         adjustsFontSizeToFit
@@ -23,7 +21,7 @@ export class CategoriesPage extends Component {
                         style={styles.main__heading}
                     >
                         {functions.formatCurrency(
-                            totalResult,
+                            expensesResult.total,
                             this.props.selectedCurrency.symbol
                         )}
                     </Text>
