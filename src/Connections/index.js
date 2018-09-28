@@ -44,16 +44,16 @@ const connections = {
 
     backupToFirebase: {
         transactions: input => {
+            let { expenses, income } = input
             let data = {
-                transactions: { expenses: input.expenses, income: input.income }
+                transactions: { expenses, income }
             }
 
             sendDataToFirebase(data)
         },
         currency: input => {
-            let data = {
-                selectedCurrency: input.selectedCurrency
-            }
+            let { selectedCurrency } = input
+            let data = { selectedCurrency }
 
             sendDataToFirebase(data)
         }
