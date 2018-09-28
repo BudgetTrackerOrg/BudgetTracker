@@ -13,9 +13,7 @@ class CategoryScreen extends Component {
         const category = this.props.navigation.getParam('category', 'all')
         const expenses = _.filter(
             this.props.navigation.getParam('expenses', []),
-            expense => {
-                return expense.category === category
-            }
+            expense => expense.category === category
         )
         return (
             <LinearGradient
@@ -39,10 +37,6 @@ class CategoryScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {}
-}
-
 // mapDispatchToProps is what allows the component to fire off an action
 const mapDispatchToProps = dispatch => {
     // Pass the name of the action inside object as first argument of bindActionCreators
@@ -50,6 +44,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(CategoryScreen)

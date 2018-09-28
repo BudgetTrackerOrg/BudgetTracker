@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { ScrollView, Platform, FlatList, Text } from 'react-native'
 import _ from 'lodash'
 
@@ -62,11 +61,4 @@ const styles = {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        expenses: _.map({ ...state.transaction.expenses }) || [],
-        income: _.map({ ...state.transaction.income }) || []
-    }
-}
-
-export default connect(mapStateToProps)(TransactionList)
+export default TransactionList
