@@ -1,43 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { ScrollView, Platform, FlatList, Text } from 'react-native'
+import _ from 'lodash'
 
-export default props => {
-    let data = []
+class TransactionList extends Component {
+    render() {
+        let data = []
 
-    if (props.onlyExpenses) {
-        data = [...props.expenses]
-    } else {
-        // loop through each array adding them to data object
-        Object.keys(props.expenses).forEach(key => {
-            data.push(props.expenses[key])
-        })
+        if (this.props.onlyExpenses) {
+            data = [...this.props.expenses]
+        } else {
+            // loop through each array adding them to data object
+            Object.keys(this.props.expenses).forEach(key => {
+                data.push(this.props.expenses[key])
+            })
 
-        Object.keys(props.income).forEach(key => {
-            data.push(props.income[key])
-        })
-    }
+            Object.keys(this.props.income).forEach(key => {
+                data.push(this.props.income[key])
+            })
+        }
 
-    let content = (
-        <Text style={{ textAlign: 'center' }}>No transactions yet</Text>
-    )
+        let content = (
+            <Text style={{ textAlign: 'center' }}>No transactions yet</Text>
+        )
 
-    if (data.length > 0) {
-        content = (
-            <FlatList
-                data={data}
-                renderItem={props.renderItem}
-                extraData={props.extraData}
-                keyExtractor={props.keyExtractor}
-            />
+        if (data.length > 0) {
+            content = (
+                <FlatList
+                    data={data}
+                    renderItem={this.props.renderItem}
+                    extraData={this.props.extraData}
+                    keyExtractor={this.props.keyExtractor}
+                />
+            )
+        }
+        return (
+            <ScrollView style={styles.main} bounces={false}>
+                {content}
+            </ScrollView>
         )
     }
-    return (
-        <ScrollView style={styles.main} bounces={false}>
-            {content}
-        </ScrollView>
-    )
 }
-
 const styles = {
     main: {
         backgroundColor: '#f4f4f4',
@@ -58,3 +61,12 @@ const styles = {
         })
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        expenses: _.map({ ...state.transaction.expenses }) || [],
+        income: _.map({ ...state.transaction.income }) || []
+    }
+}
+
+export default connect(mapStateToProps)(TransactionList)

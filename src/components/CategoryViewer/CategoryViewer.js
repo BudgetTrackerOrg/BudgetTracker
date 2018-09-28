@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 import {
@@ -151,15 +152,18 @@ class CategoryViewer extends Component {
                         expenses={this.props.expenses}
                         income={this.props.income}
                         onlyExpenses={this.props.onlyExpenses}
-                        renderItem={expense => {
+                        data={this.props.expenses}
+                        extraData={this.props}
+                        keyExtractor={expense => expense.id.toString()}
+                        renderItem={({ item }) => {
                             return (
                                 <TransactionListItem
-                                    key={expense.item.id}
-                                    id={expense.item.id}
-                                    title={expense.item.title}
-                                    amount={expense.item.amount}
-                                    dateAdded={expense.item.dateAdded}
-                                    category={expense.item.category}
+                                    key={item.id}
+                                    id={item.id}
+                                    title={item.title}
+                                    amount={item.amount}
+                                    dateAdded={item.dateAdded}
+                                    category={item.category}
                                     showCategory={this.props.showCategory}
                                     onLongPress={transactionInfo =>
                                         this.showPopUp(transactionInfo)
@@ -167,8 +171,6 @@ class CategoryViewer extends Component {
                                 />
                             )
                         }}
-                        extraData={this.state}
-                        keyExtractor={expense => expense.id.toString()}
                     />
                 </View>
             </View>
@@ -176,4 +178,8 @@ class CategoryViewer extends Component {
     }
 }
 
-export default withNavigation(CategoryViewer)
+const mapStateToProps = state => {
+    return { expenses: state.transaction.expenses }
+}
+
+export default withNavigation(connect(mapStateToProps)(CategoryViewer))
