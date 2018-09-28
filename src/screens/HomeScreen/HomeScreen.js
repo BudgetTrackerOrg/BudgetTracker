@@ -40,8 +40,6 @@ class HomeScreen extends React.Component {
             currentPage: 0,
             userInfo: null,
             filterSelected: 'all',
-            expenses: this.props.expenses,
-            income: this.props.income,
             drawerIsOpen: false,
             formIsOpen: false
         }
@@ -77,13 +75,9 @@ class HomeScreen extends React.Component {
                 signInCallback: this.signIn
             })
         }
-
         Connections.init()
     }
 
-    componentDidUpdate() {
-        console.log('updated')
-    }
     signIn = () => {
         console.log('SignIn Clicked')
         Connections.signIn()
@@ -92,12 +86,6 @@ class HomeScreen extends React.Component {
     signOut = () => {
         console.log('SignOut Clicked')
         Connections.signOut()
-    }
-
-    gotoCategoryScreen() {
-        return () => {
-            this.props.navigation.navigate('Category')
-        }
     }
 
     _filter(trans, filter) {
@@ -161,7 +149,7 @@ class HomeScreen extends React.Component {
             }
         }
 
-        //gets filtered transactions
+        // gets filtered transactions
         let expenses = this._filter(
             this.props.expenses,
             this.state.filterSelected

@@ -19,7 +19,7 @@ export class MainPage extends Component {
     }
 
     componentWillUnmount() {
-        this.props.onRef(undefined)
+        this.props.onRef(null)
     }
 
     render() {
