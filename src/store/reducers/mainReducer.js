@@ -9,7 +9,7 @@ export default (state = initialState(), action) => {
         case SET_USER_INFO:
             return { ...state, userInfo: action.payload }
         case SET_CURRENCY:
-            let selectedCurrency = action.payload.selectedCurrency
+            let { selectedCurrency } = action.payload
 
             // making sure selectedCurrency is never null or undefined
             let data = {

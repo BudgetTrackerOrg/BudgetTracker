@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { View, BackHandler } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
+import _ from 'lodash'
 import {
     CategorySummary,
     TransactionList,
@@ -144,7 +145,9 @@ class CategoryViewer extends Component {
                         backButtonOnPress={() => this.props.navigation.goBack()}
                         showBackButton={this.props.showBackButton}
                         totalAmount={functions.getTotalAmount(
-                            this.props.expenses
+                            _.filter(this.props.expenses, {
+                                category: this.props.category
+                            })
                         )}
                         categoryTitle={
                             this.props.category
@@ -155,7 +158,9 @@ class CategoryViewer extends Component {
                 </View>
                 <View style={{ flex: 3, zIndex: 1 }}>
                     <TransactionList
-                        expenses={this.props.expenses}
+                        expenses={_.filter(this.props.expenses, {
+                            category: this.props.category
+                        })}
                         income={this.props.income}
                         onlyExpenses={this.props.onlyExpenses}
                         data={this.props.expenses}
@@ -185,7 +190,9 @@ class CategoryViewer extends Component {
 }
 
 const mapStateToProps = state => {
-    return { expenses: state.transaction.expenses }
+    return {
+        expenses: state.transaction.expenses
+    }
 }
 
 export default withNavigation(connect(mapStateToProps)(CategoryViewer))
