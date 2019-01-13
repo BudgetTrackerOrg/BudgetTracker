@@ -1,4 +1,5 @@
 import json
+import os
 
 data = None
 
@@ -20,7 +21,10 @@ project_number = data["project_info"]["project_number"]
 ios_client_id = data["client"][0]["services"]["appinvite_service"]["other_platform_oauth_client"][1]["client_id"]
 web_client_id = data["client"][0]["services"]["appinvite_service"]["other_platform_oauth_client"][0]["client_id"]
 
-f= open(".env","w+")
+f = open(".env","w+")
+f2 = open("./android/local.properties","w+")
+
+f2.write("sdk.dir = /Users/" + str(os.getlogin()) + "/Library/Android/sdk")
 
 f.write("REACT_APP_API_KEY = '<your web API Key here>'\n")
 f.write("REACT_APP_AUTH_DOMAIN = '" + project_id + ".firebaseapp.com'\n")
