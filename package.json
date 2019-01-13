@@ -14,7 +14,7 @@
         "start": "react-native start",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
-        "genenv": "python ./setup/genenv.py",
+        "genenv": "python ./scripts/genenv.py",
         "test": "jest"
     },
     "jest": {
