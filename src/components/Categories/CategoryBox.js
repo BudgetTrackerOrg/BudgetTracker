@@ -11,10 +11,10 @@ export class CategoryBox extends Component {
             <View style={styles.categories}>
                 <ProgressCircle
                     percent={this.props.percentage}
-                    radius={50}
+                    radius={this.props.radius || 50}
                     borderWidth={8}
                     color={this.props.percentageColor}
-                    shadowColor={bgColor}
+                    shadowColor={this.props.shadowColor || bgColor}
                     bgColor={bgColor}
                 >
                     <TouchableHighlight
