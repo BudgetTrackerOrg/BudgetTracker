@@ -1,6 +1,6 @@
 import functions from '../src/globals/functions'
 import Entities from 'html-entities/lib/html5-entities'
-import EXPENSES from './expense-test-data'
+import EXPENSES from './functions-test-data'
 
 const entities = new Entities()
 const {
