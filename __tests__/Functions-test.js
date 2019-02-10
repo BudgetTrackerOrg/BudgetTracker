@@ -1,5 +1,6 @@
 import functions from '../src/globals/functions'
 import Entities from 'html-entities/lib/html5-entities'
+import EXPENSES from './expense-test-data'
 
 const entities = new Entities()
 const {
@@ -7,8 +8,7 @@ const {
     toSimpleDateString,
     getExpenseResult,
     getTotalAmount,
-    formatCurrency,
-    focusTextInput
+    formatCurrency
 } = functions
 
 // toTitleCase function tests
@@ -36,6 +36,21 @@ test('formatting date correctly', () => {
 })
 test('handles no date passed through', () => {
     expect(toSimpleDateString()).toBeUndefined()
+})
+
+// getExpenseResult function tests
+test('calculates correct amount for the given category', () => {
+    expect(
+        getExpenseResult(EXPENSES).categories['TRANSPORTATION'].total
+    ).toEqual(100)
+})
+test('categories which have no transactions should be undefined', () => {
+    expect(getExpenseResult(EXPENSES).categories['OTHER']).toBeUndefined()
+})
+
+// getTotalAmount function tests
+test('total amount is calculated correctly', () => {
+    expect(getTotalAmount(EXPENSES)).toEqual(1694)
 })
 
 // formatCurrency function tests
