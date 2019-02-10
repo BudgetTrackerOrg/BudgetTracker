@@ -66,9 +66,9 @@ const addTransaction = (state, transaction) => {
     let income = _.map({ ...state.income }) || []
 
     if (transaction.transactionType === 'spending') {
-        expenses.push(transaction)
+        expenses.unshift(transaction)
     } else if (transaction.transactionType === 'income') {
-        income.push(transaction)
+        income.unshift(transaction)
     }
 
     return { ...state, expenses, income }
