@@ -80,7 +80,8 @@ export default {
         // This does not affect the math calculations
         // Only the value which is displayed
 
-        let formatted = entities.decode(currencySymbol) + amount.toFixed(2)
+        let formatted =
+            entities.decode(currencySymbol) + parseFloat(amount).toFixed(2)
 
         // This is for formatting negative dollar amounts so that
         // the negative (-) comes before the dollar sign ($)
