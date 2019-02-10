@@ -32,3 +32,9 @@ Add `BTKey.keystore` file to `./android/app/<here>`
 -   **ALWAYS** have another developer code review your _file changes_, **NEVER** use your administrative privileges to _approve_ pull requests
 
 -   Branches should be _feature_ based
+
+## Running Test Suite
+
+- In the root of the directory, run `npm run test`
+
+- This command will run Jest with the `--watchAll` flag, to run all tests and re-run on-save
