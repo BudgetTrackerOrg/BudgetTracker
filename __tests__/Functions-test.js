@@ -28,6 +28,16 @@ test('handles no input', () => {
     expect(toTitleCase()).toBeFalsy()
 })
 
+// toSimpleDateString function tests
+test('formatting date correctly', () => {
+    expect(toSimpleDateString(new Date('feb 9 2019'))).toEqual(
+        'February 9, 2019'
+    )
+})
+test('handles no date passed through', () => {
+    expect(toSimpleDateString()).toBeUndefined()
+})
+
 // formatCurrency function tests
 test('handles regular input', () => {
     expect(formatCurrency(42.87)).toEqual('$42.87')
