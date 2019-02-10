@@ -22,10 +22,11 @@ const MONTHS = [
 
 export default {
     toTitleCase(str) {
-        if (str === undefined) return
-        return str.replace(/\w\S*/g, function(txt) {
+        if (!str) return
+        str = str.replace(/\w\S*/g, function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
         })
+        return str.trim()
     },
 
     toSimpleDateString(date) {

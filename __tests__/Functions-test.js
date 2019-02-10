@@ -11,6 +11,23 @@ const {
     focusTextInput
 } = functions
 
+// toTitleCase function tests
+test('capitalizes first letter of every word', () => {
+    expect(toTitleCase('test testing')).toEqual('Test Testing')
+})
+test('handles fully capitalized word', () => {
+    expect(toTitleCase('TESTING')).toEqual('Testing')
+})
+test('accepts numerical and special character input', () => {
+    expect(toTitleCase('!@#$521421')).toEqual('!@#$521421')
+})
+test('trims excessive spaces', () => {
+    expect(toTitleCase(' test ')).toEqual('Test')
+})
+test('handles no input', () => {
+    expect(toTitleCase()).toBeFalsy()
+})
+
 // formatCurrency function tests
 test('handles regular input', () => {
     expect(formatCurrency(42.87)).toEqual('$42.87')
