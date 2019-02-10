@@ -11,11 +11,11 @@ class TransactionList extends Component {
         } else {
             // loop through each array adding them to data object
             Object.keys(this.props.expenses).forEach(key => {
-                data.push(this.props.expenses[key])
+                data.unshift(this.props.expenses[key])
             })
 
             Object.keys(this.props.income).forEach(key => {
-                data.push(this.props.income[key])
+                data.unshift(this.props.income[key])
             })
         }
 
